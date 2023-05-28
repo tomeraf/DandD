@@ -3,12 +3,12 @@ abstract public class Unit extends Tiles{
     protected int healthAmount;
     protected int attackPoints;
     protected  int defencePoints;
-    public Unit(int X,int Y){
+    public Unit(int X,int Y,int HealthPool,int AttackPoints,int DefencePoints){
         super(X,Y);
-        healthPool=0;
-        healthAmount=0;
-        attackPoints=0;
-        defencePoints=0;
+        healthPool=HealthPool;
+        healthAmount=HealthPool;
+        attackPoints=AttackPoints;
+        defencePoints=DefencePoints;
     }
     public int GetHealthPool(){return healthPool;}
     public void SetHealthPool(int value){healthPool=value;}
@@ -20,4 +20,13 @@ abstract public class Unit extends Tiles{
     public void SetDefencePoints(int value){defencePoints=value;}
 
     abstract public void move();
+
+    abstract public void tick();
+
+    public double range(Unit u){
+        return Math.sqrt(Math.pow(x-u.x,2)+Math.pow(y-u.y,2));
+    }
+    public boolean isInRange(Unit u,double range){
+        return range(u)<range;
+    }
 }

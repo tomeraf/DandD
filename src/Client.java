@@ -1,0 +1,91 @@
+import java.util.Scanner;
+
+public class Client {
+    public  static boolean start() {
+        System.out.println("CHOOSE YOUR CHAMPION:");
+        System.out.println("1. Warrior");
+        System.out.println("2. Mage");
+        System.out.println("3. Rogue");
+        Scanner scanner = new Scanner(System.in);
+        int input = scanner.nextInt();;
+        while(input<1 || input>3)
+            System.out.println("CHOOSE 1, 2, OR 3:");
+        Player p=null;
+
+        if(input==1){
+            System.out.println("CHOOSE YOUR Warrior:");
+            System.out.println("1. Jon Snow");
+            System.out.println("2. The Hound");
+            System.out.println("OR PRESS 0 TO GO BACK");
+            input = scanner.nextInt();
+            while(input<0 || input>2)
+                System.out.println("CHOOSE 0, 1, OR 2:");
+            if(input==0)
+                return false;
+            if(input==1)
+            {
+                p=new Warrior(0,0,3,300,30,4);
+            }
+            if(input==2)
+            {
+                p=new Warrior(0,0,5,400,20,6);
+            }
+
+        }
+        if(input==2){
+            System.out.println("CHOOSE YOUR Mage:");
+            System.out.println("1. Melisandre");
+            System.out.println("2. Thoros of Myr");
+            System.out.println("OR PRESS 0 TO GO BACK");
+            input = scanner.nextInt();
+            while(input<0 || input>2)
+                System.out.println("CHOOSE 0, 1, OR 2:");
+            if(input==0)
+                return false;
+            if(input==1)
+            {
+                p=new Mage(0,0,300,30,15,5,100,5,1,6);
+            }
+            if(input==2)
+            {
+                p=new Mage(0,0,150,20,20,3,250,25,4,4);
+            }
+
+        }
+        if(input==3){
+            System.out.println("CHOOSE YOUR Rogue:");
+            System.out.println("1. Arya Stark");
+            System.out.println("2. Bronn");
+            System.out.println("OR PRESS 0 TO GO BACK");
+            input = scanner.nextInt();
+            while(input<0 || input>2)
+                System.out.println("CHOOSE 0, 1, OR 2:");
+            if(input==0)
+                return false;
+            if(input==1)
+            {
+                p=new Rogue(0,0,20,150,40,2);
+            }
+            if(input==2)
+            {
+                p=new Rogue(0,0,50,250,35,3);
+            }
+        }
+        p=Level1.run(p);
+        if(p.healthAmount==0)
+            return false;
+        p=Level2.run(p);
+        if(p.healthAmount==0)
+            return false;
+        p=Level3.run(p);
+        if(p.healthAmount==0)
+            return false;
+        p=Level4.run(p);
+        if(p.healthAmount==0)
+            return false;
+        System.out.println("Congratulation You Won!!");
+
+
+        return false;
+    }
+}

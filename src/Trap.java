@@ -1,8 +1,8 @@
-abstract public class Trap extends Enemy{
+public class Trap extends Enemy{
     protected boolean visibility;
     protected int ticksCount;
-    public Trap(int X,int Y,char Sign,int EXPGain,int TicksCount){
-        super(X,Y);
+    public Trap(int X,int Y,char Sign,int EXPGain,int TicksCount,int HealthPool,int AttackPoints,int DefencePoints){
+        super(X,Y,HealthPool,AttackPoints,DefencePoints);
         sign=Sign;
         EXPgain=EXPGain;
         visibility=false;
@@ -14,4 +14,11 @@ abstract public class Trap extends Enemy{
 
     public int GetTicksCount(){return ticksCount;}
     public void SetTicksCount(int value){ticksCount=value;}
+
+    public void tick(){
+        //check for player to attack
+
+    }
+
+    public void move(){}
 }

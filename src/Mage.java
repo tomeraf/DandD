@@ -4,13 +4,15 @@ public class Mage extends Player{
     protected  int manaCost;
     protected int spellPower;
     protected int hitsCount;
-    public Mage(int X,int Y,int ManaPool,int ManaCost,int SpellPower,int HitsCount) {
-        super(X, Y);
+    protected  int range;
+    public Mage(int X,int Y,int ManaPool,int ManaCost,int SpellPower,int HitsCount,int HealthPool,int AttackPoints,int DefencePoints,int Range) {
+        super(X,Y,HealthPool,AttackPoints,DefencePoints);
         manaPool=ManaPool;
         manaRemaining=manaPool/4;
         manaCost=ManaCost;
         spellPower=SpellPower;
         hitsCount=HitsCount;
+        range=Range;
     }
     public int GetResourcePool(){return manaPool;}
     public void SetResourcePool(int value){manaPool=value;}

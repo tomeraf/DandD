@@ -4,8 +4,8 @@ public class Rogue extends Player {
     protected int energyCost;
 
 
-    public Rogue(int X, int Y, int ManaPool, int EnergyCost) {
-        super(X, Y);
+    public Rogue(int X, int Y,int EnergyCost,int HealthPool,int AttackPoints,int DefencePoints) {
+        super(X,Y,HealthPool,AttackPoints,DefencePoints);
         energyPool = 100;
         energyRemaining =100;
         energyCost = EnergyCost;
