@@ -5,12 +5,14 @@ abstract public class Player extends Unit {
 
     protected int visionRange;
 
-    public Player(int X,int Y,int HealthPool,int AttackPoints,int DefencePoints){
-        super(X,Y,HealthPool,AttackPoints,DefencePoints);
+    public Player(int X,int Y,int HealthPool,int AttackPoints,int DefencePoints,String Name){
+        super(X,Y,HealthPool,AttackPoints,DefencePoints,Name);
         EXP=0;
         LVL=1;
         visionRange=0;
     }
+
+    abstract void init();//at the start of every level, starts the special ability list
     public int GetEXP(){return EXP;}
     public void SetEXP(int value){EXP=value;}
 
@@ -22,6 +24,16 @@ abstract public class Player extends Unit {
 
     abstract public int GetResourceRemaining();
     abstract public void SetResourceRemaining(int value);
+
+    public int AddEXP(int amount){
+        EXP+=amount;
+        return EXP;
+    }
+
+
+    public boolean isDead(){
+        return healthAmount==0;
+    }
 
 
     abstract public String cast();

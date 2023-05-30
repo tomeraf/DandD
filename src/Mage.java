@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 public class Mage extends Player{
     protected int manaPool;
     protected int manaRemaining;
@@ -5,21 +7,33 @@ public class Mage extends Player{
     protected int spellPower;
     protected int hitsCount;
     protected  int range;
-    public Mage(int X,int Y,int ManaPool,int ManaCost,int SpellPower,int HitsCount,int HealthPool,int AttackPoints,int DefencePoints,int Range) {
-        super(X,Y,HealthPool,AttackPoints,DefencePoints);
+    protected LinkedList<Enemy> Blizzard;
+    public Mage(int X,int Y,int ManaPool,int ManaCost,int SpellPower,int HitsCount,int HealthPool,int AttackPoints,int DefencePoints,int Range,String Name) {
+        super(X,Y,HealthPool,AttackPoints,DefencePoints,Name);
         manaPool=ManaPool;
         manaRemaining=manaPool/4;
         manaCost=ManaCost;
         spellPower=SpellPower;
         hitsCount=HitsCount;
         range=Range;
+        Blizzard=new LinkedList<Enemy>();
     }
-    public int GetResourcePool(){return manaPool;}
-    public void SetResourcePool(int value){manaPool=value;}
+    @Override
+    public void init(){
+        //need to implemet
 
+
+    }
+    @Override
+    public int GetResourcePool(){return manaPool;}
+    @Override
+    public void SetResourcePool(int value){manaPool=value;}
+    @Override
     public int GetResourceRemaining(){return manaRemaining;}
+    @Override
     public void SetResourceRemaining(int value){manaRemaining=value;}
 
+    @Override
     public String cast(){
         if(manaRemaining>=manaCost){
             manaRemaining-=Math.max(0,manaRemaining-manaCost);
@@ -32,7 +46,7 @@ public class Mage extends Player{
         }
         return "fail,not enough mana";
     }
-
+    @Override
     public boolean LVLUP(){
         if(this.LVLUP()) {
             manaPool+=25*LVL;
@@ -42,7 +56,10 @@ public class Mage extends Player{
         }
         return false;
     }
+    @Override
     public void tick(){
         manaRemaining=Math.min(manaPool,manaRemaining+LVL);
     }
+
+
 }

@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Client {
-    public  static boolean start() {
+    public static boolean start() {
         System.out.println("CHOOSE YOUR CHAMPION:");
         System.out.println("1. Warrior");
         System.out.println("2. Mage");
@@ -24,11 +24,11 @@ public class Client {
                 return false;
             if(input==1)
             {
-                p=new Warrior(0,0,3,300,30,4);
+                p=new Warrior(0,0,3,300,30,4,"Jon Snow");
             }
             if(input==2)
             {
-                p=new Warrior(0,0,5,400,20,6);
+                p=new Warrior(0,0,5,400,20,6,"The Hound");
             }
 
         }
@@ -44,11 +44,11 @@ public class Client {
                 return false;
             if(input==1)
             {
-                p=new Mage(0,0,300,30,15,5,100,5,1,6);
+                p=new Mage(0,0,300,30,15,5,100,5,1,6,"Melisandre");
             }
             if(input==2)
             {
-                p=new Mage(0,0,150,20,20,3,250,25,4,4);
+                p=new Mage(0,0,150,20,20,3,250,25,4,4,"Thoros of Myr");
             }
 
         }
@@ -64,28 +64,35 @@ public class Client {
                 return false;
             if(input==1)
             {
-                p=new Rogue(0,0,20,150,40,2);
+                p=new Rogue(0,0,20,150,40,2,"Arya Stark");
             }
             if(input==2)
             {
-                p=new Rogue(0,0,50,250,35,3);
+                p=new Rogue(0,0,50,250,35,3,"Bronn");
             }
         }
-        p=Level1.run(p);
-        if(p.healthAmount==0)
+        p=Level1(p);
+        if(p.isDead())
             return false;
         p=Level2.run(p);
-        if(p.healthAmount==0)
+        if(p.isDead())
             return false;
         p=Level3.run(p);
-        if(p.healthAmount==0)
+        if(p.isDead())
             return false;
         p=Level4.run(p);
-        if(p.healthAmount==0)
+        if(p.isDead())
             return false;
         System.out.println("Congratulation You Won!!");
 
 
         return false;
+    }
+
+    public static Player Level1(Player p){
+
+
+
+        return p;
     }
 }

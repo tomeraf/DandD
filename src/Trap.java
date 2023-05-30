@@ -1,8 +1,8 @@
 public class Trap extends Enemy{
     protected boolean visibility;
     protected int ticksCount;
-    public Trap(int X,int Y,char Sign,int EXPGain,int TicksCount,int HealthPool,int AttackPoints,int DefencePoints){
-        super(X,Y,HealthPool,AttackPoints,DefencePoints);
+    public Trap(int X,int Y,char Sign,int EXPGain,int TicksCount,int HealthPool,int AttackPoints,int DefencePoints,String Name){
+        super(X,Y,HealthPool,AttackPoints,DefencePoints,Name);
         sign=Sign;
         EXPgain=EXPGain;
         visibility=false;

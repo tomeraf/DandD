@@ -1,10 +1,21 @@
+import java.util.LinkedList;
+
 public class Warrior extends Player{
     protected int cd;
     protected int cdRemaining;
-    public Warrior(int X,int Y,int CD,int HealthPool,int AttackPoints,int DefencePoints) {
-        super(X,Y,HealthPool,AttackPoints,DefencePoints);
+
+    protected LinkedList<Enemy> Avengers_Shield;
+    public Warrior(int X,int Y,int CD,int HealthPool,int AttackPoints,int DefencePoints,String Name) {
+        super(X,Y,HealthPool,AttackPoints,DefencePoints,Name);
         cd=CD;
         cdRemaining=0;
+        Avengers_Shield=new LinkedList<Enemy>();
+    }
+    @Override
+    public void init(){
+        //need to implemet
+
+
     }
     public int GetResourcePool(){return cd;}
     public void SetResourcePool(int value){cd=value;}

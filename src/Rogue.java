@@ -1,14 +1,25 @@
+import java.util.LinkedList;
+
 public class Rogue extends Player {
     protected int energyPool;
     protected int energyRemaining;
     protected int energyCost;
 
+    protected LinkedList<Enemy> Fan_of_Knives;
 
-    public Rogue(int X, int Y,int EnergyCost,int HealthPool,int AttackPoints,int DefencePoints) {
-        super(X,Y,HealthPool,AttackPoints,DefencePoints);
+
+    public Rogue(int X, int Y,int EnergyCost,int HealthPool,int AttackPoints,int DefencePoints,String Name) {
+        super(X,Y,HealthPool,AttackPoints,DefencePoints,Name);
         energyPool = 100;
         energyRemaining =100;
         energyCost = EnergyCost;
+        Fan_of_Knives=new LinkedList<Enemy>();
+    }
+    @Override
+    public void init(){
+        //need to implemet
+
+
     }
 
     public int GetResourcePool() {
