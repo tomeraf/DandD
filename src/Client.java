@@ -74,13 +74,13 @@ public class Client {
         p=Level1(p);
         if(p.isDead())
             return false;
-        p=Level2.run(p);
+        p=Level2(p);
         if(p.isDead())
             return false;
-        p=Level3.run(p);
+        p=Level3(p);
         if(p.isDead())
             return false;
-        p=Level4.run(p);
+        p=Level4(p);
         if(p.isDead())
             return false;
         System.out.println("Congratulation You Won!!");
@@ -90,7 +90,25 @@ public class Client {
     }
 
     public static Player Level1(Player p){
+        LVL lvl1 = new LVL("Level1");
 
+
+        return p;
+    }
+    public static Player Level2(Player p){
+        LVL lvl1 = new LVL("Level2");
+
+
+        return p;
+    }
+    public static Player Level3(Player p){
+        LVL lvl1 = new LVL("Level3");
+
+
+        return p;
+    }
+    public static Player Level4(Player p){
+        LVL lvl1 = new LVL("Level4");
 
 
         return p;
