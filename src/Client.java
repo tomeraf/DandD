@@ -90,25 +90,25 @@ public class Client {
     }
 
     public static Player Level1(Player p){
-        LVL lvl1 = new LVL("Level1");
+        LVL lvl1 = new LVL("Level1",p);
 
 
         return p;
     }
     public static Player Level2(Player p){
-        LVL lvl1 = new LVL("Level2");
+        LVL lvl1 = new LVL("Level2",p);
 
 
         return p;
     }
     public static Player Level3(Player p){
-        LVL lvl1 = new LVL("Level3");
+        LVL lvl1 = new LVL("Level3",p);
 
 
         return p;
     }
     public static Player Level4(Player p){
-        LVL lvl1 = new LVL("Level4");
+        LVL lvl1 = new LVL("Level4",p);
 
 
         return p;
