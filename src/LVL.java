@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -8,12 +7,15 @@ public class LVL {
     LinkedList<Enemy> e;
     Tiles[][] map;
 
-    public LVL(String name,Player p)  {
+    Player pl;
+
+    public LVL(String number,Player p)  {
+        pl =p;
         e =new LinkedList<Enemy>();
         int height=0;
         try
         {
-            File file = new File(name);
+            File file = new File("Level"+number);
             Scanner scanner = new Scanner(file);
             String Line=null;
             while (scanner.hasNextLine()) {//check the height of the map
@@ -70,5 +72,9 @@ public class LVL {
         else return null;
     }
 
-
+    public boolean isEnd(){
+        if(pl.isDead())
+            return true;
+        return e.isEmpty();
+    }
 }

@@ -21,7 +21,7 @@ public class Client {
             while(input<0 || input>2)
                 System.out.println("CHOOSE 0, 1, OR 2:");
             if(input==0)
-                return false;
+                return true;
             if(input==1)
             {
                 p=new Warrior(0,0,3,300,30,4,"Jon Snow");
@@ -41,7 +41,7 @@ public class Client {
             while(input<0 || input>2)
                 System.out.println("CHOOSE 0, 1, OR 2:");
             if(input==0)
-                return false;
+                return true;
             if(input==1)
             {
                 p=new Mage(0,0,300,30,15,5,100,5,1,6,"Melisandre");
@@ -61,7 +61,7 @@ public class Client {
             while(input<0 || input>2)
                 System.out.println("CHOOSE 0, 1, OR 2:");
             if(input==0)
-                return false;
+                return true;
             if(input==1)
             {
                 p=new Rogue(0,0,20,150,40,2,"Arya Stark");
@@ -71,46 +71,60 @@ public class Client {
                 p=new Rogue(0,0,50,250,35,3,"Bronn");
             }
         }
-        p=Level1(p);
-        if(p.isDead())
-            return false;
-        p=Level2(p);
-        if(p.isDead())
-            return false;
-        p=Level3(p);
-        if(p.isDead())
-            return false;
-        p=Level4(p);
-        if(p.isDead())
-            return false;
-        System.out.println("Congratulation You Won!!");
 
+        System.out.println("CHOOSE CAMPAIGN:");
+        System.out.println("1. Night's King");
+        System.out.println("2. Elder Dragon");
+        System.out.println("3. Kindred The Eternal Hunters");
+        System.out.println("OR PRESS 0 TO RESTART CHOICES");
+        input = scanner.nextInt();
+        while(input<0 || input>3)
+            System.out.println("CHOOSE 0, 1, OR 2:");
+        String CName=null;
+        if(input==0) return true;
+        if(input==1) CName="Night's King";
+        if(input==2) CName="Elder Dragon";
+        if(input==3) CName="Kindred The Eternal Hunters";
 
+        for(int i=1;i<=4 && !p.isDead();i++) {
+            LevelManager(""+i, p,);
+        }
+        if(!p.isDead())
+            LevelManager("",p,CName);
         return false;
     }
 
-    public static Player Level1(Player p){
-        LVL lvl1 = new LVL("Level1",p);
+    private static void LevelManager(String number,Player p,String CName){
+        if(CName=="Night's King") {
+            LVL l = new LVL(number, p);
+            l.display();
+            while (!l.isEnd()) {
+                l.act(userinput);
+                l.display();
+                l.tick();
+                l.display();
+            }
+            EndLVLDisplay(p, number);
+        }
+        else {
+            //rest of the campaigns tbd
 
-
-        return p;
+        }
     }
-    public static Player Level2(Player p){
-        LVL lvl1 = new LVL("Level2",p);
 
 
-        return p;
+    private static void EndLVLDisplay(Player p,String name){
+        if(p.isDead())
+            System.out.println("You died in combat, you'll be remembered");
+        else if(name=="4")
+            System.out.println("Victory!");
+        else {
+            System.out.println("you won "+ c +", proceed to the next Level by inputing any key");
+
+        }
+
+
+
     }
-    public static Player Level3(Player p){
-        LVL lvl1 = new LVL("Level3",p);
 
-
-        return p;
-    }
-    public static Player Level4(Player p){
-        LVL lvl1 = new LVL("Level4",p);
-
-
-        return p;
-    }
 }
