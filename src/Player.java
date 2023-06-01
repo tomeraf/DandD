@@ -50,6 +50,7 @@ abstract public class Player extends Unit {
         }
         return false;
     }
+    abstract public String toString();
 
     public void move(){};
 

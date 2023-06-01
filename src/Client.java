@@ -119,7 +119,7 @@ public class Client {
         else if(name=="4")
             System.out.println("Victory!");
         else {
-            System.out.println("you won "+ c +", proceed to the next Level by inputing any key");
+            System.out.println("you won "+ name +", proceed to the next Level by inputting any key");
 
         }
 

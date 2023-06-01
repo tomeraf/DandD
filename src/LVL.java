@@ -6,11 +6,10 @@ import java.util.Scanner;
 public class LVL {
     LinkedList<Enemy> e;
     Tiles[][] map;
+    Player p;
 
-    Player pl;
-
-    public LVL(String number,Player p)  {
-        pl =p;
+    public LVL(String number,Player player)  {
+        p =player;
         e =new LinkedList<Enemy>();
         int height=0;
         try
@@ -73,8 +72,23 @@ public class LVL {
     }
 
     public boolean isEnd(){
-        if(pl.isDead())
+        if(p.isDead())
             return true;
         return e.isEmpty();
+    }
+
+    public void display()
+    {
+        mapDisplay();
+        playerDisplay();
+    }
+
+    private void mapDisplay(){
+        for(int i=0;i<map.length;i++)
+            for(int j=0;j<map[i].length;j++)
+                System.out.println(map[i][j].GetSign());
+    }
+    private  void playerDisplay(){
+        System.out.println(p.toString());
     }
 }
