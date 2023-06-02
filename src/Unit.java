@@ -28,8 +28,14 @@ abstract public class Unit extends Tiles{
     }
 
     abstract public void move();
-
-    abstract public void tick();
+    @Override
+    public String toString(){
+        String s = "";
+        s+="HP: "+ healthAmount+"/"+healthPool+"  ";
+        s+="Attack: "+ attackPoints+"  ";
+        s+="Defence: "+ defencePoints+"  ";
+        return s;
+    }
 
     public double range(Unit u){
         return Math.sqrt(Math.pow(x-u.x,2)+Math.pow(y-u.y,2));

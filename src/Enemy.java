@@ -8,5 +8,6 @@ abstract public class Enemy extends  Unit {
     public int GetEXPgain(){return EXPgain;}
     public void SetEXPgain(int value){EXPgain=value;}
 
+    abstract public void tick();
 
 }

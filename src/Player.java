@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 abstract public class Player extends Unit {
     final char sign = '@';
     protected int EXP;
@@ -5,14 +7,22 @@ abstract public class Player extends Unit {
 
     protected int visionRange;
 
+    protected LinkedList<Enemy> power;
+
     public Player(int X,int Y,int HealthPool,int AttackPoints,int DefencePoints,String Name){
         super(X,Y,HealthPool,AttackPoints,DefencePoints,Name);
         EXP=0;
         LVL=1;
         visionRange=0;
+        power=new LinkedList<Enemy>();
     }
+    public void powerRefresh(LinkedList<Enemy> e){
+        power=new LinkedList<Enemy>();
+        for(Enemy enemy:e)
+            if(isInRange(enemy,visionRange))
+                power.add(enemy);
 
-    abstract void init();//at the start of every level, starts the special ability list
+    }
     public int GetEXP(){return EXP;}
     public void SetEXP(int value){EXP=value;}
 
@@ -30,11 +40,9 @@ abstract public class Player extends Unit {
         return EXP;
     }
 
-
     public boolean isDead(){
         return healthAmount==0;
     }
-
 
     abstract public String cast();
     public boolean LVLUP(){
@@ -50,7 +58,13 @@ abstract public class Player extends Unit {
         }
         return false;
     }
-    abstract public String toString();
+    @Override
+    public String toString(){
+        String s=super.toString();
+        s+="EXP: "+ EXP+"  ";
+        s+="LVL: "+ LVL+"  ";
+        return s;
+    }
 
     public void move(){};
 

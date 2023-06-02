@@ -5,21 +5,11 @@ public class Rogue extends Player {
     protected int energyRemaining;
     protected int energyCost;
 
-    protected LinkedList<Enemy> Fan_of_Knives;
-
-
     public Rogue(int X, int Y,int EnergyCost,int HealthPool,int AttackPoints,int DefencePoints,String Name) {
         super(X,Y,HealthPool,AttackPoints,DefencePoints,Name);
         energyPool = 100;
         energyRemaining =100;
         energyCost = EnergyCost;
-        Fan_of_Knives=new LinkedList<Enemy>();
-    }
-    @Override
-    public void init(){
-        //need to implemet
-
-
     }
 
     public int GetResourcePool() {
@@ -55,9 +45,18 @@ public class Rogue extends Player {
         }
         return false;
     }
-    public void tick(){
-        energyRemaining=Math.min(energyRemaining+10,100);
+    public void tick(LinkedList<Enemy> e){
+        {
+            energyRemaining=Math.min(energyRemaining+10,100);
+            powerRefresh(e);
+        }
     }
 
+    public String toString(){
+        String s=super.toString();
+        s+="Energy: "+energyRemaining+"/"+energyRemaining+"  ";
+        s+="Fan of Knives cost: "+energyCost+"  ";
+        return s;
+    }
 }
 

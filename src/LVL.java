@@ -91,4 +91,20 @@ public class LVL {
     private  void playerDisplay(){
         System.out.println(p.toString());
     }
+    private void powerListRefresh(){
+        p.powerRefresh(e);
+    }
+    public void start(){
+        powerListRefresh();
+        display();
+    }
+
+    public void tick()
+    {
+        p.tick();
+        //enemy tick
+        powerListRefresh();
+        display();
+    }
+
 }

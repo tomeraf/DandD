@@ -7,7 +7,7 @@ public class Mage extends Player{
     protected int spellPower;
     protected int hitsCount;
     protected  int range;
-    protected LinkedList<Enemy> Blizzard;
+
     public Mage(int X,int Y,int ManaPool,int ManaCost,int SpellPower,int HitsCount,int HealthPool,int AttackPoints,int DefencePoints,int Range,String Name) {
         super(X,Y,HealthPool,AttackPoints,DefencePoints,Name);
         manaPool=ManaPool;
@@ -16,12 +16,6 @@ public class Mage extends Player{
         spellPower=SpellPower;
         hitsCount=HitsCount;
         range=Range;
-        Blizzard=new LinkedList<Enemy>();
-    }
-    @Override
-    public void init(){
-        //need to implemet
-
 
     }
     @Override
@@ -56,10 +50,18 @@ public class Mage extends Player{
         }
         return false;
     }
-    @Override
-    public void tick(){
+    public void tick(LinkedList<Enemy> e){
+
         manaRemaining=Math.min(manaPool,manaRemaining+LVL);
+        powerRefresh(e);
     }
 
+    public String toString(){
+        String s=super.toString();
+        s+="Mana: "+manaRemaining+"/"+manaPool+"  ";
+        s+="Spell power: "+spellPower+"  ";
+        s+="Blizard's cost: "+ manaCost +"  ";
+        return s;
+    }
 
 }

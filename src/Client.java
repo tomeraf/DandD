@@ -83,8 +83,8 @@ public class Client {
         String CName=null;
         if(input==0) return true;
         if(input==1) CName="Night's King";
-        if(input==2) CName="Elder Dragon";
-        if(input==3) CName="Kindred The Eternal Hunters";
+        if(input==2) CName="Elder Mor";
+        if(input==3) CName="Tomer The Eternal";
 
         for(int i=1;i<=4 && !p.isDead();i++) {
             LevelManager(""+i, p,);
@@ -97,12 +97,10 @@ public class Client {
     private static void LevelManager(String number,Player p,String CName){
         if(CName=="Night's King") {
             LVL l = new LVL(number, p);
-            l.display();
+            l.start();
             while (!l.isEnd()) {
                 l.act(userinput);
-                l.display();
                 l.tick();
-                l.display();
             }
             EndLVLDisplay(p, number);
         }
