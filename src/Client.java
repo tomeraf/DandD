@@ -74,8 +74,8 @@ public class Client {
 
         System.out.println("CHOOSE CAMPAIGN:");
         System.out.println("1. Night's King");
-        System.out.println("2. Elder Dragon");
-        System.out.println("3. Kindred The Eternal Hunters");
+        System.out.println("2. Elder Mor");
+        System.out.println("3. Tomer The Eternal");
         System.out.println("OR PRESS 0 TO RESTART CHOICES");
         input = scanner.nextInt();
         while(input<0 || input>3)
@@ -87,10 +87,8 @@ public class Client {
         if(input==3) CName="Tomer The Eternal";
 
         for(int i=1;i<=4 && !p.isDead();i++) {
-            LevelManager(""+i, p,);
+            LevelManager("" + i, p,CName);
         }
-        if(!p.isDead())
-            LevelManager("",p,CName);
         return false;
     }
 
