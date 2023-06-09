@@ -37,25 +37,31 @@ public class Rogue extends Player {
         }
         return "fail,not enough mana";
     }
-    public boolean LVLUP(){
-        if(this.LVLUP()) {
-            energyRemaining = 100;
-            attackPoints+=3*LVL;
-            return true;
-        }
-        return false;
+    public String LVLUP(){
+        String send="";
+        send=super.LVLUP();
+        send+="for being a Rogue, extra stats gain:\n";
+        energyRemaining = 100;
+        send+="Current Energy: 100\n";
+        attackPoints+=3*LVL;
+        send+="Attack Points:"+3*LVL +"\n";
+        return send;
     }
-    public void tick(LinkedList<Enemy> e){
+    public String tick(LinkedList<Enemy> e){
         {
             energyRemaining=Math.min(energyRemaining+10,100);
             powerRefresh(e);
+            String send="";
+            while(didLVLUP())
+                send+=LVLUP();
+            return send;
         }
     }
 
     public String toString(){
         String s=super.toString();
         s+="Energy: "+energyRemaining+"/"+energyRemaining+"  ";
-        s+="Fan of Knives cost: "+energyCost+"  ";
+        s+="Fan of Knives cost: "+energyCost;
         return s;
     }
 }

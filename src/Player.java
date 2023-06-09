@@ -45,29 +45,36 @@ abstract public class Player extends Unit {
     }
 
     abstract public String cast();
-    public boolean LVLUP(){
-        if(EXP>=50*LVL)
-        {
+    public String LVLUP(){
+        String send="";
+            send+="Level Up!\n new Level:";
             EXP-=LVL*50;
             LVL++;
+            send+=LVL+"stats gained:\n";
             healthPool+=10*LVL;
+            send+="Max Health:"+ 10*LVL+"\n";
             healthAmount=healthPool;
             attackPoints+=4*LVL;
+            send+="Attack points:"+ 4*LVL+"\n";
             defencePoints+=LVL;
-            return true;
-        }
-        return false;
+            send+="Defence points:"+ LVL+"\n";
+        return send;
     }
     @Override
     public String toString(){
         String s=super.toString();
         s+="EXP: "+ EXP+"  ";
         s+="LVL: "+ LVL+"  ";
-        return s;
+        return s+"\n";
     }
 
-    public void move(){};
+    public String move(){return "";};
 
+    protected boolean didLVLUP(){
+        return EXP>=50*LVL;
+    }
+
+    abstract public String tick(LinkedList<Enemy> e);
 
 
 }

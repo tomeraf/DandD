@@ -24,5 +24,5 @@ public class Trap extends Enemy{
 
     }
 
-    public void move(){}
+    public String move(){return "";}
 }

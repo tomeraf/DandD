@@ -27,7 +27,7 @@ abstract public class Unit extends Tiles{
         return healthAmount;
     }
 
-    abstract public void move();
+    abstract public String move();
     @Override
     public String toString(){
         String s = "";

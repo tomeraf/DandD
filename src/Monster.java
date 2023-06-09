@@ -12,5 +12,5 @@ public class Monster extends  Enemy{
 
     }
 
-    public void move(){}
+    public String move(){return "";}
 }

@@ -77,34 +77,42 @@ public class LVL {
         return e.isEmpty();
     }
 
-    public void display()
+    public String display()
     {
-        mapDisplay();
-        playerDisplay();
+        String send="";
+        send+=mapDisplay();
+        send+="\n";
+        send+=playerDisplay();
+        return send;
     }
 
-    private void mapDisplay(){
-        for(int i=0;i<map.length;i++)
+    private String mapDisplay(){
+        String send="";
+        for(int i=0;i<map.length;i++,send+="\n")
             for(int j=0;j<map[i].length;j++)
-                System.out.println(map[i][j].GetSign());
+                send+=map[i][j].GetSign();
+        return send;
     }
-    private  void playerDisplay(){
-        System.out.println(p.toString());
+    private  String playerDisplay(){
+        return p.toString();
     }
     private void powerListRefresh(){
         p.powerRefresh(e);
     }
-    public void start(){
+    public String start(){
         powerListRefresh();
-        display();
+        return display();
     }
 
-    public void tick()
+    public String tick()
     {
-        p.tick();
-        //enemy tick
+        String send="";
+        send+=p.tick(e);
+        for(Enemy enemy:e)
+            send+=enemy.move();
         powerListRefresh();
-        display();
+        send+=display();
+        return send;
     }
 
 }

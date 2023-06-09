@@ -41,26 +41,33 @@ public class Mage extends Player{
         return "fail,not enough mana";
     }
     @Override
-    public boolean LVLUP(){
-        if(this.LVLUP()) {
-            manaPool+=25*LVL;
-            manaRemaining = Math.min(manaRemaining+manaPool/4,manaPool);
-            spellPower+=10*LVL;
-            return true;
-        }
-        return false;
+    public String LVLUP(){
+        String send="";
+        send=super.LVLUP();
+        send+="for being a Mage, extra stats gain:\n";
+        manaPool+=25*LVL;
+        send+="Max Mana:"+ 25*LVL+"\n";
+        manaRemaining = Math.min(manaRemaining+manaPool/4,manaPool);
+        send+="Current Mana:"+ Math.min(manaRemaining+manaPool/4,manaPool)+"\n";
+        spellPower+=10*LVL;
+        send+="Spell Power:"+ 10*LVL+"\n";
+        return send;
     }
-    public void tick(LinkedList<Enemy> e){
+    public String tick(LinkedList<Enemy> e){
 
         manaRemaining=Math.min(manaPool,manaRemaining+LVL);
         powerRefresh(e);
+        String send="";
+        while(didLVLUP())
+            send+=LVLUP();
+        return send;
     }
 
     public String toString(){
         String s=super.toString();
         s+="Mana: "+manaRemaining+"/"+manaPool+"  ";
         s+="Spell power: "+spellPower+"  ";
-        s+="Blizard's cost: "+ manaCost +"  ";
+        s+="Blizard's cost: "+ manaCost;
         return s;
     }
 

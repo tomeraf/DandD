@@ -25,25 +25,38 @@ public class Warrior extends Player{
         }
         return "fail,cooldown Remaining:"+ cdRemaining;
     }
-    public boolean LVLUP(){
-        if(this.LVLUP()) {
-            cdRemaining=0;
-            healthPool+= 5*LVL;
-            healthAmount=healthPool;
-            attackPoints+=2*LVL;
-            defencePoints+=LVL;
-            return true;
-        }
-        return false;
-    }
-    public void tick(LinkedList<Enemy> e){
-        cdRemaining=Math.max(0,cdRemaining-1);
-        powerRefresh(e);
+    @Override
+    public String LVLUP(){
+        String send="";
+        send=super.LVLUP();
+        send+="for being a Warrior, extra stats gain:\n";
+        cdRemaining=0;
+        healthPool+= 5*LVL;
+        send+="Max Health:"+ 5*LVL+"\n";
+        healthAmount=healthPool;
+        attackPoints+=2*LVL;
+        send+="Attack points:"+ 2*LVL+"\n";
+        defencePoints+=LVL;
+        send+="Defence points:"+ 2*LVL+"\n";
+        return send;
     }
 
+
+
+    @Override
+    public String tick(LinkedList<Enemy> e){
+        cdRemaining=Math.max(0,cdRemaining-1);
+        powerRefresh(e);
+        String send="";
+        while(didLVLUP())
+            send+=LVLUP();
+        return send;
+    }
+
+    @Override
     public String toString(){
         String s=super.toString();
-        s+="Avenger’s Shield CD: "+cdRemaining+"/"+cd+"  ";
+        s+="Avenger’s Shield CD: "+cdRemaining+"/"+cd;
         return s;
     }
 }
