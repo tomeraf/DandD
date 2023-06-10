@@ -71,47 +71,59 @@ public class LVL {
         else return null;
     }
 
-    public boolean isEnd(){
+    public boolean IsEnd(){
         if(p.isDead())
             return true;
         return e.isEmpty();
     }
 
-    public String display()
+    public String Display()
     {
-        String send="";
-        send+=mapDisplay();
-        send+="\n";
-        send+=playerDisplay();
+        String send;
+        send=MapDisplay();
+        send+=PlayerDisplay();
         return send;
     }
 
-    private String mapDisplay(){
+    private String MapDisplay(){
         String send="";
         for(int i=0;i<map.length;i++,send+="\n")
             for(int j=0;j<map[i].length;j++)
                 send+=map[i][j].GetSign();
-        return send;
+        return send+"\n";
     }
-    private  String playerDisplay(){
+    private  String PlayerDisplay(){
         return p.toString();
     }
-    private void powerListRefresh(){
+    private void PowerListRefresh(){
         p.powerRefresh(e);
     }
-    public String start(){
-        powerListRefresh();
-        return display();
+    public String Start(){
+        PowerListRefresh();
+        return Display();
     }
 
-    public String tick()
+    public String Tick()
     {
         String send="";
         send+=p.tick(e);
         for(Enemy enemy:e)
             send+=enemy.move();
-        powerListRefresh();
-        send+=display();
+        PowerListRefresh();
+        send+=Display();
+        return send;
+    }
+
+    public String Act(char input){
+        String send="";
+
+        if(input=='w' || input=='s' ||input=='a' ||input=='d' || input=='q') {
+            send = p.move();
+        }
+        else if(input=='e')
+            send=p.cast();
+
+
         return send;
     }
 

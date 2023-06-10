@@ -87,7 +87,7 @@ public class Client {
         System.out.println("OR PRESS 0 TO RESTART CHOICES");
         input = scanner.nextInt();
         while(input<0 || input>3) {
-            System.out.println("CHOOSE 0, 1, OR 2:");
+            System.out.println("CHOOSE 0, 1, 2 OR 3:");
             input = scanner.nextInt();
         }
         String CName=null;
@@ -106,16 +106,26 @@ public class Client {
     private static void LevelManager(String number,Player p,String CName){
         if(CName.equals("Night's King")) {
             LVL l = new LVL(number, p);
-            System.out.println(l.start());
-            while (!l.isEnd()) {
-                System.out.println(l.act(userinput));
-                System.out.println(l.tick());
+            System.out.println(l.Start());
+            while (!l.IsEnd()) {
+                System.out.println(l.Act(userInput()));
+                System.out.println(l.Tick());
             }
             EndLVLDisplay(p, number);
         }
         else {
             //rest of the campaigns tbd
         }
+    }
+
+    private static char userInput(){
+        Scanner scanner = new Scanner(System.in);
+        String s=scanner.next();
+        while(s.length()>1) {
+            System.out.println("Illegal input, for information about legal inputs, send h");
+            s=scanner.next();
+        }
+        return s.charAt(0);
     }
 
     private static void EndLVLDisplay(Player p,String name){
@@ -126,5 +136,7 @@ public class Client {
         else
             System.out.println("you won "+ name +", proceed to the next Level by inputting any key");
     }
+
+
 
 }
