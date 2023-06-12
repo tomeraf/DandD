@@ -1,4 +1,6 @@
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Random;
 
 public class Warrior extends Player{
     protected int cd;
@@ -19,7 +21,14 @@ public class Warrior extends Player{
     public String cast(){
         if(cdRemaining==0){
             cdRemaining=cd;
-            //need to implemet the hit enemy, maybe in the UI
+            Random r = new Random();
+            int randomEnemyIndex = r.nextInt(power.size());
+            Iterator<Enemy> iter = power.iterator();
+            for(int i=0;i<randomEnemyIndex;iter.next());
+            Enemy e=iter.next();
+            e.reduceHealth(0.1*healthPool);
+            if(e.isDead())
+                power.remove(e);
             healthAmount=Math.min(healthPool,healthAmount+defencePoints*10);
             return "GO GO Avenger’s Shield!";
         }
@@ -27,18 +36,18 @@ public class Warrior extends Player{
     }
     @Override
     public String LVLUP(){
-        String send="";
-        send=super.LVLUP();
-        send+="for being a Warrior, extra stats gain:\n";
+        String messege="";
+        messege=super.LVLUP();
+        messege+="for being a Warrior, extra stats gain:\n";
         cdRemaining=0;
         healthPool+= 5*LVL;
-        send+="Max Health:"+ 5*LVL+"\n";
+        messege+="Max Health:"+ 5*LVL+"\n";
         healthAmount=healthPool;
         attackPoints+=2*LVL;
-        send+="Attack points:"+ 2*LVL+"\n";
+        messege+="Attack points:"+ 2*LVL+"\n";
         defencePoints+=LVL;
-        send+="Defence points:"+ 2*LVL+"\n";
-        return send;
+        messege+="Defence points:"+ 2*LVL+"\n";
+        return messege;
     }
 
 

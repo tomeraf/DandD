@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -8,13 +9,13 @@ public class LVL {
     Tiles[][] map;
     Player p;
 
-    public LVL(String number,Player player)  {
+    public LVL(String number, Player player, String path)  {
         p =player;
         e =new LinkedList<Enemy>();
         int height=0;
         try
         {
-            File file = new File("Level"+number);
+            File file = new File(path+"\\Level"+number);
             Scanner scanner = new Scanner(file);
             String Line=null;
             while (scanner.hasNextLine()) {//check the height of the map
@@ -79,52 +80,58 @@ public class LVL {
 
     public String Display()
     {
-        String send;
-        send=MapDisplay();
-        send+=PlayerDisplay();
-        return send;
+        String messege;
+        messege=MapDisplay();
+        messege+=PlayerDisplay();
+        return messege;
     }
 
     private String MapDisplay(){
-        String send="";
-        for(int i=0;i<map.length;i++,send+="\n")
+        String messege="";
+        for(int i=0;i<map.length;i++,messege+="\n")
             for(int j=0;j<map[i].length;j++)
-                send+=map[i][j].GetSign();
-        return send+"\n";
+                messege+=map[i][j].GetSign();
+        return messege+"\n";
     }
     private  String PlayerDisplay(){
         return p.toString();
     }
     private void PowerListRefresh(){
         p.powerRefresh(e);
+
+
     }
     public String Start(){
-        PowerListRefresh();
+        p.powerRefresh(e);
         return Display();
     }
 
     public String Tick()
     {
-        String send="";
-        send+=p.tick(e);
+        String messege="";
+        messege+=p.tick(e);
         for(Enemy enemy:e)
-            send+=enemy.move();
+            messege+=enemy.move();
         PowerListRefresh();
-        send+=Display();
-        return send;
+        messege+=Display();
+        return messege;
     }
 
     public String Act(char input){
-        String send="";
+        String messege="";
 
         if(input=='w' || input=='s' ||input=='a' ||input=='d' || input=='q') {
-            send = p.move();
+            messege = p.move();
         }
         else if(input=='e')
-            send=p.cast();
+            messege=p.cast();
+
+        //need to change the e according to what happen in the act
 
 
-        return send;
+
+
+        return messege;
     }
 
 }

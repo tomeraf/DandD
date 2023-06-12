@@ -38,14 +38,14 @@ public class Rogue extends Player {
         return "fail,not enough mana";
     }
     public String LVLUP(){
-        String send="";
-        send=super.LVLUP();
-        send+="for being a Rogue, extra stats gain:\n";
+        String messege="";
+        messege=super.LVLUP();
+        messege+="for being a Rogue, extra stats gain:\n";
         energyRemaining = 100;
-        send+="Current Energy: 100\n";
+        messege+="Current Energy: 100\n";
         attackPoints+=3*LVL;
-        send+="Attack Points:"+3*LVL +"\n";
-        return send;
+        messege+="Attack Points:"+3*LVL +"\n";
+        return messege;
     }
     public String tick(LinkedList<Enemy> e){
         {
@@ -59,10 +59,10 @@ public class Rogue extends Player {
     }
 
     public String toString(){
-        String s=super.toString();
-        s+="Energy: "+energyRemaining+"/"+energyRemaining+"  ";
-        s+="Fan of Knives cost: "+energyCost;
-        return s;
+        String messege=super.toString();
+        messege+="Energy: "+energyRemaining+"/"+energyRemaining+"  ";
+        messege+="Fan of Knives cost: "+energyCost;
+        return messege;
     }
 }
 

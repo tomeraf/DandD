@@ -1,4 +1,6 @@
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Random;
 
 public class Mage extends Player{
     protected int manaPool;
@@ -31,8 +33,19 @@ public class Mage extends Player{
     public String cast(){
         if(manaRemaining>=manaCost){
             manaRemaining-=Math.max(0,manaRemaining-manaCost);
+            int hits=0;
+            while(hits!=hitsCount && power.size()>0)
+            {
+                Random r = new Random();
+                int randomEnemyIndex = r.nextInt(power.size());
+                Iterator<Enemy> iter = power.iterator();
+                for(int i=0;i<randomEnemyIndex;iter.next());
+                Enemy e=iter.next();
+                e.attacked(spellPower);
+                if(e.isDead())
+                    power.remove(e);
 
-            //need to implemet the hit enemy, maybe in the UI
+            }
 
 
 
@@ -42,33 +55,33 @@ public class Mage extends Player{
     }
     @Override
     public String LVLUP(){
-        String send="";
-        send=super.LVLUP();
-        send+="for being a Mage, extra stats gain:\n";
+        String messege="";
+        messege=super.LVLUP();
+        messege+="for being a Mage, extra stats gain:\n";
         manaPool+=25*LVL;
-        send+="Max Mana:"+ 25*LVL+"\n";
+        messege+="Max Mana:"+ 25*LVL+"\n";
         manaRemaining = Math.min(manaRemaining+manaPool/4,manaPool);
-        send+="Current Mana:"+ Math.min(manaRemaining+manaPool/4,manaPool)+"\n";
+        messege+="Current Mana:"+ Math.min(manaRemaining+manaPool/4,manaPool)+"\n";
         spellPower+=10*LVL;
-        send+="Spell Power:"+ 10*LVL+"\n";
-        return send;
+        messege+="Spell Power:"+ 10*LVL+"\n";
+        return messege;
     }
     public String tick(LinkedList<Enemy> e){
 
         manaRemaining=Math.min(manaPool,manaRemaining+LVL);
         powerRefresh(e);
-        String send="";
+        String messege="";
         while(didLVLUP())
-            send+=LVLUP();
-        return send;
+            messege+=LVLUP();
+        return messege;
     }
 
     public String toString(){
-        String s=super.toString();
-        s+="Mana: "+manaRemaining+"/"+manaPool+"  ";
-        s+="Spell power: "+spellPower+"  ";
-        s+="Blizard's cost: "+ manaCost;
-        return s;
+        String messege=super.toString();
+        messege+="Mana: "+manaRemaining+"/"+manaPool+"  ";
+        messege+="Spell power: "+spellPower+"  ";
+        messege+="Blizard's cost: "+ manaCost;
+        return messege;
     }
 
 }

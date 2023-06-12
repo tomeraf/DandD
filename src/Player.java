@@ -46,26 +46,26 @@ abstract public class Player extends Unit {
 
     abstract public String cast();
     public String LVLUP(){
-        String send="";
-            send+="Level Up!\n new Level:";
+        String messege="";
+            messege+="Level Up!\n new Level:";
             EXP-=LVL*50;
             LVL++;
-            send+=LVL+"stats gained:\n";
+            messege+=LVL+"stats gained:\n";
             healthPool+=10*LVL;
-            send+="Max Health:"+ 10*LVL+"\n";
+            messege+="Max Health:"+ 10*LVL+"\n";
             healthAmount=healthPool;
             attackPoints+=4*LVL;
-            send+="Attack points:"+ 4*LVL+"\n";
+            messege+="Attack points:"+ 4*LVL+"\n";
             defencePoints+=LVL;
-            send+="Defence points:"+ LVL+"\n";
-        return send;
+            messege+="Defence points:"+ LVL+"\n";
+        return messege;
     }
     @Override
     public String toString(){
-        String s=super.toString();
-        s+="EXP: "+ EXP+"  ";
-        s+="LVL: "+ LVL+"  ";
-        return s+"\n";
+        String messege=super.toString();
+        messege+="EXP: "+ EXP+"  ";
+        messege+="LVL: "+ LVL+"  ";
+        return messege+"\n";
     }
 
     public String move(){return "";};

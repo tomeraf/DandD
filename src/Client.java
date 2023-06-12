@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Client {
-    public static boolean start() {
+    public static boolean start(String path) {
         System.out.println("CHOOSE YOUR CHAMPION:");
         System.out.println("1. Warrior");
         System.out.println("2. Mage");
@@ -97,15 +97,15 @@ public class Client {
         if(input==3) CName="Tomer The Eternal";
 
         for(int i=1;i<=4 && !p.isDead();i++) {
-            LevelManager("" + i, p,CName);
+            LevelManager("" + i, p,CName,path);
         }
         return false;
     }
 
 
-    private static void LevelManager(String number,Player p,String CName){
+    private static void LevelManager(String number,Player p,String CName,String path){
         if(CName.equals("Night's King")) {
-            LVL l = new LVL(number, p);
+            LVL l = new LVL(number, p,path);
             System.out.println(l.Start());
             while (!l.IsEnd()) {
                 System.out.println(l.Act(userInput()));
