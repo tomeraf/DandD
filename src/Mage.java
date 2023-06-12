@@ -30,7 +30,8 @@ public class Mage extends Player{
     public void SetResourceRemaining(int value){manaRemaining=value;}
 
     @Override
-    public String cast(){
+    public Pair<LinkedList<Enemy>,String> cast(){
+        LinkedList<Enemy> killed = new LinkedList<>();
         if(manaRemaining>=manaCost){
             manaRemaining-=Math.max(0,manaRemaining-manaCost);
             int hits=0;
@@ -42,16 +43,15 @@ public class Mage extends Player{
                 for(int i=0;i<randomEnemyIndex;iter.next());
                 Enemy e=iter.next();
                 e.attacked(spellPower);
-                if(e.isDead())
+                if(e.isDead()){
                     power.remove(e);
-
+                    killed.addFirst(e);
+                }
             }
 
-
-
-            return "hocus pocus,Blizzard apearus";
+            return new Pair<LinkedList<Enemy>,String>(killed,"hocus pocus,Blizzard apearus");
         }
-        return "fail,not enough mana";
+        return new Pair<LinkedList<Enemy>,String>(killed,"fail,not enough mana");
     }
     @Override
     public String LVLUP(){

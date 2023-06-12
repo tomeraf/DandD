@@ -18,7 +18,8 @@ public class Warrior extends Player{
     public int GetResourceRemaining(){return cdRemaining;}
     public void SetResourceRemaining(int value){cdRemaining=value;}
 
-    public String cast(){
+    public Pair<LinkedList<Enemy>,String> cast(){
+        LinkedList<Enemy> killed = new LinkedList<>();
         if(cdRemaining==0){
             cdRemaining=cd;
             Random r = new Random();
@@ -27,12 +28,14 @@ public class Warrior extends Player{
             for(int i=0;i<randomEnemyIndex;iter.next());
             Enemy e=iter.next();
             e.reduceHealth(0.1*healthPool);
-            if(e.isDead())
+            if(e.isDead()) {
                 power.remove(e);
+                killed.addFirst(e);
+            }
             healthAmount=Math.min(healthPool,healthAmount+defencePoints*10);
-            return "GO GO Avenger’s Shield!";
+            return new Pair<LinkedList<Enemy>,String>(killed,"GO GO Avenger’s Shield!");
         }
-        return "fail,cooldown Remaining:"+ cdRemaining;
+        return new Pair<LinkedList<Enemy>,String>(killed,"fail,cooldown Remaining:"+ cdRemaining);
     }
     @Override
     public String LVLUP(){

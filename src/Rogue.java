@@ -28,14 +28,20 @@ public class Rogue extends Player {
         energyRemaining = value;
     }
 
-    public String cast() {
+    public Pair<LinkedList<Enemy>,String> cast() {
+        LinkedList<Enemy> killed = new LinkedList<>();
         if (energyRemaining >= energyCost) {
             energyRemaining -= Math.max(0, energyRemaining - energyCost);
-            //need to implemet the hit enemy, maybe in the UI
-
-            return "i have only 1 fan of my Knives,he is OnlyFan of Knives";
+            for(Enemy e:power) {
+                e.attacked(attackPoints);
+                if (e.isDead()) {
+                    power.remove(e);
+                    killed.addFirst(e);
+                }
+            }
+            return new Pair<LinkedList<Enemy>,String>(killed,"i have only 1 fan of my Knives,he is OnlyFan of Knives");
         }
-        return "fail,not enough mana";
+        return new Pair<LinkedList<Enemy>,String>(killed,"fail,not enough mana");
     }
     public String LVLUP(){
         String messege="";

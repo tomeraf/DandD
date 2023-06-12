@@ -44,7 +44,7 @@ abstract public class Player extends Unit {
         return healthAmount==0;
     }
 
-    abstract public String cast();
+    abstract public Pair<LinkedList<Enemy>,String> cast();
     public String LVLUP(){
         String messege="";
             messege+="Level Up!\n new Level:";
