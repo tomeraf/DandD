@@ -10,6 +10,7 @@ public class Rogue extends Player {
         energyPool = 100;
         energyRemaining =100;
         energyCost = EnergyCost;
+        visionRange=2;
     }
 
     public int GetResourcePool() {
@@ -35,6 +36,7 @@ public class Rogue extends Player {
             for(Enemy e:power) {
                 e.attacked(attackPoints);
                 if (e.isDead()) {
+                    this.EXPGain(e.EXPgain);
                     power.remove(e);
                     killed.addFirst(e);
                 }
@@ -48,9 +50,9 @@ public class Rogue extends Player {
         messege=super.LVLUP();
         messege+="for being a Rogue, extra stats gain:\n";
         energyRemaining = 100;
-        messege+="Current Energy: 100\n";
+        messege+="Current Energy -  100\n";
         attackPoints+=3*LVL;
-        messege+="Attack Points:"+3*LVL +"\n";
+        messege+="Attack Points - "+3*LVL +"\n";
         return messege;
     }
     public String tick(LinkedList<Enemy> e){

@@ -124,8 +124,7 @@ public class Client {
         while(s.length()>1 ||! (s.equals("w") || s.equals("s") ||s.equals("a") ||s.equals("d") || s.equals("q")||s.equals("e"))) {
             if(s.equals("h")){
                 System.out.println("moving is done with ASWD keys.\npress the Q key to stay in your place.\nfor casting press the E key.");
-            }
-            System.out.println("Illegal input, for information about legal inputs, send h");
+            } else System.out.println("Illegal input, for information about legal inputs, send h");
             s=scanner.next();
         }
         return s.charAt(0);
@@ -137,7 +136,7 @@ public class Client {
         else if(name.equals("4"))
             System.out.println("Victory!");
         else
-            System.out.println("you won "+ name +", proceed to the next Level by inputting any key");
+            System.out.println("you finished level "+ name +", proceed to the next Level by inputting any key\n\n\n\n");
     }
 
 

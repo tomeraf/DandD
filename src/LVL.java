@@ -43,12 +43,15 @@ public class LVL {
         String messege="";
         messege+=p.tick(e);
         for(Enemy enemy:e) {
+            Pair<Integer,Integer> whereHeWas = enemy.getLocation();
             Pair<Integer,Integer> whereToMove =  enemy.move(p);
             Tiles tile = board.getTile(whereToMove.first(),whereToMove.second());
             Pair<Unit,String> attackResult = enemy.attack(tile);
             messege+=attackResult.second();
             if (attackResult.first()!=null && attackResult.first().isDead()){
                 return messege;
+            } else if (attackResult.first()==null) {
+                board.swap(enemy,whereHeWas);
             }
         }
         PowerListRefresh();
@@ -59,16 +62,18 @@ public class LVL {
         String messege="";
 
         if(input=='w' || input=='s' ||input=='a' ||input=='d') {
+            Pair<Integer,Integer> whereHeWas = p.getLocation();
             Pair<Integer,Integer> whereToMove = p.move(input);
             Tiles tile = board.getTile(whereToMove.first(),whereToMove.second());
             Pair<Unit,String> attackResult = p.attack(tile);
+            messege+=attackResult.second();
             if (attackResult.first()!=null && attackResult.first().isDead()){
                 Pair<Integer,Integer> newEmpty = new Pair<>(p.GetX(),p.GetY());
                 p.movement(attackResult.first().GetX(),attackResult.first().GetY());
-                board.replaceAfterEnemyKilled(newEmpty.first(), newEmpty.second());
+                board.swap(p,whereHeWas);
                 e.remove(attackResult.first());
             } else if (attackResult.first()==null) {
-                board.swap(p,whereToMove);
+                board.swap(p,whereHeWas);
             }
         }
         else if(input=='e'){
@@ -85,6 +90,8 @@ public class LVL {
         } else if (input=='q') {
             // to implement 'Resting'.
         }
+
+        PowerListRefresh();
         return messege;
     }
 

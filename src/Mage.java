@@ -8,7 +8,6 @@ public class Mage extends Player{
     protected  int manaCost;
     protected int spellPower;
     protected int hitsCount;
-    protected  int range;
 
     public Mage(int X,int Y,int ManaPool,int ManaCost,int SpellPower,int HitsCount,int HealthPool,int AttackPoints,int DefencePoints,int Range,String Name) {
         super(X,Y,HealthPool,AttackPoints,DefencePoints,Name);
@@ -17,7 +16,7 @@ public class Mage extends Player{
         manaCost=ManaCost;
         spellPower=SpellPower;
         hitsCount=HitsCount;
-        range=Range;
+        visionRange=Range;
 
     }
     @Override
@@ -33,7 +32,7 @@ public class Mage extends Player{
     public Pair<LinkedList<Enemy>,String> cast(){
         LinkedList<Enemy> killed = new LinkedList<>();
         if(manaRemaining>=manaCost){
-            manaRemaining-=Math.max(0,manaRemaining-manaCost);
+            manaRemaining=Math.max(0,manaRemaining-manaCost);
             int hits=0;
             while(hits!=hitsCount && power.size()>0)
             {
@@ -44,8 +43,10 @@ public class Mage extends Player{
                 Enemy e=iter.next();
                 e.attacked(spellPower);
                 if(e.isDead()){
+                    this.EXPGain(e.EXPgain);
                     power.remove(e);
                     killed.addFirst(e);
+
                 }
             }
 
@@ -59,11 +60,11 @@ public class Mage extends Player{
         messege=super.LVLUP();
         messege+="for being a Mage, extra stats gain:\n";
         manaPool+=25*LVL;
-        messege+="Max Mana:"+ 25*LVL+"\n";
+        messege+="Max Mana - "+ 25*LVL+"\n";
         manaRemaining = Math.min(manaRemaining+manaPool/4,manaPool);
-        messege+="Current Mana:"+ Math.min(manaRemaining+manaPool/4,manaPool)+"\n";
+        messege+="Current Mana - "+ Math.min(manaRemaining+manaPool/4,manaPool)+"\n";
         spellPower+=10*LVL;
-        messege+="Spell Power:"+ 10*LVL+"\n";
+        messege+="Spell Power - "+ 10*LVL+"\n";
         return messege;
     }
     public String tick(LinkedList<Enemy> e){

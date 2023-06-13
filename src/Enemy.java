@@ -41,7 +41,7 @@ abstract public class Enemy extends  Unit {
     }
 
     public Pair<Unit, String> accept(Enemy e) {
-        return new Pair<Unit, String>(null, "");
+        return new Pair<Unit, String>(this, "");
     }
 
     public Pair<Unit, String> accept(Unit u) {
@@ -49,23 +49,26 @@ abstract public class Enemy extends  Unit {
     }
 
     public Pair<Unit, String> accept(Player p) {
-        String messege = p.toString() + this.toString();
+        String messege = p.toString() + "you are attacking the enemy "+this.name+ " stats:\n "+this.toString();
         Random random = new Random();
         int playerAttackPower = random.nextInt(p.attackPoints);
         messege += this.attacked(playerAttackPower);
+        if (this.isDead()){
+            messege += this.name + " killed and you gained " + this.EXPgain + " EXP\n";
+            p.EXPGain(this.EXPgain);
+        }
         return new Pair<Unit, String>(this, messege);
+
     }
 
     public String attacked(int playerAttackPower) {
         String messege = "";
         Random random = new Random();
         int monsterDefense = random.nextInt(this.defencePoints);
-        double damage = this.reduceHealth(playerAttackPower - monsterDefense);
+        double damage= Math.max(0,playerAttackPower - monsterDefense);
+        this.reduceHealth(damage);
         messege += "combat info:\nattack roll: " + playerAttackPower + "\ndefense roll: " + monsterDefense +
                 "\ndamage: " + damage + "\n";
-        if (this.isDead()) {
-            messege += this.name + " killed and you gained " + this.EXPgain + " EXP\n";
-        }
         return messege;
     }
 

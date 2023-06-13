@@ -10,6 +10,7 @@ public class Warrior extends Player{
         super(X,Y,HealthPool,AttackPoints,DefencePoints,Name);
         cd=CD;
         cdRemaining=0;
+        visionRange=3;
     }
 
     public int GetResourcePool(){return cd;}
@@ -29,6 +30,7 @@ public class Warrior extends Player{
             Enemy e=iter.next();
             e.reduceHealth(0.1*healthPool);
             if(e.isDead()) {
+                this.EXPGain(e.EXPgain);
                 power.remove(e);
                 killed.addFirst(e);
             }
@@ -44,12 +46,12 @@ public class Warrior extends Player{
         messege+="for being a Warrior, extra stats gain:\n";
         cdRemaining=0;
         healthPool+= 5*LVL;
-        messege+="Max Health:"+ 5*LVL+"\n";
+        messege+="Max Health - "+ 5*LVL+"\n";
         healthAmount=healthPool;
         attackPoints+=2*LVL;
-        messege+="Attack points:"+ 2*LVL+"\n";
+        messege+="Attack points - "+ 2*LVL+"\n";
         defencePoints+=LVL;
-        messege+="Defence points:"+ 2*LVL+"\n";
+        messege+="Defence points - "+ 2*LVL+"\n";
         return messege;
     }
 

@@ -89,9 +89,8 @@ public class Board {
         return map[second][first];
     }
 
-    public void swap(Player p, Pair<Integer, Integer> whereToMove) {
-        Tiles temp = map[p.GetY()][p.GetX()];
-        map[p.GetY()][p.GetX()] = map[whereToMove.second()][whereToMove.first()];
-        map[whereToMove.second()][whereToMove.first()] = temp;
+    public void swap(Unit u, Pair<Integer, Integer> whereHeWas) {
+        map[u.GetY()][u.GetX()] = u;
+        map[whereHeWas.second()][whereHeWas.first()] = new Empty(whereHeWas.first(), whereHeWas.second());
     }
 }

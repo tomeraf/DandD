@@ -16,6 +16,9 @@ abstract public class Tiles {
 
     public int GetY(){return y;}
     public void SetY(int Y){y=Y;}
+    public Pair<Integer,Integer> getLocation(){
+        return new Pair<>(GetX(),GetY());
+    }
     abstract public Pair<Unit,String> accept(Enemy e);
     abstract public Pair<Unit,String> accept(Player p);
     abstract public Pair<Unit,String> accept(Unit u);

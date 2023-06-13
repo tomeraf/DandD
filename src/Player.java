@@ -48,22 +48,23 @@ abstract public class Player extends Unit {
     abstract public Pair<LinkedList<Enemy>,String> cast();
     public String LVLUP(){
         String messege="";
-            messege+="Level Up!\n new Level:";
+            messege+="Level Up!\nnew Level - ";
             EXP-=LVL*50;
             LVL++;
-            messege+=LVL+"stats gained:\n";
+            messege+=LVL+" stats gained: \n";
             healthPool+=10*LVL;
-            messege+="Max Health:"+ 10*LVL+"\n";
+            messege+="Max Health - "+ 10*LVL+"\n";
             healthAmount=healthPool;
             attackPoints+=4*LVL;
-            messege+="Attack points:"+ 4*LVL+"\n";
+            messege+="Attack points - "+ 4*LVL+"\n";
             defencePoints+=LVL;
-            messege+="Defence points:"+ LVL+"\n";
+            messege+="Defence points - "+ LVL+"\n";
         return messege;
     }
     @Override
     public String toString(){
-        String messege=super.toString();
+
+        String messege="my stats:\n" + super.toString();
         messege+="EXP: "+ EXP+" \\"+50*LVL+"  ";
         messege+="LVL: "+ LVL+"  ";
         return messege+"\n";
@@ -116,7 +117,7 @@ abstract public class Player extends Unit {
         return new Pair<Unit,String>(null,"");
     }
     public Pair<Unit,String> accept(Enemy e){
-        String messege =this.toString()+e.toString();
+        String messege =this.toString()+ "enemy "+e.name+ " is attacking, his stats:\n "+e.toString();
         Random random = new Random();
         int monsterAttackPower = random.nextInt(e.attackPoints);
         messege+=this.attacked(monsterAttackPower);
@@ -126,7 +127,8 @@ abstract public class Player extends Unit {
         String messege = "";
         Random random = new Random();
         int playerDefense = random.nextInt(this.defencePoints);
-        double damage = this.reduceHealth(monsterAttackPower-playerDefense);
+        double damage= Math.max(0,monsterAttackPower - defencePoints);
+        this.reduceHealth(damage);
         messege +="combat info:\nattack roll: "+monsterAttackPower+"\ndefense roll: "+playerDefense+
                 "\ndamage: "+damage+"\n";
         if (this.isDead()){
@@ -134,5 +136,8 @@ abstract public class Player extends Unit {
             this.sign = 'X';
         }
         return messege;
+    }
+    public void EXPGain(int EXP){
+        this.EXP+=EXP;
     }
 }
