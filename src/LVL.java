@@ -31,11 +31,7 @@ public class LVL {
     }
 
     private String MapDisplay(){
-        String messege="";
-        for(int i=0;i<board.getMap().length;i++,messege+="\n")
-            for(int j=0;j<board.getMap()[i].length;j++)
-                messege+=board.getMap()[i][j].GetSign();
-        return messege+"\n";
+        return board.MapDisplay();
     }
     private  String PlayerDisplay(){
         return p.toString();
@@ -50,8 +46,7 @@ public class LVL {
         return Display();
     }
 
-    public String Tick()
-    {
+    public String Tick() {
         String messege="";
         messege+=p.tick(e);
         for(Enemy enemy:e) {
@@ -66,24 +61,32 @@ public class LVL {
 
     public String Act(char input){
         String messege="";
-        LinkedList<Enemy> killed=null;
-        if(input=='w' || input=='s' ||input=='a' ||input=='d' || input=='q') {
-            messege = p.move();
-            //need to change the map according to what happen in the act
+
+        if(input=='w' || input=='s' ||input=='a' ||input=='d') {
+            Pair<Integer,Integer> whereToMove = p.move(input);
+            Tiles tile = board.getTile(whereToMove.first(),whereToMove.second());
+            Pair<Unit,String> attackResult = p.attack(tile);
+            if (attackResult.first()!=null && attackResult.first().isDead()){
+                Pair<Integer,Integer> newEmpty = new Pair<>(p.GetX(),p.GetY());
+                p.movement(attackResult.first().GetX(),attackResult.first().GetY());
+                board.replaceAfterEnemyKilled(newEmpty.first(), newEmpty.second());
+                e.remove(attackResult.first());
+            }
         }
         else if(input=='e'){
-            Pair<LinkedList<Enemy>,String> result=p.cast();
-            killed=result.first();
-            messege=result.second();
+            LinkedList<Enemy> killed=null;
+            Pair<LinkedList<Enemy>,String> castResult=p.cast();
+            killed=castResult.first();
+            messege=castResult.second();
+
+            if(!killed.isEmpty()) {
+                board.delete(killed);
+                for(Enemy enemy:killed)
+                    e.remove(enemy);
+            }
+        } else if (input=='q') {
+            // to implement 'Resting'.
         }
-        if(!killed.isEmpty())
-            board.delete(killed);
-
-
-
-
-
-
         return messege;
     }
 

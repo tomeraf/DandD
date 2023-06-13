@@ -68,7 +68,7 @@ public class Rogue extends Player {
         String messege=super.toString();
         messege+="Energy: "+energyRemaining+"/"+energyRemaining+"  ";
         messege+="Fan of Knives cost: "+energyCost;
-        return messege;
+        return messege+"\n";
     }
 }
 

@@ -53,7 +53,13 @@ public class Board {
 
         return e;
     }
-    public Tiles[][] getMap(){return map;}
+    public String MapDisplay(){
+        String messege="";
+        for(int i=0;i<map.length;i++,messege+="\n")
+            for(int j=0;j<map[i].length;j++)
+                messege+=map[i][j].GetSign();
+        return messege+"\n";
+    }
     private Enemy EnemyCreator(char sign,int x,int y){
         if(sign=='s') return new Monster(x,y,'s',25,80,8,3,3,"Lannister Solider");
         if(sign=='k') return new Monster(x,y,'k',50,200,14,8,4,"Lannister Knight");
@@ -75,7 +81,12 @@ public class Board {
         for(Enemy e:killed)
             map[e.GetY()][e.GetX()] = new Empty(e.GetX(),e.GetY());
     }
+    public void replaceAfterEnemyKilled(int x, int y){
+        map[y][x] = new Empty(x,y);
+    }
 
 
-
+    public Tiles getTile(Integer first, Integer second) {
+        return map[second][first];
+    }
 }

@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Monster extends  Enemy{
     int vision;
 
@@ -11,6 +13,24 @@ public class Monster extends  Enemy{
         move();
 
     }
+    public Pair<Integer,Integer> move(){
+        double move = Math.random();
+        if (move<0.2){
+            return new Pair<>(this.GetX()-1,this.GetY());
+        }
+        if (move<0.4){
+            return new Pair<>(this.GetX(),this.GetY()+1);
+        }
+        if (move<0.6){
+            return new Pair<>(this.GetX(),this.GetY()-1);
+        }
+        if (move<0.8){
+            return new Pair<>(this.GetX()+1,this.GetY());
+        }
+        return new Pair<>(this.GetX(),this.GetY());
+    }
 
-    public String move(){return "";}
+
+
+
 }

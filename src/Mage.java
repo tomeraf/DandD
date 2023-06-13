@@ -81,7 +81,7 @@ public class Mage extends Player{
         messege+="Mana: "+manaRemaining+"/"+manaPool+"  ";
         messege+="Spell power: "+spellPower+"  ";
         messege+="Blizard's cost: "+ manaCost;
-        return messege;
+        return messege+"\n";
     }
 
 }

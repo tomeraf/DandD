@@ -69,6 +69,6 @@ public class Warrior extends Player{
     public String toString(){
         String s=super.toString();
         s+="Avenger’s Shield CD: "+cdRemaining+"/"+cd;
-        return s;
+        return s+"\n";
     }
 }
