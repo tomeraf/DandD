@@ -8,28 +8,22 @@ public class LVL {
     private LinkedList<Enemy> e;
     private Board board;
     private Player p;
-
     public LVL(String number, Player player, String path)  {
         p =player;
         board=new Board();
         e=board.CreateBoard(number,p,path);
     }
-
-
     public boolean IsEnd(){
         if(p.isDead())
             return true;
         return e.isEmpty();
     }
-
-    public String Display()
-    {
+    public String Display() {
         String messege;
         messege=MapDisplay();
         messege+=PlayerDisplay();
         return messege;
     }
-
     private String MapDisplay(){
         return board.MapDisplay();
     }
@@ -45,20 +39,22 @@ public class LVL {
         p.powerRefresh(e);
         return Display();
     }
-
     public String Tick() {
         String messege="";
         messege+=p.tick(e);
         for(Enemy enemy:e) {
-            messege += enemy.move();
-            //board change
+            Pair<Integer,Integer> whereToMove =  enemy.move(p);
+            Tiles tile = board.getTile(whereToMove.first(),whereToMove.second());
+            Pair<Unit,String> attackResult = enemy.attack(tile);
+            messege+=attackResult.second();
+            if (attackResult.first()!=null && attackResult.first().isDead()){
+                return messege;
+            }
         }
-
         PowerListRefresh();
         messege+=Display();
         return messege;
     }
-
     public String Act(char input){
         String messege="";
 

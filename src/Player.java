@@ -135,6 +135,4 @@ abstract public class Player extends Unit {
         }
         return messege;
     }
-
-
 }
