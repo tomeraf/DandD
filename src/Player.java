@@ -2,7 +2,6 @@ import java.util.LinkedList;
 import java.util.Random;
 
 abstract public class Player extends Unit {
-    char sign = '@';
     protected int EXP;
     protected int LVL;
 
@@ -16,6 +15,7 @@ abstract public class Player extends Unit {
         LVL=1;
         visionRange=0;
         power=new LinkedList<Enemy>();
+        sign='@';
     }
     public void powerRefresh(LinkedList<Enemy> e){
         power=new LinkedList<Enemy>();

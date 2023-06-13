@@ -121,7 +121,7 @@ public class Client {
     private static char userInput(){
         Scanner scanner = new Scanner(System.in);
         String s=scanner.next();
-        while(s.length()>1 && (s.equals("w") || s.equals("s") ||s.equals("a") ||s.equals("d") || s.equals("q")||s.equals("e"))) {
+        while(s.length()>1 ||! (s.equals("w") || s.equals("s") ||s.equals("a") ||s.equals("d") || s.equals("q")||s.equals("e"))) {
             if(s.equals("h")){
                 System.out.println("moving is done with ASWD keys.\npress the Q key to stay in your place.\nfor casting press the E key.");
             }

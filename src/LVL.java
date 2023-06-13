@@ -67,6 +67,8 @@ public class LVL {
                 p.movement(attackResult.first().GetX(),attackResult.first().GetY());
                 board.replaceAfterEnemyKilled(newEmpty.first(), newEmpty.second());
                 e.remove(attackResult.first());
+            } else if (attackResult.first()==null) {
+                board.swap(p,whereToMove);
             }
         }
         else if(input=='e'){

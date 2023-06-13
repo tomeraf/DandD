@@ -11,38 +11,37 @@ public class Board {
         int height=0;
         try
         {
-            File file = new File(path+"\\Level"+number);
+            File file = new File(path+"\\level"+number+".txt");
             Scanner scanner = new Scanner(file);
             String Line=null;
             while (scanner.hasNextLine()) {//check the height of the map
                 height++;
                 scanner.nextLine();
             }
-            map=new Unit[height][];
-            height=-1;
+            map=new Tiles[height][];
+            height=0;
+            scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
-                height++;
                 Line = scanner.nextLine();
-                for(int i=0;i<Line.length();i++)
-                {
+                map[height] = new Tiles[Line.length()];
+                for(int i=0;i<Line.length();i++) {
 
-                    if(Line.charAt(i)=='.')
-                    {
-                        map[height][i]=new Empty(i,height);
-                    }
-                    else if(Line.charAt(i)=='#')
-                    {
-                        map[height][i]=new Wall(i,height);
-                    }
-                    else if(Line.charAt(i)=='@')
-                        map[height][i]=p;
-                    else//enemy
+                    if (Line.charAt(i) == '.') {
+                        map[height][i] = new Empty(i, height);
+                    } else if (Line.charAt(i) == '#') {
+                        map[height][i] = new Wall(i, height);
+                    } else if (Line.charAt(i) == '@'){
+                        map[height][i] = p;
+                    p.SetY(height);
+                    p.SetX(i);
+                    } else//enemy
                     {
                         Enemy en =EnemyCreator(Line.charAt(i),i,height);
                         map[height][i]= en;
                         e.add(en);
                     }
                 }//end line
+                height++;
             }//end txt file
         }//end try
         catch (FileNotFoundException ex)
@@ -88,5 +87,11 @@ public class Board {
 
     public Tiles getTile(Integer first, Integer second) {
         return map[second][first];
+    }
+
+    public void swap(Player p, Pair<Integer, Integer> whereToMove) {
+        Tiles temp = map[p.GetY()][p.GetX()];
+        map[p.GetY()][p.GetX()] = map[whereToMove.second()][whereToMove.first()];
+        map[whereToMove.second()][whereToMove.first()] = temp;
     }
 }
