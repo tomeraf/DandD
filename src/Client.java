@@ -1,115 +1,105 @@
 import java.util.Scanner;
 
 public class Client {
-    public static boolean start(String path) {
-        System.out.println("CHOOSE YOUR CHAMPION:");
-        System.out.println("1. Warrior");
-        System.out.println("2. Mage");
-        System.out.println("3. Rogue");
-        Scanner scanner = new Scanner(System.in);
-        int input = scanner.nextInt();
-        while(input<1 || input>3) {
-            System.out.println("CHOOSE 1, 2, OR 3:");
-            input = scanner.nextInt();
-        }
+
+
+    public static boolean start(String path) throws InterruptedException {
+        Printer.print("CHOOSE YOUR CHAMPION:");
+        Thread.sleep(300);
+        System.out.println("1. Warrior\n");
+        System.out.println("2. Mage\n");
+        System.out.println("3. Rogue\n");
+        int input=Inputer.numberInput('3');
         Player p=null;
 
-        if(input==1){
-            System.out.println("CHOOSE YOUR Warrior:");
-            System.out.println("1. Jon Snow");
-            System.out.println("2. The Hound");
-            System.out.println("OR PRESS 0 TO GO BACK");
-            input = scanner.nextInt();
-            while(input<0 || input>2) {
-                System.out.println("CHOOSE 0, 1, OR 2:");
-                input = scanner.nextInt();
-            }
-            if(input==0)
-                return true;
-            if(input==1)
-            {
-                p=new Warrior(0,0,3,300,30,4,"Jon Snow");
-            }
-            if(input==2)
-            {
-                p=new Warrior(0,0,5,400,20,6,"The Hound");
-            }
+        if(input==0)
+            return true;
 
-        }
-        if(input==2){
-            System.out.println("CHOOSE YOUR Mage:");
+        if(input==1) {
+            Printer.print("CHOOSE YOUR Warrior:");
+            Thread.sleep(300);
+            System.out.println("1. Jon Snow\n");
+            System.out.println("2. The Hound\n");
+            System.out.println("OR PRESS 0 TO GO BACK\n");
+            input = Inputer.numberInput('2');
+
+            if (input == 1)
+                p = new Warrior(0, 0, 3, 300, 30, 4, "Jon Snow");
+            if (input == 2)
+                p = new Warrior(0, 0, 5, 400, 20, 6, "The Hound");
+
+        }//end of input warrior
+        else if(input==2){
+            Printer.print("CHOOSE YOUR Mage:");
+            Thread.sleep(300);
             System.out.println("1. Melisandre");
             System.out.println("2. Thoros of Myr");
             System.out.println("OR PRESS 0 TO GO BACK");
-            input = scanner.nextInt();
-            while(input<0 || input>2) {
-                System.out.println("CHOOSE 0, 1, OR 2:");
-                input = scanner.nextInt();
-            }
+            input = Inputer.numberInput('2');
+
             if(input==0)
                 return true;
             if(input==1)
-            {
                 p=new Mage(0,0,300,30,15,5,100,5,1,6,"Melisandre");
-            }
             if(input==2)
-            {
                 p=new Mage(0,0,150,20,20,3,250,25,4,4,"Thoros of Myr");
-            }
 
-        }
+        }//end of input mage
         if(input==3) {
-            System.out.println("CHOOSE YOUR Rogue:");
+            Printer.print("CHOOSE YOUR Rogue:");
+            Thread.sleep(300);
             System.out.println("1. Arya Stark");
             System.out.println("2. Bronn");
             System.out.println("OR PRESS 0 TO GO BACK");
-            input = scanner.nextInt();
-            while (input < 0 || input > 2){
-                System.out.println("CHOOSE 0, 1, OR 2:");
-                input = scanner.nextInt();
-            }
+            input = Inputer.numberInput('2');
+
             if(input==0)
                 return true;
             if(input==1)
-            {
                 p=new Rogue(0,0,20,150,40,2,"Arya Stark");
-            }
             if(input==2)
-            {
                 p=new Rogue(0,0,50,250,35,3,"Bronn");
-            }
-        }
 
-        System.out.println("CHOOSE CAMPAIGN:");
+        }//end if input rogue
+
+        Printer.print("CHOOSE CAMPAIGN:");
+        Thread.sleep(300);
         System.out.println("1. Night's King");
-        System.out.println("2. Elder Mor");
-        System.out.println("3. Tomer The Eternal");
+        System.out.println("2. Mor the wise (tutorial)");
+        System.out.println("3. Tomer The Eternal (Endless)");
         System.out.println("OR PRESS 0 TO RESTART CHOICES");
-        input = scanner.nextInt();
-        while(input<0 || input>3) {
-            System.out.println("CHOOSE 0, 1, 2 OR 3:");
-            input = scanner.nextInt();
-        }
-        String CName=null;
-        if(input==0) return true;
-        if(input==1) CName="Night's King";
-        if(input==2) CName="Elder Mor";
-        if(input==3) CName="Tomer The Eternal";
+        input = Inputer.numberInput('3');
 
-        for(int i=1;i<=4 && !p.isDead();i++) {
+        String CName=null;
+        int numberOFLVLs=0;
+        if(input==0) return true;
+        if(input==1) {CName="Night's King";numberOFLVLs=4;}
+        if(input==2) {CName="Elder Mor";numberOFLVLs=1;}
+        if(input==3) {CName="Tomer The Eternal";numberOFLVLs=1;}
+
+        for(int i=1;i<=numberOFLVLs && !p.isDead();i++) {
+            Printer.print("Loading LVL");
+            Thread.sleep(500);
+            System.out.println(".");
+            Thread.sleep(500);
+            System.out.println(".");
+            Thread.sleep(500);
+            System.out.println(".");
+            Thread.sleep(500);
             LevelManager("" + i, p,CName,path);
         }
         return false;
     }
 
-
-    private static void LevelManager(String number,Player p,String CName,String path){
+    private static void LevelManager(String number, Player p, String CName, String path)throws InterruptedException{
         if(CName.equals("Night's King")) {
             LVL l = new LVL(number, p,path);
             System.out.println(l.Start());
             while (!l.IsEnd()) {
-                System.out.println(l.Act(userInput()));
-                System.out.println(l.Tick());
+                Printer.printLVL(l.Act(Inputer.actInput()));
+                Printer.printLVL(l.Tick());
+
+                System.out.println(l.Display());
             }
             EndLVLDisplay(p, number);
         }
@@ -118,25 +108,17 @@ public class Client {
         }
     }
 
-    private static char userInput(){
-        Scanner scanner = new Scanner(System.in);
-        String s=scanner.next();
-        while(s.length()>1 ||! (s.equals("w") || s.equals("s") ||s.equals("a") ||s.equals("d") || s.equals("q")||s.equals("e"))) {
-            if(s.equals("h")){
-                System.out.println("moving is done with ASWD keys.\npress the Q key to stay in your place.\nfor casting press the E key.");
-            } else System.out.println("Illegal input, for information about legal inputs, send h");
-            s=scanner.next();
+    private static void EndLVLDisplay(Player p, String name)throws InterruptedException {
+        if (p.isDead()){
+            Printer.print("You died in combat",200);
+            Thread.sleep(500);
+            Printer.print(",you'll be remembered",200);
         }
-        return s.charAt(0);
-    }
-
-    private static void EndLVLDisplay(Player p,String name){
-        if(p.isDead())
-            System.out.println("You died in combat, you'll be remembered");
         else if(name.equals("4"))
-            System.out.println("Victory!");
+            Printer.print("Victory!");
         else
-            System.out.println("you finished level "+ name +", proceed to the next Level by inputting any key\n\n\n\n");
+            Printer.print("you finished level "+ name +", proceed to the next Level by inputting any key\n\n\n\n");
+        Scanner scanner = new Scanner(System.in);
     }
 
 

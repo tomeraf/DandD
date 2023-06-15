@@ -59,7 +59,7 @@ public class Board {
                 messege+=map[i][j].GetSign();
         return messege+"\n";
     }
-    private Enemy EnemyCreator(char sign,int x,int y){
+    private Enemy EnemyCreator(char sign, int x, int y){
         if(sign=='s') return new Monster(x,y,'s',25,80,8,3,3,"Lannister Solider");
         if(sign=='k') return new Monster(x,y,'k',50,200,14,8,4,"Lannister Knight");
         if(sign=='q') return new Monster(x,y,'q',100,400,20,15,5,"Queen's Guard");

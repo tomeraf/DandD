@@ -1,5 +1,3 @@
-import java.util.Random;
-
 public class Monster extends  Enemy{
     int vision;
 

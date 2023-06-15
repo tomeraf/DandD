@@ -2,7 +2,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
-public class Mage extends Player{
+public class Mage extends Player {
     protected int manaPool;
     protected int manaRemaining;
     protected  int manaCost;
@@ -30,25 +30,27 @@ public class Mage extends Player{
 
     @Override
     public Pair<LinkedList<Enemy>,String> cast(){
-        LinkedList<Enemy> killed = new LinkedList<>();
+        LinkedList<Enemy> killed = new LinkedList<Enemy>();
         if(manaRemaining>=manaCost){
-            manaRemaining=Math.max(0,manaRemaining-manaCost);
-            int hits=0;
-            while(hits!=hitsCount && power.size()>0)
-            {
-                Random r = new Random();
-                int randomEnemyIndex = r.nextInt(power.size());
-                Iterator<Enemy> iter = power.iterator();
-                for(int i=0;i<randomEnemyIndex;iter.next());
-                Enemy e=iter.next();
-                e.attacked(spellPower);
-                if(e.isDead()){
-                    this.EXPGain(e.EXPgain);
-                    power.remove(e);
-                    killed.addFirst(e);
+            manaRemaining=Math.max(0,manaRemaining-manaCost)-LVL;
+            if(!power.isEmpty()) {
+                int hits = 0;
+                while (hits != hitsCount && !power.isEmpty()) {
+                    Random r = new Random();
+                    int randomEnemyIndex = r.nextInt(power.size());
+                    Iterator<Enemy> iter = power.iterator();
+                    for (int i = 0; i < randomEnemyIndex ; iter.next(),i++);
+                    Enemy e = iter.next();
+                    e.attacked(spellPower);
+                    if (e.isDead()) {
+                        this.EXPGain(e.EXPgain);
+                        power.remove(e);
+                        killed.addFirst(e);
 
-                }
-            }
+                    }//if dead enemy
+                    hits++;
+                }//while hits
+            }//if power>0
 
             return new Pair<LinkedList<Enemy>,String>(killed,"hocus pocus,Blizzard apearus");
         }
@@ -56,8 +58,8 @@ public class Mage extends Player{
     }
     @Override
     public String LVLUP(){
-        String messege="";
-        messege=super.LVLUP();
+        String messege="$";
+        messege+=super.LVLUP();
         messege+="for being a Mage, extra stats gain:\n";
         manaPool+=25*LVL;
         messege+="Max Mana - "+ 25*LVL+"\n";
@@ -65,7 +67,7 @@ public class Mage extends Player{
         messege+="Current Mana - "+ Math.min(manaRemaining+manaPool/4,manaPool)+"\n";
         spellPower+=10*LVL;
         messege+="Spell Power - "+ 10*LVL+"\n";
-        return messege;
+        return messege+'$';
     }
     public String tick(LinkedList<Enemy> e){
 

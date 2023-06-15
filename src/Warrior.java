@@ -2,7 +2,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
 
-public class Warrior extends Player{
+public class Warrior extends Player {
     protected int cd;
     protected int cdRemaining;
 
@@ -20,19 +20,21 @@ public class Warrior extends Player{
     public void SetResourceRemaining(int value){cdRemaining=value;}
 
     public Pair<LinkedList<Enemy>,String> cast(){
-        LinkedList<Enemy> killed = new LinkedList<>();
+        LinkedList<Enemy> killed = new LinkedList<Enemy>();
         if(cdRemaining==0){
-            cdRemaining=cd;
-            Random r = new Random();
-            int randomEnemyIndex = r.nextInt(power.size());
-            Iterator<Enemy> iter = power.iterator();
-            for(int i=0;i<randomEnemyIndex;iter.next());
-            Enemy e=iter.next();
-            e.reduceHealth(0.1*healthPool);
-            if(e.isDead()) {
-                this.EXPGain(e.EXPgain);
-                power.remove(e);
-                killed.addFirst(e);
+            cdRemaining=cd-1;
+            if(power.size()>0) {
+                Random r = new Random();
+                int randomEnemyIndex = r.nextInt(power.size());
+                Iterator<Enemy> iter = power.iterator();
+                for (int i = 0; i < randomEnemyIndex; iter.next()) ;
+                Enemy e = iter.next();
+                e.reduceHealth(0.1 * healthPool);
+                if (e.isDead()) {
+                    this.EXPGain(e.EXPgain);
+                    power.remove(e);
+                    killed.addFirst(e);
+                }
             }
             healthAmount=Math.min(healthPool,healthAmount+defencePoints*10);
             return new Pair<LinkedList<Enemy>,String>(killed,"GO GO Avenger’s Shield!");
@@ -41,8 +43,8 @@ public class Warrior extends Player{
     }
     @Override
     public String LVLUP(){
-        String messege="";
-        messege=super.LVLUP();
+        String messege="$";
+        messege+=super.LVLUP();
         messege+="for being a Warrior, extra stats gain:\n";
         cdRemaining=0;
         healthPool+= 5*LVL;
@@ -52,7 +54,7 @@ public class Warrior extends Player{
         messege+="Attack points - "+ 2*LVL+"\n";
         defencePoints+=LVL;
         messege+="Defence points - "+ 2*LVL+"\n";
-        return messege;
+        return messege+"\n$";
     }
 
 

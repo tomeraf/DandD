@@ -1,4 +1,4 @@
-public class Trap extends Enemy{
+public class Trap extends Enemy {
     protected boolean visibility;
     final private double activationRange = 2.0;
     protected  int visibilityTime;

@@ -30,9 +30,9 @@ public class Rogue extends Player {
     }
 
     public Pair<LinkedList<Enemy>,String> cast() {
-        LinkedList<Enemy> killed = new LinkedList<>();
+        LinkedList<Enemy> killed = new LinkedList<Enemy>();
         if (energyRemaining >= energyCost) {
-            energyRemaining -= Math.max(0, energyRemaining - energyCost);
+            energyRemaining -= Math.max(0, energyRemaining - energyCost)-10;
             for(Enemy e:power) {
                 e.attacked(attackPoints);
                 if (e.isDead()) {
@@ -46,14 +46,14 @@ public class Rogue extends Player {
         return new Pair<LinkedList<Enemy>,String>(killed,"fail,not enough mana");
     }
     public String LVLUP(){
-        String messege="";
-        messege=super.LVLUP();
+        String messege="$";
+        messege+=super.LVLUP();
         messege+="for being a Rogue, extra stats gain:\n";
         energyRemaining = 100;
         messege+="Current Energy -  100\n";
         attackPoints+=3*LVL;
         messege+="Attack Points - "+3*LVL +"\n";
-        return messege;
+        return messege+'$';
     }
     public String tick(LinkedList<Enemy> e){
         {

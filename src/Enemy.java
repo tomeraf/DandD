@@ -1,6 +1,6 @@
 import java.util.Random;
 
-abstract public class Enemy extends  Unit {
+abstract public class Enemy extends Unit {
     protected int EXPgain;
 
     public Enemy(int X, int Y, int HealthPool, int AttackPoints, int DefencePoints, String Name) {
@@ -49,7 +49,7 @@ abstract public class Enemy extends  Unit {
     }
 
     public Pair<Unit, String> accept(Player p) {
-        String messege = p.toString() + "you are attacking the enemy "+this.name+ " stats:\n "+this.toString();
+        String messege = "$you are attacking the enemy "+this.name+ "\n$"+ p.combatString() + this.name+ "stats:\n "+this.toString();
         Random random = new Random();
         int playerAttackPower = random.nextInt(p.attackPoints);
         messege += this.attacked(playerAttackPower);
@@ -67,8 +67,8 @@ abstract public class Enemy extends  Unit {
         int monsterDefense = random.nextInt(this.defencePoints);
         double damage= Math.max(0,playerAttackPower - monsterDefense);
         this.reduceHealth(damage);
-        messege += "combat info:\nattack roll: " + playerAttackPower + "\ndefense roll: " + monsterDefense +
-                "\ndamage: " + damage + "\n";
+        messege += "$combat info:\nattack roll: " + playerAttackPower + "\ndefense roll: " + monsterDefense +
+                "\ndamage: " + damage + "\n$";
         return messege;
     }
 

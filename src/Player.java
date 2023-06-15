@@ -47,7 +47,7 @@ abstract public class Player extends Unit {
 
     abstract public Pair<LinkedList<Enemy>,String> cast();
     public String LVLUP(){
-        String messege="";
+        String messege="$";
             messege+="Level Up!\nnew Level - ";
             EXP-=LVL*50;
             LVL++;
@@ -61,14 +61,7 @@ abstract public class Player extends Unit {
             messege+="Defence points - "+ LVL+"\n";
         return messege;
     }
-    @Override
-    public String toString(){
 
-        String messege="my stats:\n" + super.toString();
-        messege+="EXP: "+ EXP+" \\"+50*LVL+"  ";
-        messege+="LVL: "+ LVL+"  ";
-        return messege+"\n";
-    }
 
     public Pair<Integer,Integer> move(char input){
         if (input == 'a'){
@@ -117,7 +110,7 @@ abstract public class Player extends Unit {
         return new Pair<Unit,String>(null,"");
     }
     public Pair<Unit,String> accept(Enemy e){
-        String messege =this.toString()+ "enemy "+e.name+ " is attacking, his stats:\n "+e.toString();
+        String messege ="$enemy "+e.name+ " is attacking\n$" + this.combatString()+ e.name + "his stats:\n "+e.toString()+"\n";
         Random random = new Random();
         int monsterAttackPower = random.nextInt(e.attackPoints);
         messege+=this.attacked(monsterAttackPower);
@@ -129,15 +122,29 @@ abstract public class Player extends Unit {
         int playerDefense = random.nextInt(this.defencePoints);
         double damage= Math.max(0,monsterAttackPower - defencePoints);
         this.reduceHealth(damage);
-        messege +="combat info:\nattack roll: "+monsterAttackPower+"\ndefense roll: "+playerDefense+
-                "\ndamage: "+damage+"\n";
+        messege +="$combat info:\nattack roll: "+monsterAttackPower+"\ndefense roll: "+playerDefense+
+                "\ndamage: "+damage+"\n$";
         if (this.isDead()){
-            messege+= "YOU DIED\n";
+            messege+= "$YOU DIED\n";
             this.sign = 'X';
         }
         return messege;
     }
     public void EXPGain(int EXP){
         this.EXP+=EXP;
+    }
+
+    public String combatString(){
+        String messege="my Combat stats:\n" + super.toString();
+        return messege+"\n";
+    }
+
+    @Override
+    public String toString(){
+
+        String messege="my stats:\n" + super.toString();
+        messege+="EXP: "+ EXP+" \\"+50*LVL+"  ";
+        messege+="LVL: "+ LVL+"  ";
+        return messege+"\n";
     }
 }

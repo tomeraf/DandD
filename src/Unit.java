@@ -1,4 +1,4 @@
-abstract public class Unit extends Tiles{
+abstract public class Unit extends Tiles {
     protected String name;
     protected double healthPool;
     protected double healthAmount;

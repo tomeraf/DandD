@@ -1,13 +1,10 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.nio.file.Path;
 import java.util.LinkedList;
-import java.util.Scanner;
 
 public class LVL {
     private LinkedList<Enemy> e;
     private Board board;
     private Player p;
+
     public LVL(String number, Player player, String path)  {
         p =player;
         board=new Board();
@@ -32,8 +29,6 @@ public class LVL {
     }
     private void PowerListRefresh(){
         p.powerRefresh(e);
-
-
     }
     public String Start(){
         p.powerRefresh(e);
@@ -48,14 +43,15 @@ public class LVL {
             Tiles tile = board.getTile(whereToMove.first(),whereToMove.second());
             Pair<Unit,String> attackResult = enemy.attack(tile);
             messege+=attackResult.second();
-            if (attackResult.first()!=null && attackResult.first().isDead()){
+            if (attackResult.first()!=null && attackResult.first().isDead()){//player died
                 return messege;
-            } else if (attackResult.first()==null) {
+            } else if (attackResult.first()==null) {//go to empty
                 board.swap(enemy,whereHeWas);
             }
         }
+        if(!messege.isEmpty())
+            messege+="%";
         PowerListRefresh();
-        messege+=Display();
         return messege;
     }
     public String Act(char input){
