@@ -66,7 +66,6 @@ public class LVL {
             Pair<Unit,String> attackResult = p.attack(tile);
             messege+=attackResult.second();
             if (attackResult.first()!=null && attackResult.first().isDead()){
-                Pair<Integer,Integer> newEmpty = new Pair<>(p.GetX(),p.GetY());
                 p.movement(attackResult.first().GetX(),attackResult.first().GetY());
                 board.swap(p,whereHeWas);
                 e.remove(attackResult.first());
@@ -75,7 +74,7 @@ public class LVL {
             }
         }
         else if(input=='e'){
-            LinkedList<Unit> killed=null;
+            LinkedList<Unit> killed;
             Pair<LinkedList<Unit>,String> castResult=p.castAbility(p);
             killed=castResult.first();
             messege=castResult.second()+"\n";
@@ -87,7 +86,7 @@ public class LVL {
                     e.remove(u);
             }
         } else if (input=='q') {
-            // to implement 'Resting'.
+            messege=p.rest();
         }
 
         PowerListRefresh();
