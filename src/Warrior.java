@@ -13,17 +13,22 @@ public class Warrior extends Player {
         visionRange=3;
     }
 
+    @Override
     public int GetResourcePool(){return cd;}
+    @Override
     public void SetResourcePool(int value){cd=value;}
 
+    @Override
     public int GetResourceRemaining(){return cdRemaining;}
+    @Override
     public void SetResourceRemaining(int value){cdRemaining=value;}
 
-    public Pair<LinkedList<Enemy>,String> cast(){
-        LinkedList<Enemy> killed = new LinkedList<Enemy>();
+    @Override
+    public Pair<LinkedList<Unit>,String> castAbility(Player p){
+        LinkedList<Unit> killed = new LinkedList<>();
         if(cdRemaining==0){
-            cdRemaining=cd-1;
-            if(power.size()>0) {
+            cdRemaining=cd+1;
+            if(!power.isEmpty()) {
                 Random r = new Random();
                 int randomEnemyIndex = r.nextInt(power.size());
                 Iterator<Enemy> iter = power.iterator();
@@ -37,9 +42,9 @@ public class Warrior extends Player {
                 }
             }
             healthAmount=Math.min(healthPool,healthAmount+defencePoints*10);
-            return new Pair<LinkedList<Enemy>,String>(killed,"GO GO Avenger’s Shield!");
+            return new Pair<LinkedList<Unit>,String>(killed,"GO GO Avenger’s Shield!");
         }
-        return new Pair<LinkedList<Enemy>,String>(killed,"fail,cooldown Remaining:"+ cdRemaining);
+        return new Pair<LinkedList<Unit>,String>(killed,"fail,cooldown Remaining:"+ cdRemaining);
     }
     @Override
     public String LVLUP(){
@@ -53,7 +58,7 @@ public class Warrior extends Player {
         attackPoints+=2*LVL;
         messege+="Attack points - "+ 2*LVL+"\n";
         defencePoints+=LVL;
-        messege+="Defence points - "+ 2*LVL+"\n";
+        messege+="Defence points - "+ LVL+"\n";
         return messege+"\n$";
     }
 
@@ -72,6 +77,7 @@ public class Warrior extends Player {
     @Override
     public String toString(){
         String s=super.toString();
+        if(x!=0)
         s+="Avenger’s Shield CD: "+cdRemaining+"/"+cd;
         return s+"\n";
     }

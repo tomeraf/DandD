@@ -1,6 +1,5 @@
 public class Trap extends Enemy {
     protected boolean visibility;
-    final private double activationRange = 2.0;
     protected  int visibilityTime;
     protected  int invisibilityTime;
     protected int ticksCount;
@@ -14,6 +13,7 @@ public class Trap extends Enemy {
         visibilityTime=VisibilityTime;
         ticksCount=invisibilityTime;
         invisibilityTime=InvisibilityTime;
+        vision=2;
     }
 
     public boolean GetVisibility(){return visibility;}
@@ -33,7 +33,7 @@ public class Trap extends Enemy {
             sign = trueSign;
             ticksCount=0;
         }
-        if (this.isInRange(p,activationRange)){
+        if (this.isInRange(p,vision)){
             return new Pair<Integer,Integer>(p.GetX(),p.GetY());
         } else {
             return new Pair<Integer,Integer>(this.GetX(),this.GetY());

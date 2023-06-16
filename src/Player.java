@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 import java.util.Random;
 
-abstract public class Player extends Unit {
+abstract public class Player extends Unit implements HeroicUnit {
     protected int EXP;
     protected int LVL;
 
@@ -45,7 +45,7 @@ abstract public class Player extends Unit {
         return healthAmount==0;
     }
 
-    abstract public Pair<LinkedList<Enemy>,String> cast();
+    abstract public Pair<LinkedList<Unit>,String> castAbility(Player p);
     public String LVLUP(){
         String messege="$";
             messege+="Level Up!\nnew Level - ";
@@ -110,7 +110,12 @@ abstract public class Player extends Unit {
         return new Pair<Unit,String>(null,"");
     }
     public Pair<Unit,String> accept(Enemy e){
-        String messege ="$enemy "+e.name+ " is attacking\n$" + this.combatString()+ e.name + "his stats:\n "+e.toString()+"\n";
+        String typeOfAttack= "attacking us";
+        if(e.shooting) {
+            e.shooting = false;
+            typeOfAttack="shooting us";
+        }
+        String messege ="$enemy "+e.name+ " is "+typeOfAttack+"\n$" + this.combatString()+ e.name + " stats:\n "+e.toString()+"\n";
         Random random = new Random();
         int monsterAttackPower = random.nextInt(e.attackPoints);
         messege+=this.attacked(monsterAttackPower);
@@ -142,7 +147,7 @@ abstract public class Player extends Unit {
     @Override
     public String toString(){
 
-        String messege="my stats:\n" + super.toString();
+        String messege=name+" stats:\n" + super.toString();
         messege+="EXP: "+ EXP+" \\"+50*LVL+"  ";
         messege+="LVL: "+ LVL+"  ";
         return messege+"\n";

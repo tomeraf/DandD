@@ -1,3 +1,5 @@
+
+
 import java.util.LinkedList;
 
 public class LVL {
@@ -73,15 +75,16 @@ public class LVL {
             }
         }
         else if(input=='e'){
-            LinkedList<Enemy> killed=null;
-            Pair<LinkedList<Enemy>,String> castResult=p.cast();
+            LinkedList<Unit> killed=null;
+            Pair<LinkedList<Unit>,String> castResult=p.castAbility(p);
             killed=castResult.first();
-            messege=castResult.second();
-
+            messege=castResult.second()+"\n";
+            if(messege.contains("fail"))
+                return messege;
             if(!killed.isEmpty()) {
                 board.delete(killed);
-                for(Enemy enemy:killed)
-                    e.remove(enemy);
+                for(Unit u:killed)
+                    e.remove(u);
             }
         } else if (input=='q') {
             // to implement 'Resting'.

@@ -2,11 +2,18 @@ import java.util.Random;
 
 abstract public class Enemy extends Unit {
     protected int EXPgain;
+    protected int vision;
+
+    protected boolean shooting;
 
     public Enemy(int X, int Y, int HealthPool, int AttackPoints, int DefencePoints, String Name) {
         super(X, Y, HealthPool, AttackPoints, DefencePoints, Name);
         EXPgain = 0;
+        vision=0;
+        shooting=false;
     }
+
+    public boolean isShooting(){return shooting;}
 
     public int GetEXPgain() {
         return EXPgain;

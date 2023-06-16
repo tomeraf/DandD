@@ -9,7 +9,8 @@ public class Client {
         System.out.println("1. Warrior\n");
         System.out.println("2. Mage\n");
         System.out.println("3. Rogue\n");
-        int input=Inputer.numberInput('3');
+        System.out.println("4. Hunter\n");
+        int input= Inputer.numberInput('4');
         Player p=null;
 
         if(input==0)
@@ -32,9 +33,9 @@ public class Client {
         else if(input==2){
             Printer.print("CHOOSE YOUR Mage:");
             Thread.sleep(300);
-            System.out.println("1. Melisandre");
-            System.out.println("2. Thoros of Myr");
-            System.out.println("OR PRESS 0 TO GO BACK");
+            System.out.println("1. Melisandre\n");
+            System.out.println("2. Thoros of Myr\n");
+            System.out.println("OR PRESS 0 TO GO BACK\n");
             input = Inputer.numberInput('2');
 
             if(input==0)
@@ -45,12 +46,12 @@ public class Client {
                 p=new Mage(0,0,150,20,20,3,250,25,4,4,"Thoros of Myr");
 
         }//end of input mage
-        if(input==3) {
+        else if(input==3) {
             Printer.print("CHOOSE YOUR Rogue:");
             Thread.sleep(300);
-            System.out.println("1. Arya Stark");
-            System.out.println("2. Bronn");
-            System.out.println("OR PRESS 0 TO GO BACK");
+            System.out.println("1. Arya Stark\n");
+            System.out.println("2. Bronn\n");
+            System.out.println("OR PRESS 0 TO GO BACK\n");
             input = Inputer.numberInput('2');
 
             if(input==0)
@@ -61,13 +62,29 @@ public class Client {
                 p=new Rogue(0,0,50,250,35,3,"Bronn");
 
         }//end if input rogue
+        else if(input==4) {
+            Printer.print("CHOOSE YOUR Hunter:");
+            Thread.sleep(300);
+            System.out.println("1. Ygritte\n");
+            System.out.println("2. Tal Brami\n");
+            System.out.println("OR PRESS 0 TO GO BACK\n");
+            input = Inputer.numberInput('2');
+
+            if (input == 1)
+                p = new Hunter(0, 0, 220, 30, 2, 6, "Ygritte");
+            if (input == 2)
+                p = new Hunter(0, 0, 1, 1000, 1, 10, "Tal Brami");
+
+        }//end of input Hunter
+
+        Printer.print("\n\nYou Choose: "+p+"\n");
 
         Printer.print("CHOOSE CAMPAIGN:");
         Thread.sleep(300);
-        System.out.println("1. Night's King");
-        System.out.println("2. Mor the wise (tutorial)");
-        System.out.println("3. Tomer The Eternal (Endless)");
-        System.out.println("OR PRESS 0 TO RESTART CHOICES");
+        System.out.println("1. Night's King\n");
+        System.out.println("2. Mor the wise (tutorial)\n");
+        System.out.println("3. Tomer The Eternal (Endless)\n");
+        System.out.println("OR PRESS 0 TO RESTART CHOICES\n");
         input = Inputer.numberInput('3');
 
         String CName=null;
@@ -86,6 +103,10 @@ public class Client {
             Thread.sleep(500);
             System.out.println(".");
             Thread.sleep(500);
+            System.out.println(".");
+            Thread.sleep(500);
+            System.out.println(".");
+            Thread.sleep(500);
             LevelManager("" + i, p,CName,path);
         }
         return false;
@@ -96,7 +117,12 @@ public class Client {
             LVL l = new LVL(number, p,path);
             System.out.println(l.Start());
             while (!l.IsEnd()) {
-                Printer.printLVL(l.Act(Inputer.actInput()));
+                String act=l.Act(Inputer.actInput());
+                while(act.contains("fail")) {
+                    Printer.printLVL(act);
+                    act=l.Act(Inputer.actInput());
+                }
+                Printer.printLVL(act);
                 Printer.printLVL(l.Tick());
 
                 System.out.println(l.Display());
@@ -117,8 +143,10 @@ public class Client {
         else if(name.equals("4"))
             Printer.print("Victory!");
         else
-            Printer.print("you finished level "+ name +", proceed to the next Level by inputting any key\n\n\n\n");
+            Printer.print("you finished level "+ name +", proceed to the next Level by inputting any key\n\n");
         Scanner scanner = new Scanner(System.in);
+        String input=scanner.next();
+        System.out.println("\n\n");
     }
 
 

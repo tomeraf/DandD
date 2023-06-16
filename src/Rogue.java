@@ -12,27 +12,27 @@ public class Rogue extends Player {
         energyCost = EnergyCost;
         visionRange=2;
     }
-
+    @Override
     public int GetResourcePool() {
         return energyPool;
     }
-
+    @Override
     public void SetResourcePool(int value) {
         energyPool = value;
     }
-
+    @Override
     public int GetResourceRemaining() {
         return energyRemaining;
     }
-
+    @Override
     public void SetResourceRemaining(int value) {
         energyRemaining = value;
     }
-
-    public Pair<LinkedList<Enemy>,String> cast() {
-        LinkedList<Enemy> killed = new LinkedList<Enemy>();
+    @Override
+    public Pair<LinkedList<Unit>,String> castAbility(Player p) {
+        LinkedList<Unit> killed = new LinkedList<>();
         if (energyRemaining >= energyCost) {
-            energyRemaining -= Math.max(0, energyRemaining - energyCost)-10;
+            energyRemaining -= energyCost+10;
             for(Enemy e:power) {
                 e.attacked(attackPoints);
                 if (e.isDead()) {
@@ -41,10 +41,11 @@ public class Rogue extends Player {
                     killed.addFirst(e);
                 }
             }
-            return new Pair<LinkedList<Enemy>,String>(killed,"i have only 1 fan of my Knives,he is OnlyFan of Knives");
+            return new Pair<LinkedList<Unit>,String>(killed,"i have only 1 fan of my Knives,he is OnlyFan of Knives");
         }
-        return new Pair<LinkedList<Enemy>,String>(killed,"fail,not enough mana");
+        return new Pair<LinkedList<Unit>,String>(killed,"fail,not enough energy");
     }
+    @Override
     public String LVLUP(){
         String messege="$";
         messege+=super.LVLUP();
@@ -55,6 +56,7 @@ public class Rogue extends Player {
         messege+="Attack Points - "+3*LVL +"\n";
         return messege+'$';
     }
+    @Override
     public String tick(LinkedList<Enemy> e){
         {
             energyRemaining=Math.min(energyRemaining+10,100);
@@ -66,9 +68,10 @@ public class Rogue extends Player {
         }
     }
 
+    @Override
     public String toString(){
         String messege=super.toString();
-        messege+="Energy: "+energyRemaining+"/"+energyRemaining+"  ";
+        messege+="Energy: "+energyRemaining+"/"+energyPool+"  ";
         messege+="Fan of Knives cost: "+energyCost;
         return messege+"\n";
     }
