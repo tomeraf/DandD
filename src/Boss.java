@@ -14,34 +14,36 @@ public class Boss extends Enemy implements  HeroicUnit {
         combatTicks = 0;
     }
 
+    @Override
     public Pair<LinkedList<Unit>, String> castAbility(Player p) {
         LinkedList<Unit> player = new LinkedList<>();
         player.addFirst(p);
-    return new Pair<LinkedList<Unit>, String>(player,"");
+    return new Pair<>(player, "");
     }
 
     //note from developers: this "cast ability" thing is stupid and unesesery  but you want it so here you got it...
 
+    @Override
     public Pair<Integer,Integer> move(Player p) {
         if (this.isInRange(p,this.vision)) {
             if (combatTicks == abilityFreq) {//shooting him
                 combatTicks = 0;
                 shooting=true;
                 LinkedList<Unit> player=castAbility(p).first();
-                return new Pair<Integer,Integer>(player.getFirst().x,player.getFirst().y);//trying to go to his place(aka attacking him)(aka shooting him)
+                return new Pair<>(player.getFirst().x, player.getFirst().y);//trying to go to his place(aka attacking him)(aka shooting him)
             } else {
                 int DX = this.GetX() - p.GetX();
                 int DY = this.GetY() - p.GetY();
                 if (Math.abs(DX) > Math.abs(DY)) {
                     if (DX > 0)
-                        return new Pair<Integer, Integer>(this.GetX() - 1, this.GetY());//going left
+                        return new Pair<>(this.GetX() - 1, this.GetY());//going left
                     else
-                        return new Pair<Integer, Integer>(this.GetX() + 1, this.GetY());//going right
+                        return new Pair<>(this.GetX() + 1, this.GetY());//going right
                 } else {
                     if (DY > 0)
-                        return new Pair<Integer, Integer>(this.GetX(), this.GetY() - 1);//going up
+                        return new Pair<>(this.GetX(), this.GetY() - 1);//going up
                     else
-                        return new Pair<Integer, Integer>(this.GetX(), this.GetY() + 1);//going down
+                        return new Pair<>(this.GetX(), this.GetY() + 1);//going down
                 }
             }
         }

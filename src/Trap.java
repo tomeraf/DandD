@@ -11,8 +11,8 @@ public class Trap extends Enemy {
         EXPgain=EXPGain;
         visibility=false;
         visibilityTime=VisibilityTime;
-        ticksCount=invisibilityTime;
         invisibilityTime=InvisibilityTime;
+        ticksCount=invisibilityTime;
         vision=2;
     }
 
@@ -22,6 +22,7 @@ public class Trap extends Enemy {
     public int GetTicksCount(){return ticksCount;}
     public void SetTicksCount(int value){ticksCount=value;}
 
+    @Override
     public Pair<Integer,Integer> move(Player p ){
         ticksCount++;
         if (visibility && ticksCount==visibilityTime){
@@ -34,9 +35,9 @@ public class Trap extends Enemy {
             ticksCount=0;
         }
         if (this.isInRange(p,vision)){
-            return new Pair<Integer,Integer>(p.GetX(),p.GetY());
+            return new Pair<>(p.GetX(), p.GetY());
         } else {
-            return new Pair<Integer,Integer>(this.GetX(),this.GetY());
+            return new Pair<>(this.GetX(), this.GetY());
         }
     }
 }

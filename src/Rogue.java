@@ -28,6 +28,15 @@ public class Rogue extends Player {
     public void SetResourceRemaining(int value) {
         energyRemaining = value;
     }
+
+    @Override
+    public String rest(){
+        String messege="$"+super.rest();
+        energyRemaining=Math.min(energyRemaining+10,100);
+        messege+="Energy gained: 20\n$";
+        return messege;
+    }
+
     @Override
     public Pair<LinkedList<Unit>,String> castAbility(Player p) {
         LinkedList<Unit> killed = new LinkedList<>();
@@ -41,9 +50,9 @@ public class Rogue extends Player {
                     killed.addFirst(e);
                 }
             }
-            return new Pair<LinkedList<Unit>,String>(killed,"i have only 1 fan of my Knives,he is OnlyFan of Knives");
+            return new Pair<>(killed, "i have only 1 fan of my Knives,he is OnlyFan of Knives");
         }
-        return new Pair<LinkedList<Unit>,String>(killed,"fail,not enough energy");
+        return new Pair<>(killed, "fail,not enough energy");
     }
     @Override
     public String LVLUP(){
@@ -61,10 +70,10 @@ public class Rogue extends Player {
         {
             energyRemaining=Math.min(energyRemaining+10,100);
             powerRefresh(e);
-            String send="";
+            String Messege="";
             while(didLVLUP())
-                send+=LVLUP();
-            return send;
+                Messege+=LVLUP();
+            return Messege;
         }
     }
 

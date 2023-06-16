@@ -1,6 +1,4 @@
-import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Random;
 
 public class Hunter extends Player {
     protected int tickCount;
@@ -30,16 +28,29 @@ public class Hunter extends Player {
             for (Enemy enemyPower : power)
                 if (range(enemyPower) < range(enemy))
                     enemy=enemyPower;
-            power=new LinkedList<Enemy>();
+            power= new LinkedList<>();
             power.addFirst(enemy);
         }
+    }
+
+    @Override
+    public String rest(){
+        String messege="$"+super.rest();
+        if(tickCount==10) {
+            arrowsCount += LVL;
+            tickCount=0;
+        }
+        else
+            tickCount++;
+        messege+="tick Counter got lower by 2\n$";
+        return messege;
     }
 
     @Override
     public Pair<LinkedList<Unit>,String> castAbility(Player p){
         LinkedList<Unit> killed = new LinkedList<>();
         if(arrowsCount==0)
-            return new Pair<LinkedList<Unit>,String>(killed,"fail,no arrows left");
+            return new Pair<>(killed, "fail,no arrows left");
         if(!power.isEmpty() ){
             arrowsCount--;
             Enemy e=power.getFirst();
@@ -50,9 +61,9 @@ public class Hunter extends Player {
                 killed.addFirst(e);
 
             }//if dead enemy
-            return new Pair<LinkedList<Unit>,String>(killed,"I AM THE HUNTER!");
+            return new Pair<>(killed, "I AM THE HUNTER!");
         }//if power>0
-        return new Pair<LinkedList<Unit>,String>(killed,"fail,no enemy near");
+        return new Pair<>(killed, "fail,no enemy near");
     }
     @Override
     public String LVLUP(){

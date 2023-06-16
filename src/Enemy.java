@@ -22,41 +22,41 @@ abstract public class Enemy extends Unit {
     public void SetEXPgain(int value) {
         EXPgain = value;
     }
-
+    @Override
     public Pair<Unit, String> attack(Unit u) {
         return u.accept(this);
     }
-
+    @Override
     public Pair<Unit, String> attack(Enemy e) {
         return e.accept(this);
     }
-
+    @Override
     public Pair<Unit, String> attack(Player p) {
         return p.accept(this);
     }
-
+    @Override
     public Pair<Unit, String> attack(Wall w) {
         return w.accept(this);
     }
-
+    @Override
     public Pair<Unit, String> attack(Empty empty) {
         return empty.accept(this);
     }
-
+    @Override
     public Pair<Unit, String> attack(Tiles t) {
         return t.accept(this);
     }
-
+    @Override
     public Pair<Unit, String> accept(Enemy e) {
-        return new Pair<Unit, String>(this, "");
+        return new Pair<>(this, "");
     }
-
+    @Override
     public Pair<Unit, String> accept(Unit u) {
-        return new Pair<Unit, String>(null, "");
+        return new Pair<>(null, "");
     }
-
+    @Override
     public Pair<Unit, String> accept(Player p) {
-        String messege = "$you are attacking the enemy "+this.name+ "\n$"+ p.combatString() + this.name+ "stats:\n "+this.toString();
+        String messege = "$you are attacking the enemy "+this.name+ "\n$"+ p.combatString() + this.name+ "stats:\n "+this;
         Random random = new Random();
         int playerAttackPower = random.nextInt(p.attackPoints);
         messege += this.attacked(playerAttackPower);
@@ -64,7 +64,7 @@ abstract public class Enemy extends Unit {
             messege += this.name + " killed and you gained " + this.EXPgain + " EXP\n";
             p.EXPGain(this.EXPgain);
         }
-        return new Pair<Unit, String>(this, messege);
+        return new Pair<>(this, messege);
 
     }
 

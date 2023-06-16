@@ -29,6 +29,15 @@ public class Mage extends Player {
     public void SetResourceRemaining(int value){manaRemaining=value;}
 
     @Override
+    public String rest(){
+        String messege="$"+super.rest();
+        manaRemaining=Math.min(manaPool,manaRemaining+LVL);
+        messege+="Mana gained: "+LVL*2+"\n$";
+        return messege;
+    }
+
+
+    @Override
     public Pair<LinkedList<Unit>,String> castAbility(Player p){
         LinkedList<Unit> killed = new LinkedList<>();
         if(manaRemaining>=manaCost){
@@ -52,9 +61,9 @@ public class Mage extends Player {
                 }//while hits
             }//if power>0
 
-            return new Pair<LinkedList<Unit>,String>(killed,"hocus pocus,Blizzard apearus");
+            return new Pair<>(killed, "hocus pocus,Blizzard apearus");
         }
-        return new Pair<LinkedList<Unit>,String>(killed,"fail,not enough mana");
+        return new Pair<>(killed, "fail,not enough mana");
     }
     @Override
     public String LVLUP(){

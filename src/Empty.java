@@ -3,6 +3,7 @@ public class Empty extends Tiles {
         super(X,Y);
         sign='.';
     }
+    @Override
     public Pair<Unit,String> accept(Enemy e){
         int temp = e.GetX();
         e.SetX(this.GetX());
@@ -10,8 +11,9 @@ public class Empty extends Tiles {
         temp = e.GetY();
         e.SetY(this.GetY());
         this.SetY(temp);
-        return new Pair<Unit,String>(null,"");
+        return new Pair<>(null, "");
     }
+    @Override
     public Pair<Unit,String> accept(Player p){
         int temp = p.GetX();
         p.SetX(this.GetX());
@@ -19,10 +21,11 @@ public class Empty extends Tiles {
         temp = p.GetY();
         p.SetY(this.GetY());
         this.SetY(temp);
-        return new Pair<Unit,String>(null,"");
+        return new Pair<>(null, "");
     }
+    @Override
     public Pair<Unit,String> accept(Unit u){
-        return new Pair<Unit,String>(null,"");
+        return new Pair<>(null, "");
     }
 
 }

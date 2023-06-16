@@ -14,11 +14,11 @@ abstract public class Player extends Unit implements HeroicUnit {
         EXP=0;
         LVL=1;
         visionRange=0;
-        power=new LinkedList<Enemy>();
+        power= new LinkedList<>();
         sign='@';
     }
     public void powerRefresh(LinkedList<Enemy> e){
-        power=new LinkedList<Enemy>();
+        power= new LinkedList<>();
         for(Enemy enemy:e)
             if(isInRange(enemy,visionRange))
                 power.add(enemy);
@@ -41,24 +41,20 @@ abstract public class Player extends Unit implements HeroicUnit {
         return EXP;
     }
 
-    public boolean isDead(){
-        return healthAmount==0;
-    }
-
     abstract public Pair<LinkedList<Unit>,String> castAbility(Player p);
     public String LVLUP(){
         String messege="$";
-            messege+="Level Up!\nnew Level - ";
-            EXP-=LVL*50;
-            LVL++;
-            messege+=LVL+" stats gained: \n";
-            healthPool+=10*LVL;
-            messege+="Max Health - "+ 10*LVL+"\n";
-            healthAmount=healthPool;
-            attackPoints+=4*LVL;
-            messege+="Attack points - "+ 4*LVL+"\n";
-            defencePoints+=LVL;
-            messege+="Defence points - "+ LVL+"\n";
+        messege+="Level Up!\nnew Level - ";
+        EXP-=LVL*50;
+        LVL++;
+        messege+=LVL+" stats gained: \n";
+        healthPool+=10*LVL;
+        messege+="Max Health - "+ 10*LVL+"\n";
+        healthAmount=healthPool;
+        attackPoints+=4*LVL;
+        messege+="Attack points - "+ 4*LVL+"\n";
+        defencePoints+=LVL;
+        messege+="Defence points - "+ LVL+"\n";
         return messege;
     }
 
@@ -78,6 +74,13 @@ abstract public class Player extends Unit implements HeroicUnit {
         }
         throw new RuntimeException("fault in move function player");
     }
+     public String rest(){
+        String messege="$Rest gain:";
+        increaseHealth(LVL);
+        messege+="HP restored -"+LVL+"\n$";
+        return messege;
+     }
+
 
 
     protected boolean didLVLUP(){
@@ -85,42 +88,53 @@ abstract public class Player extends Unit implements HeroicUnit {
     }
 
     abstract public String tick(LinkedList<Enemy> e);
+    @Override
     public Pair<Unit,String> attack(Unit u){
         return u.accept(this);
     }
+    @Override
     public Pair<Unit,String> attack(Enemy e){
         return e.accept(this);
     }
+    @Override
     public Pair<Unit,String> attack(Tiles t){
         return t.accept(this);
     }
+    @Override
     public Pair<Unit,String> attack(Player p){
         return p.accept(this);
     }
+    @Override
     public Pair<Unit,String> attack(Wall w){
         return w.accept(this);
     }
+    @Override
     public Pair<Unit,String> attack(Empty empty){
         return empty.accept(this);
     }
+    @Override
     public Pair<Unit,String> accept(Unit u){
-        return new Pair<Unit,String>(null,"");
+        return new Pair<>(null, "");
     }
+    @Override
     public Pair<Unit,String> accept(Player p){
-        return new Pair<Unit,String>(null,"");
+        return new Pair<>(null, "");
     }
+    @Override
     public Pair<Unit,String> accept(Enemy e){
         String typeOfAttack= "attacking us";
         if(e.shooting) {
             e.shooting = false;
             typeOfAttack="shooting us";
         }
-        String messege ="$enemy "+e.name+ " is "+typeOfAttack+"\n$" + this.combatString()+ e.name + " stats:\n "+e.toString()+"\n";
+        String messege ="$enemy "+e.name+ " is "+typeOfAttack+"\n$" + this.combatString()+ e.name + " stats:\n "+e+"\n";
         Random random = new Random();
         int monsterAttackPower = random.nextInt(e.attackPoints);
         messege+=this.attacked(monsterAttackPower);
-        return new Pair<Unit,String>(this,messege);
+        return new Pair<>(this, messege);
     }
+
+
     public String attacked(int monsterAttackPower) {
         String messege = "";
         Random random = new Random();

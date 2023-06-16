@@ -47,10 +47,10 @@ abstract public class Unit extends Tiles {
         return messege+"\n";
     }
 
-    public double range(Unit u){
+    protected double range(Unit u){
         return Math.sqrt(Math.pow(x-u.x,2)+Math.pow(y-u.y,2));
     }
-    public boolean isInRange(Unit u,double range){
+    protected boolean isInRange(Unit u,double range){
         return range(u)<range;
     }
     abstract public Pair<Unit,String> attack(Unit u);

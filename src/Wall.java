@@ -4,14 +4,17 @@ public class Wall extends Tiles {
         super(X,Y);
         sign='#';
     }
+    @Override
     public Pair<Unit,String> accept(Enemy e){
-        return new Pair<Unit,String>(e,"");
+        return new Pair<>(e, "");
     }
+    @Override
     public Pair<Unit,String> accept(Player p){
-        return new Pair<Unit,String>(p,"");
+        return new Pair<>(p, "");
     }
+    @Override
     public Pair<Unit,String> accept(Unit u){
-        return new Pair<Unit,String>(u,"");
+        return new Pair<>(u, "");
     }
 
 

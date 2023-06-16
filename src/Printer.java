@@ -23,7 +23,7 @@ public class Printer {
             }
             if (i < message.length() && message.charAt(i) == '$')//combat! slower speed
                 i++;
-            if(i < message.length() && message.charAt(i)=='$') {//lvl up more speed
+            if(i < message.length() && message.charAt(i)=='$') {//lvl up/rest more speed
                 speed = 10;
                 i++;
                 }

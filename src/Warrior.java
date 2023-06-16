@@ -24,6 +24,15 @@ public class Warrior extends Player {
     public void SetResourceRemaining(int value){cdRemaining=value;}
 
     @Override
+    public String rest(){
+        String messege="$"+super.rest();
+        cdRemaining=Math.max(0,cdRemaining-1);
+        messege+="CD got lower by 2\n$";
+        return messege;
+    }
+
+
+    @Override
     public Pair<LinkedList<Unit>,String> castAbility(Player p){
         LinkedList<Unit> killed = new LinkedList<>();
         if(cdRemaining==0){
@@ -32,7 +41,7 @@ public class Warrior extends Player {
                 Random r = new Random();
                 int randomEnemyIndex = r.nextInt(power.size());
                 Iterator<Enemy> iter = power.iterator();
-                for (int i = 0; i < randomEnemyIndex; iter.next()) ;
+                for (int i = 0; i < randomEnemyIndex; i++,iter.next()) ;
                 Enemy e = iter.next();
                 e.reduceHealth(0.1 * healthPool);
                 if (e.isDead()) {
@@ -42,9 +51,9 @@ public class Warrior extends Player {
                 }
             }
             healthAmount=Math.min(healthPool,healthAmount+defencePoints*10);
-            return new Pair<LinkedList<Unit>,String>(killed,"GO GO Avenger’s Shield!");
+            return new Pair<>(killed, "GO GO Avenger’s Shield!");
         }
-        return new Pair<LinkedList<Unit>,String>(killed,"fail,cooldown Remaining:"+ cdRemaining);
+        return new Pair<>(killed, "fail,cooldown Remaining:" + cdRemaining);
     }
     @Override
     public String LVLUP(){
@@ -68,17 +77,17 @@ public class Warrior extends Player {
     public String tick(LinkedList<Enemy> e){
         cdRemaining=Math.max(0,cdRemaining-1);
         powerRefresh(e);
-        String send="";
+        String Messege="";
         while(didLVLUP())
-            send+=LVLUP();
-        return send;
+            Messege+=LVLUP();
+        return Messege;
     }
 
     @Override
     public String toString(){
         String s=super.toString();
         if(x!=0)
-        s+="Avenger’s Shield CD: "+cdRemaining+"/"+cd;
+            s+="Avenger’s Shield CD: "+cdRemaining+"/"+cd;
         return s+"\n";
     }
 }
