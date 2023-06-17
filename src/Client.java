@@ -35,8 +35,9 @@ public class Client {
             Thread.sleep(300);
             System.out.println("1. Melisandre\n");
             System.out.println("2. Thoros of Myr\n");
+            System.out.println("3. Lihi\n");
             System.out.println("OR PRESS 0 TO GO BACK\n");
-            input = Inputer.numberInput('2');
+            input = Inputer.numberInput('3');
 
             if(input==0)
                 return true;
@@ -44,6 +45,8 @@ public class Client {
                 p=new Mage(0,0,300,30,15,5,100,5,1,6,"Melisandre");
             if(input==2)
                 p=new Mage(0,0,150,20,20,3,250,25,4,4,"Thoros of Myr");
+            if(input==3)
+                p=new Mage(0,0,5,1,10000,100,10000,10000,4000,10,"Lihi");
 
         }//end of input mage
         else if(input==3) {
@@ -70,10 +73,12 @@ public class Client {
             System.out.println("OR PRESS 0 TO GO BACK\n");
             input = Inputer.numberInput('2');
 
+            if(input==0)
+                return true;
             if (input == 1)
                 p = new Hunter(0, 0, 220, 30, 2, 6, "Ygritte");
             if (input == 2)
-                p = new Hunter(0, 0, 1, 1000, 1, 10, "Tal Brami");
+                p = new Hunter(0, 0, 100, 1000, 1, 50, "Tal Brami");
 
         }//end of input Hunter
 
@@ -94,6 +99,15 @@ public class Client {
         if(input==2) {CName="Elder Mor";numberOFLVLs=1;}
         if(input==3) {CName="Tomer The Eternal";numberOFLVLs=1;}
 
+        Printer.print("SPEEDRUN?");
+        Thread.sleep(300);
+        System.out.println("1. yes\n");
+        System.out.println("2. no\n");
+        input = Inputer.numberInput('2');
+        boolean speedrun=false;
+        if(input==1)
+            speedrun=true;
+
         for(int i=1;i<=numberOFLVLs && !p.isDead();i++) {
             Printer.print("Loading LVL");
             Thread.sleep(500);
@@ -107,23 +121,23 @@ public class Client {
             Thread.sleep(500);
             System.out.println(".");
             Thread.sleep(500);
-            LevelManager("" + i, p,CName,path);
+            LevelManager("" + i, p,CName,path,speedrun);
         }
         return false;
     }
 
-    private static void LevelManager(String number, Player p, String CName, String path)throws InterruptedException{
+    private static void LevelManager(String number, Player p, String CName, String path,boolean speedrun)throws InterruptedException{
         if(CName.equals("Night's King")) {
             LVL l = new LVL(number, p,path);
             System.out.println(l.Start());
             while (!l.IsEnd()) {
                 String act=l.Act(Inputer.actInput());
                 while(act.contains("fail")) {
-                    Printer.printLVL(act);
+                    Printer.printLVL(act,speedrun);
                     act=l.Act(Inputer.actInput());
                 }
-                Printer.printLVL(act);
-                Printer.printLVL(l.Tick());
+                Printer.printLVL(act,speedrun);
+                Printer.printLVL(l.Tick(),speedrun);
 
                 System.out.println(l.Display());
             }
@@ -142,13 +156,11 @@ public class Client {
         }
         else if(name.equals("4"))
             Printer.print("Victory!");
-        else
-            Printer.print("you finished level "+ name +", proceed to the next Level by inputting any key\n\n");
-        Scanner scanner = new Scanner(System.in);
-        String input=scanner.next();
-        System.out.println("\n\n");
+        else {
+            Printer.print("you finished level " + name + ", proceed to the next Level by inputting any key\n\n");
+            Scanner scanner = new Scanner(System.in);
+            String input = scanner.next();
+            System.out.println("\n\n");
+        }
     }
-
-
-
 }

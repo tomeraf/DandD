@@ -23,7 +23,7 @@ public class Trap extends Enemy {
     public void SetTicksCount(int value){ticksCount=value;}
 
     @Override
-    public Pair<Integer,Integer> move(Player p ){
+    public Pair<Pair<Integer, Integer>,String> move(Player p ){
         ticksCount++;
         if (visibility && ticksCount==visibilityTime){
             visibility = false;
@@ -35,9 +35,9 @@ public class Trap extends Enemy {
             ticksCount=0;
         }
         if (this.isInRange(p,vision)){
-            return new Pair<>(p.GetX(), p.GetY());
+            return new Pair<>(new Pair<>(p.GetX(), p.GetY()),"");
         } else {
-            return new Pair<>(this.GetX(), this.GetY());
+            return new Pair<>(new Pair<>(this.GetX(), this.GetY()),"");
         }
     }
 }

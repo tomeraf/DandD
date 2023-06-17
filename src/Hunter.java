@@ -97,7 +97,8 @@ public class Hunter extends Player {
     @Override
     public String toString(){
         String messege=super.toString();
-            messege += "Arrow Counter: " + arrowsCount + "\n";
+        messege += "Arrow Counter: " + arrowsCount + "\n";
+        messege+="Range: "+visionRange+"  ";
         if(x!=0) {
             messege += "ticks Counts till more Arrows: " + (11-tickCount) + "\n";
             if(power.isEmpty())

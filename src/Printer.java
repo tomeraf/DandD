@@ -11,9 +11,20 @@ public class Printer {
     public static void print(String message)throws InterruptedException//default print
     {print(message,50);}
 
-    public static void printLVL(String message)throws InterruptedException{//special printer for the LVLs
+    public static void printLVL(String message,boolean speedrun)throws InterruptedException{//special printer for the LVLs
+
         char ch;
         int i=0;
+        if(speedrun) {
+            for (; i < message.length(); i++) {
+                ch = message.charAt(i);
+            if(ch!='$' && ch !='%')
+                System.out.print(ch);
+            }
+            System.out.println();
+            return;
+        }
+
         int speed;
         while(i < message.length()) {
             speed=40;

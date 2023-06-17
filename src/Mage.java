@@ -94,6 +94,7 @@ public class Mage extends Player {
         String messege=super.toString();
         messege+="Mana: "+manaRemaining+"/"+manaPool+"  ";
         messege+="Spell power: "+spellPower+"  ";
+        messege+="Range of Blizard: "+visionRange+"  ";
         messege+="Blizard's cost: "+ manaCost;
         return messege+"\n";
     }

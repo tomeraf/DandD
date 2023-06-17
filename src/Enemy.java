@@ -3,7 +3,6 @@ import java.util.Random;
 abstract public class Enemy extends Unit {
     protected int EXPgain;
     protected int vision;
-
     protected boolean shooting;
 
     public Enemy(int X, int Y, int HealthPool, int AttackPoints, int DefencePoints, String Name) {
@@ -79,5 +78,22 @@ abstract public class Enemy extends Unit {
         return messege;
     }
 
-    abstract public Pair<Integer, Integer> move(Player p);
+    abstract public Pair<Pair<Integer, Integer>,String> move(Player p);
+
+    protected  Pair<Pair<Integer,Integer>,String> randomMove(){
+        double move = Math.random();
+        if (move < 0.2) {
+            return new Pair<>(new Pair<Integer,Integer>(this.GetX() - 1, this.GetY()),"");//going left
+        }
+        if (move < 0.4) {
+            return new Pair<>(new Pair<Integer,Integer>(this.GetX(), this.GetY() + 1),"");//going down
+        }
+        if (move < 0.6) {
+            return new Pair<>(new Pair<Integer,Integer>(this.GetX(), this.GetY() - 1),"");//going up
+        }
+        if (move < 0.8) {
+            return new Pair<>(new Pair<Integer,Integer>(this.GetX() + 1, this.GetY()),"");//going right
+        }
+        return new Pair<>(new Pair<Integer,Integer>(this.GetX(), this.GetY()),"");//staying in place
+    }
 }

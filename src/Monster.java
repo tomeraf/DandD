@@ -8,21 +8,21 @@ public class Monster extends  Enemy{
         vision=Vision;
     }
     @Override
-    public Pair<Integer,Integer> move(Player p) {
+    public Pair<Pair<Integer,Integer>,String> move(Player p) {
         if (this.isInRange(p,this.vision)) {
             int DX = this.GetX()-p.GetX();
             int DY = this.GetY()-p.GetY();
             if (Math.abs(DX)>Math.abs(DY)){
                 if (DX>0){
-                    return new Pair<>(this.GetX() - 1, this.GetY());
+                    return new Pair<>(new Pair<>(this.GetX() - 1, this.GetY()),"");//going left
                 } else {
-                    return new Pair<>(this.GetX() + 1, this.GetY());
+                    return new Pair<>(new Pair<>(this.GetX() + 1, this.GetY()),"");//going right
                 }
             } else {
                 if (DY>0){
-                    return new Pair<>(this.GetX(), this.GetY() - 1);
+                    return new Pair<>(new Pair<>(this.GetX(), this.GetY() - 1),"");//going up
                 } else {
-                    return new Pair<>(this.GetX(), this.GetY() + 1);
+                    return new Pair<>(new Pair<>(this.GetX(), this.GetY() + 1),"");//going down
                 }
             }
         } else {
@@ -30,20 +30,4 @@ public class Monster extends  Enemy{
         }
     }
 
-    private Pair<Integer,Integer> randomMove(){
-        double move = Math.random();
-        if (move < 0.2) {
-            return new Pair<>(this.GetX() - 1, this.GetY());
-        }
-        if (move < 0.4) {
-            return new Pair<>(this.GetX(), this.GetY() + 1);
-        }
-        if (move < 0.6) {
-            return new Pair<>(this.GetX(), this.GetY() - 1);
-        }
-        if (move < 0.8) {
-            return new Pair<>(this.GetX() + 1, this.GetY());
-        }
-        return new Pair<>(this.GetX(), this.GetY());
-    }
 }

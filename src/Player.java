@@ -77,7 +77,7 @@ abstract public class Player extends Unit implements HeroicUnit {
      public String rest(){
         String messege="$Rest gain:";
         increaseHealth(LVL);
-        messege+="HP restored -"+LVL+"\n$";
+        messege+="HP restored: "+LVL+"\n$";
         return messege;
      }
 

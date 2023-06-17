@@ -41,9 +41,11 @@ public class LVL {
         messege+=p.tick(e);
         for(Enemy enemy:e) {
             Pair<Integer,Integer> whereHeWas = enemy.getLocation();
-            Pair<Integer,Integer> whereToMove =  enemy.move(p);
-            Tiles tile = board.getTile(whereToMove.first(),whereToMove.second());
+            Pair<Pair<Integer,Integer>,String> whereToMove =  enemy.move(p);
+            Tiles tile = board.getTile(whereToMove.first().first(),whereToMove.first().second());
             Pair<Unit,String> attackResult = enemy.attack(tile);
+            if(!whereToMove.second().isEmpty())
+                messege+=whereToMove.second();
             messege+=attackResult.second();
             if (attackResult.first()!=null && attackResult.first().isDead()){//player died
                 return messege;
