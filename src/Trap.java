@@ -1,6 +1,5 @@
 public class Trap extends Enemy {
     protected boolean visibility;
-    final private double activationRange = 2.0;
     protected  int visibilityTime;
     protected  int invisibilityTime;
     protected int ticksCount;
@@ -12,8 +11,9 @@ public class Trap extends Enemy {
         EXPgain=EXPGain;
         visibility=false;
         visibilityTime=VisibilityTime;
-        ticksCount=invisibilityTime;
         invisibilityTime=InvisibilityTime;
+        ticksCount=invisibilityTime;
+        vision=2;
     }
 
     public boolean GetVisibility(){return visibility;}
@@ -22,7 +22,8 @@ public class Trap extends Enemy {
     public int GetTicksCount(){return ticksCount;}
     public void SetTicksCount(int value){ticksCount=value;}
 
-    public Pair<Integer,Integer> move(Player p ){
+    @Override
+    public Pair<Pair<Integer, Integer>,String> move(Player p ){
         ticksCount++;
         if (visibility && ticksCount==visibilityTime){
             visibility = false;
@@ -33,10 +34,10 @@ public class Trap extends Enemy {
             sign = trueSign;
             ticksCount=0;
         }
-        if (this.isInRange(p,activationRange)){
-            return new Pair<Integer,Integer>(p.GetX(),p.GetY());
+        if (this.isInRange(p,vision)){
+            return new Pair<>(new Pair<>(p.GetX(), p.GetY()),"");
         } else {
-            return new Pair<Integer,Integer>(this.GetX(),this.GetY());
+            return new Pair<>(new Pair<>(this.GetX(), this.GetY()),"");
         }
     }
 }

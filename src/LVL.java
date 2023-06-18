@@ -1,3 +1,5 @@
+
+
 import java.util.LinkedList;
 
 public class LVL {
@@ -39,9 +41,11 @@ public class LVL {
         messege+=p.tick(e);
         for(Enemy enemy:e) {
             Pair<Integer,Integer> whereHeWas = enemy.getLocation();
-            Pair<Integer,Integer> whereToMove =  enemy.move(p);
-            Tiles tile = board.getTile(whereToMove.first(),whereToMove.second());
+            Pair<Pair<Integer,Integer>,String> whereToMove =  enemy.move(p);
+            Tiles tile = board.getTile(whereToMove.first().first(),whereToMove.first().second());
             Pair<Unit,String> attackResult = enemy.attack(tile);
+            if(!whereToMove.second().isEmpty())
+                messege+=whereToMove.second();
             messege+=attackResult.second();
             if (attackResult.first()!=null && attackResult.first().isDead()){//player died
                 return messege;
@@ -64,7 +68,6 @@ public class LVL {
             Pair<Unit,String> attackResult = p.attack(tile);
             messege+=attackResult.second();
             if (attackResult.first()!=null && attackResult.first().isDead()){
-                Pair<Integer,Integer> newEmpty = new Pair<>(p.GetX(),p.GetY());
                 p.movement(attackResult.first().GetX(),attackResult.first().GetY());
                 board.swap(p,whereHeWas);
                 e.remove(attackResult.first());
@@ -73,18 +76,19 @@ public class LVL {
             }
         }
         else if(input=='e'){
-            LinkedList<Enemy> killed=null;
-            Pair<LinkedList<Enemy>,String> castResult=p.cast();
+            LinkedList<Unit> killed;
+            Pair<LinkedList<Unit>,String> castResult=p.castAbility(p);
             killed=castResult.first();
-            messege=castResult.second();
-
+            messege=castResult.second()+"\n";
+            if(messege.contains("fail"))
+                return messege;
             if(!killed.isEmpty()) {
                 board.delete(killed);
-                for(Enemy enemy:killed)
-                    e.remove(enemy);
+                for(Unit u:killed)
+                    e.remove(u);
             }
         } else if (input=='q') {
-            // to implement 'Resting'.
+            messege=p.rest();
         }
 
         PowerListRefresh();

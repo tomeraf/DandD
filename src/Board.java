@@ -67,18 +67,18 @@ public class Board {
         if(sign=='b') return new Monster(x,y,'b',250,1000,75,30,4,"Bear-Wright");
         if(sign=='g') return new Monster(x,y,'g',500,1500,100,40,5,"Giant-Wright");
         if(sign=='w') return new Monster(x,y,'w',1000,2000,150,50,6,"White Walker");
-        if(sign=='M') return new Monster(x,y,'M',500,1000,60,25,6,"The Mountain");
-        if(sign=='C') return new Monster(x,y,'C',1000,100,10,10,1,"Queen Cersei");
-        if(sign=='K') return new Monster(x,y,'K',5000,5000,300,150,8,"Night's King");
+        if(sign=='M') return new Boss(x,y,'M',500,1000,60,25,6,"The Mountain",5);
+        if(sign=='C') return new Boss(x,y,'C',1000,100,10,10,1,"Queen Cersei",8);
+        if(sign=='K') return new Boss(x,y,'K',5000,5000,300,150,8,"Night's King",3);
         if(sign=='B') return new Trap(x,y,'B',250,1,1,1,"Bonus Trap",3,5);
         if(sign=='Q') return new Trap(x,y,'Q',100,250,50,10,"Queen's Trap",3,7);
         if(sign=='D') return new Trap(x,y,'D',250,500,100,20,"Death Trap",1,10);
         else return null;
     }
 
-    public void delete(LinkedList<Enemy> killed){
-        for(Enemy e:killed)
-            map[e.GetY()][e.GetX()] = new Empty(e.GetX(),e.GetY());
+    public void delete(LinkedList<Unit> killed){
+        for(Unit u:killed)
+            map[u.GetY()][u.GetX()] = new Empty(u.GetX(),u.GetY());
     }
     public void replaceAfterEnemyKilled(int x, int y){
         map[y][x] = new Empty(x,y);

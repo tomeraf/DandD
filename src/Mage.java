@@ -29,10 +29,19 @@ public class Mage extends Player {
     public void SetResourceRemaining(int value){manaRemaining=value;}
 
     @Override
-    public Pair<LinkedList<Enemy>,String> cast(){
-        LinkedList<Enemy> killed = new LinkedList<Enemy>();
+    public String rest(){
+        String messege="$"+super.rest();
+        manaRemaining=Math.min(manaPool,manaRemaining+LVL);
+        messege+="Mana gained: "+LVL*2+"\n$";
+        return messege;
+    }
+
+
+    @Override
+    public Pair<LinkedList<Unit>,String> castAbility(Player p){
+        LinkedList<Unit> killed = new LinkedList<>();
         if(manaRemaining>=manaCost){
-            manaRemaining=Math.max(0,manaRemaining-manaCost)-LVL;
+            manaRemaining-=manaCost+LVL;
             if(!power.isEmpty()) {
                 int hits = 0;
                 while (hits != hitsCount && !power.isEmpty()) {
@@ -52,9 +61,9 @@ public class Mage extends Player {
                 }//while hits
             }//if power>0
 
-            return new Pair<LinkedList<Enemy>,String>(killed,"hocus pocus,Blizzard apearus");
+            return new Pair<>(killed, "hocus pocus,Blizzard apearus");
         }
-        return new Pair<LinkedList<Enemy>,String>(killed,"fail,not enough mana");
+        return new Pair<>(killed, "fail,not enough mana");
     }
     @Override
     public String LVLUP(){
@@ -69,6 +78,7 @@ public class Mage extends Player {
         messege+="Spell Power - "+ 10*LVL+"\n";
         return messege+'$';
     }
+    @Override
     public String tick(LinkedList<Enemy> e){
 
         manaRemaining=Math.min(manaPool,manaRemaining+LVL);
@@ -79,10 +89,12 @@ public class Mage extends Player {
         return messege;
     }
 
+    @Override
     public String toString(){
         String messege=super.toString();
         messege+="Mana: "+manaRemaining+"/"+manaPool+"  ";
         messege+="Spell power: "+spellPower+"  ";
+        messege+="Range of Blizard: "+visionRange+"  ";
         messege+="Blizard's cost: "+ manaCost;
         return messege+"\n";
     }
