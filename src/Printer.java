@@ -52,4 +52,18 @@ public class Printer {
         }
         System.out.println();
     }
+
+    public static void victory(){
+        String s="V    V  IIIII  CCCCC  TTTTT  OOOOO  RRRRR  Y   Y   !";
+        System.out.println(s);
+        s="V    V    I   C         T   O     O R   R   Y Y    !";
+        System.out.println(s);
+        s="V    V    I   C         T   O     O RRRRR     Y    !";
+        System.out.println(s);
+        s=" V  V     I   C         T   O     O R R        Y   !";
+        System.out.println(s);
+        s="  VV    IIIII  CCCCC    T    OOOOO  R  RR       Y  !";
+        System.out.println(s);
+
+    }
 }
