@@ -22,6 +22,9 @@ public class Hunter extends Player {
     @Override
     public void SetResourceRemaining(int value){arrowsCount=value;}
 
+    public int GetTickCount() {return tickCount;}
+    public void SetTickCount(int value){tickCount=value;}
+
     @Override
     public void powerRefresh(LinkedList<Enemy> e){
         super.powerRefresh((e));
