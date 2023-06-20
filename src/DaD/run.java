@@ -1,3 +1,5 @@
+package DaD;
+
 public class run {
 
 
@@ -16,7 +18,7 @@ public class run {
             String path = args[0];
             boolean on = true;
             while (on)
-                on = Client.start(path);
+                on = DaD.Client.start(path);
         }
 */
  }

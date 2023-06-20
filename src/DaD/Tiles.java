@@ -1,3 +1,5 @@
+package DaD;
+
 abstract public class Tiles {
     protected char sign;
     protected int x;

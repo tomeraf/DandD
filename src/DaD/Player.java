@@ -1,14 +1,13 @@
+package DaD;
+
 import java.util.LinkedList;
 import java.util.Random;
 
 abstract public class Player extends Unit implements HeroicUnit {
     protected int EXP;
     protected int LVL;
-
     protected int visionRange;
-
     protected LinkedList<Enemy> power;
-
     public Player(int X,int Y,int HealthPool,int AttackPoints,int DefencePoints,String Name){
         super(X,Y,HealthPool,AttackPoints,DefencePoints,Name);
         EXP=0;
@@ -26,22 +25,17 @@ abstract public class Player extends Unit implements HeroicUnit {
     }
     public int GetEXP(){return EXP;}
     public void SetEXP(int value){EXP=value;}
-
     public int GetLVL(){return LVL;}
     public void SetLVL(int value){LVL=value;}
-
     abstract public int GetResourcePool();
     abstract void SetResourcePool(int value);
-
     abstract public int GetResourceRemaining();
     abstract public void SetResourceRemaining(int value);
-
     public int AddEXP(int amount){
         EXP+=amount;
         return EXP;
     }
-
-    abstract public Pair<LinkedList<Unit>,String> castAbility(Player p);
+    abstract public Pair<LinkedList<Enemy>,String> castAbility();
     public String LVLUP(){
         String messege="$";
         messege+="Level Up!\nnew Level - ";
@@ -57,8 +51,6 @@ abstract public class Player extends Unit implements HeroicUnit {
         messege+="Defence points - "+ LVL+"\n";
         return messege;
     }
-
-
     public Pair<Integer,Integer> move(char input){
         if (input == 'a'){
             return new Pair<>(this.GetX()-1,this.GetY());
@@ -80,13 +72,9 @@ abstract public class Player extends Unit implements HeroicUnit {
         messege+="HP restored: "+LVL+"\n$";
         return messege;
      }
-
-
-
     protected boolean didLVLUP(){
         return EXP>=50*LVL;
     }
-
     abstract public String tick(LinkedList<Enemy> e);
     @Override
     public Pair<Unit,String> attack(Unit u){
@@ -133,8 +121,6 @@ abstract public class Player extends Unit implements HeroicUnit {
         messege+=this.attacked(monsterAttackPower);
         return new Pair<>(this, messege);
     }
-
-
     public String attacked(int monsterAttackPower) {
         String messege = "";
         Random random = new Random();
@@ -152,18 +138,16 @@ abstract public class Player extends Unit implements HeroicUnit {
     public void EXPGain(int EXP){
         this.EXP+=EXP;
     }
-
     public String combatString(){
         String messege="my Combat stats:\n" + super.toString();
         return messege+"\n";
     }
-
     @Override
     public String toString(){
 
         String messege=name+" stats:\n" + super.toString();
         messege+="EXP: "+ EXP+" \\"+50*LVL+"  ";
-        messege+="LVL: "+ LVL+"  ";
+        messege+="DaD.LVL: "+ LVL+"  ";
         return messege+"\n";
     }
 }

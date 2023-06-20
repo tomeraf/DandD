@@ -1,3 +1,5 @@
+package DaD;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
@@ -5,24 +7,20 @@ import java.util.Random;
 public class Warrior extends Player {
     protected int cd;
     protected int cdRemaining;
-
     public Warrior(int X,int Y,int CD,int HealthPool,int AttackPoints,int DefencePoints,String Name) {
         super(X,Y,HealthPool,AttackPoints,DefencePoints,Name);
         cd=CD;
         cdRemaining=0;
         visionRange=3;
     }
-
     @Override
     public int GetResourcePool(){return cd;}
     @Override
     public void SetResourcePool(int value){cd=value;}
-
     @Override
     public int GetResourceRemaining(){return cdRemaining;}
     @Override
     public void SetResourceRemaining(int value){cdRemaining=value;}
-
     @Override
     public String rest(){
         String messege="$"+super.rest();
@@ -30,11 +28,9 @@ public class Warrior extends Player {
         messege+="CD got lower by 2\n$";
         return messege;
     }
-
-
     @Override
-    public Pair<LinkedList<Unit>,String> castAbility(Player p){
-        LinkedList<Unit> killed = new LinkedList<>();
+    public Pair<LinkedList<Enemy>,String> castAbility(){
+        LinkedList<Enemy> killed = new LinkedList<>();
         if(cdRemaining==0){
             cdRemaining=cd+1;
             if(!power.isEmpty()) {
@@ -59,7 +55,7 @@ public class Warrior extends Player {
     public String LVLUP(){
         String messege="$";
         messege+=super.LVLUP();
-        messege+="for being a Warrior, extra stats gain:\n";
+        messege+="for being a DaD.Warrior, extra stats gain:\n";
         cdRemaining=0;
         healthPool+= 5*LVL;
         messege+="Max Health - "+ 5*LVL+"\n";
@@ -70,9 +66,6 @@ public class Warrior extends Player {
         messege+="Defence points - "+ LVL+"\n";
         return messege+"\n$";
     }
-
-
-
     @Override
     public String tick(LinkedList<Enemy> e){
         cdRemaining=Math.max(0,cdRemaining-1);
@@ -82,12 +75,33 @@ public class Warrior extends Player {
             Messege+=LVLUP();
         return Messege;
     }
-
     @Override
     public String toString(){
         String s=super.toString();
         if(x!=0)
             s+="Avenger’s Shield CD: "+cdRemaining+"/"+cd;
         return s+"\n";
+    }
+    @Override
+    public boolean equals(Object other) {
+        if(other instanceof Warrior){
+            Warrior war = (Warrior) other;
+            if (this.GetX()== war.GetX()&&
+                this.GetY()== war.GetY()&&
+                this.cdRemaining==war.cdRemaining&&
+                this.healthPool==war.healthPool&&
+                this.cd==war.cd&&
+                this.visionRange== war.visionRange&&
+                this.healthAmount==war.healthAmount&&
+                this.attackPoints==war.attackPoints&&
+                this.defencePoints==war.defencePoints&&
+                this.EXP== war.EXP&&
+                this.LVL== war.LVL)
+
+            {
+                    return true;
+            }
+        }
+        return false;
     }
 }

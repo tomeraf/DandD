@@ -1,3 +1,5 @@
+package DaD;
+
 public class Pair<T, U> {
     final private T first;
     final private U second;
@@ -13,5 +15,13 @@ public class Pair<T, U> {
 
     public U second() {
         return second;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Pair<?,?>) {
+            return ((Pair)other).first.equals(first) && ((Pair)other).first.equals(second);
+        }
+        return false;
     }
 }

@@ -1,3 +1,5 @@
+package DaD;
+
 public class Trap extends Enemy {
     protected boolean visibility;
     protected  int visibilityTime;

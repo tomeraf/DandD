@@ -1,3 +1,5 @@
+package DaD;
+
 public class Dialog {
     public static String talk(char c){
        if(c=='K')

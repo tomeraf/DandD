@@ -1,3 +1,5 @@
+package DaD;
+
 import java.util.Scanner;
 
 public class Client {
@@ -6,10 +8,10 @@ public class Client {
     public static boolean start(String path) throws InterruptedException {
         Printer.print("CHOOSE YOUR CHAMPION:");
         Thread.sleep(300);
-        System.out.println("1. Warrior\n");
-        System.out.println("2. Mage\n");
-        System.out.println("3. Rogue\n");
-        System.out.println("4. Hunter\n");
+        System.out.println("1. DaD.Warrior\n");
+        System.out.println("2. DaD.Mage\n");
+        System.out.println("3. DaD.Rogue\n");
+        System.out.println("4. DaD.Hunter\n");
         int input = Inputer.numberInput('4');
         Player p = null;
 
@@ -17,7 +19,7 @@ public class Client {
             return true;
 
         if (input == 1) {
-            Printer.print("CHOOSE YOUR Warrior:");
+            Printer.print("CHOOSE YOUR DaD.Warrior:");
             Thread.sleep(300);
             System.out.println("1. Jon Snow\n");
             System.out.println("2. The Hound\n");
@@ -31,7 +33,7 @@ public class Client {
 
         }//end of input warrior
         else if (input == 2) {
-            Printer.print("CHOOSE YOUR Mage:");
+            Printer.print("CHOOSE YOUR DaD.Mage:");
             Thread.sleep(300);
             System.out.println("1. Melisandre\n");
             System.out.println("2. Thoros of Myr\n");
@@ -50,7 +52,7 @@ public class Client {
 
         }//end of input mage
         else if (input == 3) {
-            Printer.print("CHOOSE YOUR Rogue:");
+            Printer.print("CHOOSE YOUR DaD.Rogue:");
             Thread.sleep(300);
             System.out.println("1. Arya Stark\n");
             System.out.println("2. Bronn\n");
@@ -66,7 +68,7 @@ public class Client {
 
         }//end if input rogue
         else if (input == 4) {
-            Printer.print("CHOOSE YOUR Hunter:");
+            Printer.print("CHOOSE YOUR DaD.Hunter:");
             Thread.sleep(300);
             System.out.println("1. Ygritte\n");
             System.out.println("2. Tal Brami\n");
@@ -80,7 +82,7 @@ public class Client {
             if (input == 2)
                 p = new Hunter(0, 0, 100, 1000, 1, 50, "Tal Brami");
 
-        }//end of input Hunter
+        }//end of input DaD.Hunter
 
         Printer.print("\n\nYou Choose: " + p + "\n");
 
@@ -118,7 +120,7 @@ public class Client {
             speedrun = true;
 
         for (int i = 1; i <= numberOFLVLs && !p.isDead(); i++) {
-            Printer.print("Loading LVL");
+            Printer.print("Loading DaD.LVL");
             Thread.sleep(500);
             System.out.println(".");
             Thread.sleep(500);
@@ -219,7 +221,7 @@ public class Client {
     }
 
     private static void MTW2() throws InterruptedException {
-        String s = "Mor: this is the game board\nMor: the @ is you, the champion\nMor: the dots are Empty tiles you can move to freely\nMor: the # are walls you can't move into\n";
+        String s = "Mor: this is the game board\nMor: the @ is you, the champion\nMor: the dots are DaD.Empty tiles you can move to freely\nMor: the # are walls you can't move into\n";
         s += "Mor: everything else represent an enemy of some kind, some can move some not, some have special ability and some not.\n";
         s += "Mor: below the board are represented your current stats\nMor: every act you do influence your stats\nMor: you gain resources from moving or attacking enemies\n";
         s += "Mor: you can rest and gain some extra hp and resources too.\n\n";
@@ -232,14 +234,14 @@ public class Client {
     private static void MTW3() throws InterruptedException {
         String s ="Mor: good job!\nMor: next, lets understand how battle works!\n";
         s+="Mor: every time a battle happen, we roll 2 dices, first for the attacker, second for the defender.\n";
-        s+="Mor: the dices can go from 1 to the max value of the Unit's attack/defence.\n";
+        s+="Mor: the dices can go from 1 to the max value of the DaD.Unit's attack/defence.\n";
         s+="Mor: But!\nMor: you are not the only one who can attack,after you end your turn,all the enemies may move/attack you too if they are near you.\n";
         Printer.print("s");
         Thread.sleep(100);
         s+="Mor: another thing that each hero have is the ability to cast powers!\n";
         s+="Mor: press e to cast powers, each hero has a different power:\n";
-        s+="Mor: Warrior heal 10% of his max HP and damage a near by enemy\nMor: Mage cast a powerfull Blizard who damages enemies near him by random\n";
-        s+="Mor: Rogue attack all nearby enemies once\nMor: Hunter shoot and arrow at a nearby enemy\n";
+        s+="Mor: DaD.Warrior heal 10% of his max HP and damage a near by enemy\nMor: DaD.Mage cast a powerfull Blizard who damages enemies near him by random\n";
+        s+="Mor: DaD.Rogue attack all nearby enemies once\nMor: DaD.Hunter shoot and arrow at a nearby enemy\n";
         s+="Mor: inorder to complete a lvl you must kill all the enemies in the board\n";
         s+="Mor: try to defeate all the enemies here:\n";
         Printer.print("s");

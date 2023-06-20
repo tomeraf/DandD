@@ -1,3 +1,5 @@
+package DaD;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
@@ -38,8 +40,8 @@ public class Mage extends Player {
 
 
     @Override
-    public Pair<LinkedList<Unit>,String> castAbility(Player p){
-        LinkedList<Unit> killed = new LinkedList<>();
+    public Pair<LinkedList<Enemy>,String> castAbility(){
+        LinkedList<Enemy> killed = new LinkedList<>();
         if(manaRemaining>=manaCost){
             manaRemaining-=manaCost+LVL;
             if(!power.isEmpty()) {
@@ -69,7 +71,7 @@ public class Mage extends Player {
     public String LVLUP(){
         String messege="$";
         messege+=super.LVLUP();
-        messege+="for being a Mage, extra stats gain:\n";
+        messege+="for being a DaD.Mage, extra stats gain:\n";
         manaPool+=25*LVL;
         messege+="Max Mana - "+ 25*LVL+"\n";
         manaRemaining = Math.min(manaRemaining+manaPool/4,manaPool);
@@ -98,5 +100,27 @@ public class Mage extends Player {
         messege+="Blizard's cost: "+ manaCost;
         return messege+"\n";
     }
-
+    public boolean equals(Object other) {
+        if(other instanceof Mage){
+            Mage mage = (Mage) other;
+            if (this.GetX()== mage.GetX()&&
+                    this.GetY()== mage.GetY()&&
+                    this.healthAmount==mage.healthAmount&&
+                    this.healthPool==mage.healthPool&&
+                    this.attackPoints==mage.attackPoints&&
+                    this.defencePoints==mage.defencePoints&&
+                    this.manaCost==mage.manaCost &&
+                    this.manaPool==mage.manaPool &&
+                    this.spellPower==mage.spellPower &&
+                    this.hitsCount == mage.hitsCount &&
+                    this.manaRemaining==mage.manaRemaining&&
+                    this.visionRange==mage.visionRange&&
+                    this.EXP==mage.EXP&&
+                    this.LVL== mage.LVL)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

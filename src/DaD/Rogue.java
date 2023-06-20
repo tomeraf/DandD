@@ -1,3 +1,5 @@
+package DaD;
+
 import java.util.LinkedList;
 
 public class Rogue extends Player {
@@ -38,8 +40,8 @@ public class Rogue extends Player {
     }
 
     @Override
-    public Pair<LinkedList<Unit>,String> castAbility(Player p) {
-        LinkedList<Unit> killed = new LinkedList<>();
+    public Pair<LinkedList<Enemy>,String> castAbility() {
+        LinkedList<Enemy> killed = new LinkedList<>();
         if (energyRemaining >= energyCost) {
             energyRemaining -= energyCost+10;
             for(Enemy e:power) {
@@ -58,7 +60,7 @@ public class Rogue extends Player {
     public String LVLUP(){
         String messege="$";
         messege+=super.LVLUP();
-        messege+="for being a Rogue, extra stats gain:\n";
+        messege+="for being a DaD.Rogue, extra stats gain:\n";
         energyRemaining = 100;
         messege+="Current Energy -  100\n";
         attackPoints+=3*LVL;
@@ -83,6 +85,27 @@ public class Rogue extends Player {
         messege+="Energy: "+energyRemaining+"/"+energyPool+"  ";
         messege+="Fan of Knives cost: "+energyCost;
         return messege+"\n";
+    }
+    public boolean equals(Object other) {
+        if(other instanceof Rogue){
+            Rogue rog = (Rogue) other;
+            if (this.GetX()== rog.GetX()&&
+                    this.GetY()== rog.GetY()&&
+                    this.healthAmount==rog.healthAmount&&
+                    this.healthPool==rog.healthPool&&
+                    this.attackPoints==rog.attackPoints&&
+                    this.defencePoints==rog.defencePoints&&
+                    this.energyCost==rog.energyCost&&
+                    this.energyPool==rog.energyPool&&
+                    this.energyRemaining==rog.energyRemaining&&
+                    this.visionRange==rog.visionRange&&
+                    this.EXP==rog.EXP&&
+                    this.LVL== rog.LVL)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
 

@@ -1,4 +1,4 @@
-
+package DaD;
 
 import java.util.LinkedList;
 
@@ -76,8 +76,8 @@ public class LVL {
             }
         }
         else if(input=='e'){
-            LinkedList<Unit> killed;
-            Pair<LinkedList<Unit>,String> castResult=p.castAbility(p);
+            LinkedList<Enemy> killed;
+            Pair<LinkedList<Enemy>,String> castResult=p.castAbility();
             killed=castResult.first();
             messege=castResult.second()+"\n";
             if(messege.contains("fail"))

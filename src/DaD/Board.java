@@ -1,10 +1,15 @@
+package DaD;
+
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Board {
     private Tiles[][] map;
+
+    public void SetMap(Tiles[][] Map){
+        map=Map;
+    }
 
     public LinkedList<Enemy>  CreateBoard(String number, Player p, String path) {
         LinkedList<Enemy> e =new LinkedList<Enemy>();
@@ -44,9 +49,9 @@ public class Board {
                 height++;
             }//end txt file
         }//end try
-        catch (FileNotFoundException ex)
+        catch (Exception ex)
         {
-            System.out.println("Error 404: file not found");
+            System.out.println("Error: file not found or not completed");
         }
 
 
@@ -70,13 +75,13 @@ public class Board {
         if(sign=='M') return new Boss(x,y,'M',500,1000,60,25,6,"The Mountain",5);
         if(sign=='C') return new Boss(x,y,'C',1000,100,10,10,1,"Queen Cersei",8);
         if(sign=='K') return new Boss(x,y,'K',5000,5000,300,150,8,"Night's King",3);
-        if(sign=='B') return new Trap(x,y,'B',250,1,1,1,"Bonus Trap",3,5);
-        if(sign=='Q') return new Trap(x,y,'Q',100,250,50,10,"Queen's Trap",3,7);
-        if(sign=='D') return new Trap(x,y,'D',250,500,100,20,"Death Trap",1,10);
-        else return null;
+        if(sign=='B') return new Trap(x,y,'B',250,1,1,1,"Bonus DaD.Trap",3,5);
+        if(sign=='Q') return new Trap(x,y,'Q',100,250,50,10,"Queen's DaD.Trap",3,7);
+        if(sign=='D') return new Trap(x,y,'D',250,500,100,20,"Death DaD.Trap",1,10);
+        else return new Monster(0,0,'?',0,0,0,0,0,"null");
     }
 
-    public void delete(LinkedList<Unit> killed){
+    public void delete(LinkedList<Enemy> killed){
         for(Unit u:killed)
             map[u.GetY()][u.GetX()] = new Empty(u.GetX(),u.GetY());
     }

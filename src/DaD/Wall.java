@@ -1,3 +1,5 @@
+package DaD;
+
 public class Wall extends Tiles {
 
     public Wall(int X,int Y){
