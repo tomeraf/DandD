@@ -30,4 +30,15 @@ public class Monster extends  Enemy{
         }
     }
 
+    @Override
+    public boolean equals(Object other)
+    {
+        if(other instanceof  Monster)
+        {
+            Monster o= (Monster) other;
+            return x==o.x && y==o.y && sign==o.sign && EXPgain==o.EXPgain && healthPool== o.healthPool && attackPoints==o.attackPoints && defencePoints==o.defencePoints && vision==o.vision;
+        }
+        return false;
+    }
+
 }

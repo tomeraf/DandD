@@ -23,4 +23,14 @@ abstract public class Tiles {
     abstract public Pair<Unit,String> accept(Player p);
     abstract public Pair<Unit,String> accept(Unit u);
 
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Tiles) {
+            Tiles o = (Tiles) other;
+            return x == o.x && y == o.y && sign == o.sign;
+        }
+        return false;
+
+    }
+
 }

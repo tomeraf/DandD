@@ -40,4 +40,15 @@ public class Trap extends Enemy {
             return new Pair<>(new Pair<>(this.GetX(), this.GetY()),"");
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Trap) {
+            Trap o = (Trap) other;
+            return x == o.x && y == o.y && sign == o.sign && EXPgain == o.EXPgain && healthPool == o.healthPool && attackPoints == o.attackPoints && defencePoints == o.defencePoints && visibilityTime == o.visibilityTime && invisibilityTime == o.invisibilityTime && ticksCount == o.ticksCount;
+        }
+            return false;
+
+        }
+
 }

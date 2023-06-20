@@ -62,7 +62,15 @@ public class Boss extends Enemy implements  HeroicUnit {
             return randomMove();
         }
     }
+    @Override
+    public boolean equals(Object other)
+    {
+        if(other instanceof  Boss)
+        {
+            Boss o= (Boss)other;
+            return x==o.x && y==o.y && sign==o.sign && EXPgain==o.EXPgain && healthPool== o.healthPool && attackPoints==o.attackPoints && defencePoints==o.defencePoints && vision==o.vision && abilityFreq==o.abilityFreq;
+        }
+        return false;
 
-
-
+    }
 }
