@@ -42,11 +42,11 @@ abstract public class Unit extends Tiles {
 
     @Override
     public String toString(){
-        String messege = "";
-        messege+="HP: "+ healthAmount+"/"+healthPool+"  ";
-        messege+="Attack: "+ attackPoints+"  ";
-        messege+="Defence: "+ defencePoints+"  ";
-        return messege+"\n";
+        String message = "";
+        message+="HP: "+ healthAmount+"/"+healthPool+"  ";
+        message+="Attack: "+ attackPoints+"  ";
+        message+="Defence: "+ defencePoints+"  ";
+        return message+"\n";
     }
 
     protected double range(Unit u){

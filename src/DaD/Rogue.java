@@ -33,10 +33,10 @@ public class Rogue extends Player {
 
     @Override
     public String rest(){
-        String messege="$"+super.rest();
+        String message="$"+super.rest();
         energyRemaining=Math.min(energyRemaining+10,100);
-        messege+="Energy gained: 20\n$";
-        return messege;
+        message+="Energy gained: 20\n$";
+        return message;
     }
 
     @Override
@@ -58,33 +58,33 @@ public class Rogue extends Player {
     }
     @Override
     public String LVLUP(){
-        String messege="$";
-        messege+=super.LVLUP();
-        messege+="for being a DaD.Rogue, extra stats gain:\n";
+        String message="$";
+        message+=super.LVLUP();
+        message+="for being a Rogue, extra stats gain:\n";
         energyRemaining = 100;
-        messege+="Current Energy -  100\n";
+        message+="Current Energy -  100\n";
         attackPoints+=3*LVL;
-        messege+="Attack Points - "+3*LVL +"\n";
-        return messege+'$';
+        message+="Attack Points - "+3*LVL +"\n";
+        return message+'$';
     }
     @Override
     public String tick(LinkedList<Enemy> e){
         {
             energyRemaining=Math.min(energyRemaining+10,100);
             powerRefresh(e);
-            String Messege="";
+            String message="";
             while(didLVLUP())
-                Messege+=LVLUP();
-            return Messege;
+                message+=LVLUP();
+            return message;
         }
     }
 
     @Override
     public String toString(){
-        String messege=super.toString();
-        messege+="Energy: "+energyRemaining+"/"+energyPool+"  ";
-        messege+="Fan of Knives cost: "+energyCost;
-        return messege+"\n";
+        String message=super.toString();
+        message+="Energy: "+energyRemaining+"/"+energyPool+"  ";
+        message+="Fan of Knives cost: "+energyCost;
+        return message+"\n";
     }
     public boolean equals(Object other) {
         if(other instanceof Rogue){

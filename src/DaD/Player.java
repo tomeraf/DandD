@@ -23,6 +23,7 @@ abstract public class Player extends Unit implements HeroicUnit {
                 power.add(enemy);
 
     }
+    public LinkedList<Enemy> GetPower(){return power;}
     public int GetEXP(){return EXP;}
     public void SetEXP(int value){EXP=value;}
     public int GetLVL(){return LVL;}
@@ -37,19 +38,19 @@ abstract public class Player extends Unit implements HeroicUnit {
     }
     abstract public Pair<LinkedList<Enemy>,String> castAbility();
     public String LVLUP(){
-        String messege="$";
-        messege+="Level Up!\nnew Level - ";
+        String message="$";
+        message+="Level Up!\nnew Level - ";
         EXP-=LVL*50;
         LVL++;
-        messege+=LVL+" stats gained: \n";
+        message+=LVL+" stats gained: \n";
         healthPool+=10*LVL;
-        messege+="Max Health - "+ 10*LVL+"\n";
+        message+="Max Health - "+ 10*LVL+"\n";
         healthAmount=healthPool;
         attackPoints+=4*LVL;
-        messege+="Attack points - "+ 4*LVL+"\n";
+        message+="Attack points - "+ 4*LVL+"\n";
         defencePoints+=LVL;
-        messege+="Defence points - "+ LVL+"\n";
-        return messege;
+        message+="Defence points - "+ LVL+"\n";
+        return message;
     }
     public Pair<Integer,Integer> move(char input){
         if (input == 'a'){
@@ -67,10 +68,10 @@ abstract public class Player extends Unit implements HeroicUnit {
         throw new RuntimeException("fault in move function player");
     }
      public String rest(){
-        String messege="$Rest gain:";
+        String message="$Rest gain:";
         increaseHealth(LVL);
-        messege+="HP restored: "+LVL+"\n$";
-        return messege;
+        message+="HP restored: "+LVL+"\n$";
+        return message;
      }
     protected boolean didLVLUP(){
         return EXP>=50*LVL;
@@ -115,39 +116,39 @@ abstract public class Player extends Unit implements HeroicUnit {
             e.shooting = false;
             typeOfAttack="shooting us";
         }
-        String messege ="$enemy "+e.name+ " is "+typeOfAttack+"\n$" + this.combatString()+ e.name + " stats:\n "+e+"\n";
+        String message ="$enemy "+e.name+ " is "+typeOfAttack+"\n$" + this.combatString()+ e.name + " stats:\n "+e+"\n";
         Random random = new Random();
         int monsterAttackPower = random.nextInt(e.attackPoints);
-        messege+=this.attacked(monsterAttackPower);
-        return new Pair<>(this, messege);
+        message+=this.attacked(monsterAttackPower);
+        return new Pair<>(this, message);
     }
     public String attacked(int monsterAttackPower) {
-        String messege = "";
+        String message = "";
         Random random = new Random();
         int playerDefense = random.nextInt(this.defencePoints);
         double damage= Math.max(0,monsterAttackPower - defencePoints);
         this.reduceHealth(damage);
-        messege +="$combat info:\nattack roll: "+monsterAttackPower+"\ndefense roll: "+playerDefense+
+        message +="$combat info:\nattack roll: "+monsterAttackPower+"\ndefense roll: "+playerDefense+
                 "\ndamage: "+damage+"\n$";
         if (this.isDead()){
-            messege+= "$YOU DIED\n";
+            message+= "$YOU DIED\n";
             this.sign = 'X';
         }
-        return messege;
+        return message;
     }
     public void EXPGain(int EXP){
         this.EXP+=EXP;
     }
     public String combatString(){
-        String messege="my Combat stats:\n" + super.toString();
-        return messege+"\n";
+        String message="my Combat stats:\n" + super.toString();
+        return message+"\n";
     }
     @Override
     public String toString(){
 
         String messege=name+" stats:\n" + super.toString();
         messege+="EXP: "+ EXP+" \\"+50*LVL+"  ";
-        messege+="DaD.LVL: "+ LVL+"  ";
+        messege+="LVL: "+ LVL+"  ";
         return messege+"\n";
     }
 }

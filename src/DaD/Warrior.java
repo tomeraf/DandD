@@ -23,10 +23,10 @@ public class Warrior extends Player {
     public void SetResourceRemaining(int value){cdRemaining=value;}
     @Override
     public String rest(){
-        String messege="$"+super.rest();
+        String message="$"+super.rest();
         cdRemaining=Math.max(0,cdRemaining-1);
-        messege+="CD got lower by 2\n$";
-        return messege;
+        message+="CD got lower by 2\n$";
+        return message;
     }
     @Override
     public Pair<LinkedList<Enemy>,String> castAbility(){
@@ -53,27 +53,27 @@ public class Warrior extends Player {
     }
     @Override
     public String LVLUP(){
-        String messege="$";
-        messege+=super.LVLUP();
-        messege+="for being a DaD.Warrior, extra stats gain:\n";
+        String message="$";
+        message+=super.LVLUP();
+        message+="for being a Warrior, extra stats gain:\n";
         cdRemaining=0;
         healthPool+= 5*LVL;
-        messege+="Max Health - "+ 5*LVL+"\n";
+        message+="Max Health - "+ 5*LVL+"\n";
         healthAmount=healthPool;
         attackPoints+=2*LVL;
-        messege+="Attack points - "+ 2*LVL+"\n";
+        message+="Attack points - "+ 2*LVL+"\n";
         defencePoints+=LVL;
-        messege+="Defence points - "+ LVL+"\n";
-        return messege+"\n$";
+        message+="Defence points - "+ LVL+"\n";
+        return message+"\n$";
     }
     @Override
     public String tick(LinkedList<Enemy> e){
         cdRemaining=Math.max(0,cdRemaining-1);
         powerRefresh(e);
-        String Messege="";
+        String message="";
         while(didLVLUP())
-            Messege+=LVLUP();
-        return Messege;
+            message+=LVLUP();
+        return message;
     }
     @Override
     public String toString(){
