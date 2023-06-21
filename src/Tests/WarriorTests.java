@@ -34,13 +34,12 @@ public class WarriorTests {
     @Test
     public void castAbilityTest(){
         Pair<LinkedList<Enemy>,String> WCast = warrior.castAbility();
-        Assert.assertEquals("power list should have monster1",CastPair.first(),WCast.first());
-        Assert.assertEquals("String should have the power active string",CastPair.second(),WCast.second());
+        Assert.assertTrue("power list should have monster1 and the power active string",CastPair.equals(WCast));
     }
     @Test
-    public void equalsTest(){Assert.assertEquals("expected true",warrior2,warrior);}
+    public void equalsTest(){Assert.assertTrue("expected true",warrior2.equals(warrior));}
     @Test
-    public void lvlupTest(){warrior.LVLUP();Assert.assertEquals("expected true",warrior3,warrior);}
+    public void lvlupTest(){warrior.LVLUP();Assert.assertTrue("expected true",warrior3.equals(warrior));}
     @Test
     public void tickTest(){
         powerlist = new LinkedList<>();
@@ -49,7 +48,7 @@ public class WarriorTests {
         warrior3.SetResourceRemaining(3);
         warrior3.tick(powerlist);
         powerlist.removeFirst();
-        Assert.assertEquals("expected true",2,warrior3.GetResourceRemaining());
+        Assert.assertEquals("expected 2 CD",2,warrior3.GetResourceRemaining());
         Assert.assertEquals("expected true",powerlist,warrior3.GetPower());
     }
 }

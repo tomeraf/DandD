@@ -40,7 +40,7 @@ public class LVL {
         String messege="";
         messege+=p.tick(e);
         for(Enemy enemy:e) {
-            Pair<Integer,Integer> whereHeWas = enemy.getLocation();
+            Pair<Integer,Integer> whereHeWas = enemy.GetLocation();
             Pair<Pair<Integer,Integer>,String> whereToMove =  enemy.move(p);
             Tiles tile = board.getTile(whereToMove.first().first(),whereToMove.first().second());
             Pair<Unit,String> attackResult = enemy.attack(tile);
@@ -62,7 +62,7 @@ public class LVL {
         String messege="";
 
         if(input=='w' || input=='s' ||input=='a' ||input=='d') {
-            Pair<Integer,Integer> whereHeWas = p.getLocation();
+            Pair<Integer,Integer> whereHeWas = p.GetLocation();
             Pair<Integer,Integer> whereToMove = p.move(input);
             Tiles tile = board.getTile(whereToMove.first(),whereToMove.second());
             Pair<Unit,String> attackResult = p.attack(tile);

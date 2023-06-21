@@ -33,13 +33,12 @@ public class RogueTests {
     @Test
     public void castAbilityTest(){
         Pair<LinkedList<Enemy>,String> WCast = rogue.castAbility();
-        Assert.assertEquals("power list should have monster1",CastPair.first(),WCast.first());
-        Assert.assertEquals("String should have the power active string",CastPair.second(),WCast.second());
+        Assert.assertTrue("power list should have monster1 and the power active string",CastPair.equals(WCast));
     }
     @Test
-    public void equalsTest(){Assert.assertEquals("expected true",rogue2,rogue);}
+    public void equalsTest(){Assert.assertTrue("expected true",rogue2.equals(rogue));}
     @Test
-    public void lvlupTest(){rogue.LVLUP();Assert.assertEquals("expected true",rogue3,rogue);}
+    public void lvlupTest(){rogue.LVLUP();Assert.assertTrue("expected true",rogue3.equals(rogue));}
     @Test
     public void tickTest(){
         powerlist = new LinkedList<>();
@@ -48,7 +47,7 @@ public class RogueTests {
         rogue3.SetResourceRemaining(3);
         rogue3.tick(powerlist);
         powerlist.removeFirst();
-        Assert.assertEquals("expected true",13,rogue3.GetResourceRemaining());
+        Assert.assertEquals("expected 13 energy",13,rogue3.GetResourceRemaining());
         Assert.assertEquals("expected true",powerlist,rogue3.GetPower());
     }
 }

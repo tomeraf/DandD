@@ -20,7 +20,7 @@ public class Pair<T, U> {
     @Override
     public boolean equals(Object other) {
         if (other instanceof Pair<?,?>) {
-            return ((Pair)other).first.equals(first) && ((Pair)other).first.equals(second);
+            return ((Pair)other).first.equals(first) && ((Pair)other).second.equals(second);
         }
         return false;
     }

@@ -8,6 +8,8 @@ public class Boss extends Enemy implements  HeroicUnit {
 
     protected boolean dialog;
 
+    public void SetAbilityFreq(int value){abilityFreq=value;}
+
     public Boss(int X, int Y, char Sign, int EXPGain, int HealthPool, int AttackPoints, int DefencePoints, int Vision, String Name, int AbilityFreq) {
         super(X, Y, HealthPool, AttackPoints, DefencePoints, Name);
         sign = Sign;

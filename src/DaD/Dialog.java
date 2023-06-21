@@ -6,8 +6,10 @@ public class Dialog {
            return KingTalk();
        else if(c=='C')
            return QueenTalk();
-       else //(c=='M')
+       else if(c=='M')
            return MountainTalk();
+       else
+           return "";
 
     }
     private static String KingTalk(){

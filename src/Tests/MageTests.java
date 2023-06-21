@@ -35,13 +35,12 @@ public class MageTests {
     @Test
     public void castAbilityTest(){
         Pair<LinkedList<Enemy>,String> WCast = mage.castAbility();
-        Assert.assertEquals("power list should have monster1",CastPair.first(),WCast.first());
-        Assert.assertEquals("String should have the power active string",CastPair.second(),WCast.second());
+        Assert.assertTrue("power list should have monster1 and the power active string",CastPair.equals(WCast));
     }
     @Test
-    public void equalsTest(){Assert.assertEquals("expected true",mage2,mage);}
+    public void equalsTest(){Assert.assertTrue("expected true",mage2.equals(mage));}
     @Test
-    public void lvlupTest(){mage.LVLUP();Assert.assertEquals("expected true",mage3,mage);}
+    public void lvlupTest(){mage.LVLUP();Assert.assertTrue("expected true",mage3.equals(mage));}
     @Test
     public void tickTest(){
         powerlist = new LinkedList<>();
@@ -50,7 +49,7 @@ public class MageTests {
         mage3.SetResourceRemaining(3);
         mage3.tick(powerlist);
         powerlist.removeFirst();
-        Assert.assertEquals("expected true",5,mage3.GetResourceRemaining());
+        Assert.assertEquals("expected 5 mana",5,mage3.GetResourceRemaining());
         Assert.assertEquals("expected true",powerlist,mage3.GetPower());
     }
 }
