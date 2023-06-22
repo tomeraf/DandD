@@ -31,25 +31,23 @@ public class Warrior extends Player {
     @Override
     public Pair<LinkedList<Enemy>,String> castAbility(){
         LinkedList<Enemy> killed = new LinkedList<>();
-        if(cdRemaining==0){
-            cdRemaining=cd+1;
-            if(!power.isEmpty()) {
-                Random r = new Random();
-                int randomEnemyIndex = r.nextInt(power.size());
-                Iterator<Enemy> iter = power.iterator();
-                for (int i = 0; i < randomEnemyIndex; i++,iter.next()) ;
-                Enemy e = iter.next();
-                e.reduceHealth(0.1 * healthPool);
-                if (e.isDead()) {
-                    this.EXPGain(e.EXPgain);
-                    power.remove(e);
-                    killed.addFirst(e);
-                }
+        cdRemaining=cd+1;
+        if(!power.isEmpty()) {
+            Random r = new Random();
+            int randomEnemyIndex = r.nextInt(power.size());
+            Iterator<Enemy> iter = power.iterator();
+            for (int i = 0; i < randomEnemyIndex; i++,iter.next()) ;
+            Enemy e = iter.next();
+            e.reduceHealth(0.1 * healthPool);
+            if (e.isDead()) {
+                this.EXPGain(e.EXPgain);
+                power.remove(e);
+                killed.addFirst(e);
             }
-            healthAmount=Math.min(healthPool,healthAmount+defencePoints*10);
-            return new Pair<>(killed, "GO GO Avenger’s Shield!");
         }
-        return new Pair<>(killed, "fail,cooldown Remaining:" + cdRemaining);
+        healthAmount=Math.min(healthPool,healthAmount+defencePoints*10);
+        printInStyle.print("GO GO Avenger’s Shield!");
+        return killed;
     }
     @Override
     public String LVLUP(){

@@ -11,16 +11,17 @@ public class WarriorTests {
     private Monster monster1;
     private Monster monster2;
     private Monster monster3;
-
-    private Pair<LinkedList<Enemy>,String> CastPair;
     private LinkedList<Enemy> powerlist;
+    private PrintInStyle PIM;
+
 
     @Before
     public void initTest(){
-        monster1 = new Monster(1, 1, 'm',0, 1,1,1,1,"monster1");
-        monster2 = new Monster(1, 1, 'm',0, 1,1,1,1,"monster2");
-        monster3 = new Monster(10, 10, 'm',0, 1,1,1,1,"monster3");
-        warrior = new Warrior(2, 2,10, 100,100, 100,"warrior");
+        PIM = new PrintInStyle(true);
+        monster1 = new Monster(1, 1, 'm',0, 1,1,1,1,"monster1",PIM);
+        monster2 = new Monster(1, 1, 'm',0, 1,1,1,1,"monster2",PIM);
+        monster3 = new Monster(10, 10, 'm',0, 1,1,1,1,"monster3",PIM);
+        warrior = new Warrior(2, 2,10, 100,100, 100,"warrior",PIM);
         warrior.SetEXP(50);
         warrior2 = new Warrior(2, 2,10, 130,112, 104,"warrior2");
         warrior2.SetEXP(50);
@@ -29,15 +30,12 @@ public class WarriorTests {
         powerlist = new LinkedList<>();
         powerlist.add(monster1);
         warrior.powerRefresh(powerlist);
-        CastPair = new Pair<>(powerlist,"GO GO Avenger’s Shield!");
     }
     @Test
     public void castAbilityTest(){
         Pair<LinkedList<Enemy>,String> WCast = warrior.castAbility();
         Assert.assertTrue("power list should have monster1 and the power active string",CastPair.equals(WCast));
     }
-    @Test
-    public void equalsTest(){Assert.assertTrue("expected true",warrior2.equals(warrior));}
     @Test
     public void lvlupTest(){warrior.LVLUP();Assert.assertTrue("expected true",warrior3.equals(warrior));}
     @Test

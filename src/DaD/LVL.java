@@ -6,93 +6,79 @@ public class LVL {
     private LinkedList<Enemy> e;
     private Board board;
     private Player p;
+    private PrintInStyle PIS;
 
-    public LVL(String number, Player player, String path)  {
+    public LVL(String number, Player player, String path,PrintInStyle PIS)  {
         p =player;
         board=new Board();
-        e=board.CreateBoard(number,p,path);
+        e=board.CreateBoard(number,p,path,PIS);
+        this.PIS=PIS;
     }
     public boolean IsEnd(){
         if(p.isDead())
             return true;
         return e.isEmpty();
     }
-    public String Display() {
-        String messege;
-        messege=MapDisplay();
-        messege+=PlayerDisplay();
-        return messege;
+    public void Display() {
+        MapDisplay();
+        PlayerDisplay();
     }
-    private String MapDisplay(){
-        return board.MapDisplay();
+    private void MapDisplay(){
+        PIS.print(board.MapDisplay());
     }
-    private  String PlayerDisplay(){
-        return p.toString();
+    private  void PlayerDisplay(){
+        PIS.print(p.toString());
     }
     private void PowerListRefresh(){
         p.powerRefresh(e);
     }
-    public String Start(){
+    public void Start(){
         p.powerRefresh(e);
-        return Display();
+        Display();
     }
-    public String Tick() {
+    public void Tick() {
         String messege="";
-        messege+=p.tick(e);
+        p.tick(e);
         for(Enemy enemy:e) {
             Pair<Integer,Integer> whereHeWas = enemy.GetLocation();
-            Pair<Pair<Integer,Integer>,String> whereToMove =  enemy.move(p);
-            Tiles tile = board.getTile(whereToMove.first().first(),whereToMove.first().second());
-            Pair<Unit,String> attackResult = enemy.attack(tile);
-            if(!whereToMove.second().isEmpty())
-                messege+=whereToMove.second();
-            messege+=attackResult.second();
-            if (attackResult.first()!=null && attackResult.first().isDead()){//player died
-                return messege;
-            } else if (attackResult.first()==null) {//go to empty
+            Pair<Integer, Integer> whereToMove =  enemy.move(p);
+            Tiles tile = board.getTile(whereToMove.first(),whereToMove.second());
+            Unit attackResult = enemy.attack(tile);
+            if (attackResult!=null && attackResult.isDead()){//player died
+                return ;
+            } else if (attackResult==null) {//go to empty
                 board.swap(enemy,whereHeWas);
             }
         }
-        if(!messege.isEmpty())
-            messege+="%";
         PowerListRefresh();
-        return messege;
     }
-    public String Act(char input){
-        String messege="";
-
+    public void Act(char input){
         if(input=='w' || input=='s' ||input=='a' ||input=='d') {
             Pair<Integer,Integer> whereHeWas = p.GetLocation();
             Pair<Integer,Integer> whereToMove = p.move(input);
             Tiles tile = board.getTile(whereToMove.first(),whereToMove.second());
-            Pair<Unit,String> attackResult = p.attack(tile);
-            messege+=attackResult.second();
-            if (attackResult.first()!=null && attackResult.first().isDead()){
-                p.movement(attackResult.first().GetX(),attackResult.first().GetY());
+            Unit attackResult = p.attack(tile);
+            if (attackResult!=null && attackResult.isDead()){
+                p.movement(attackResult.GetX(),attackResult.GetY());
                 board.swap(p,whereHeWas);
-                e.remove(attackResult.first());
-            } else if (attackResult.first()==null) {
+                e.remove(attackResult);
+            } else if (attackResult==null) {
                 board.swap(p,whereHeWas);
             }
         }
         else if(input=='e'){
             LinkedList<Enemy> killed;
-            Pair<LinkedList<Enemy>,String> castResult=p.castAbility();
-            killed=castResult.first();
-            messege=castResult.second()+"\n";
-            if(messege.contains("fail"))
-                return messege;
+            LinkedList<Enemy> castResult=p.castAbility();
+            killed=castResult;
             if(!killed.isEmpty()) {
                 board.delete(killed);
                 for(Unit u:killed)
                     e.remove(u);
             }
         } else if (input=='q') {
-            messege=p.rest();
+            p.rest();
         }
-
         PowerListRefresh();
-        return messege;
     }
 
 }

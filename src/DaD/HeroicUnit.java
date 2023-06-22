@@ -4,6 +4,6 @@ import java.util.LinkedList;
 
 public interface HeroicUnit {
 
-    public Pair<LinkedList<Enemy>,String> castAbility();
+    public LinkedList<Enemy> castAbility();
 
 }

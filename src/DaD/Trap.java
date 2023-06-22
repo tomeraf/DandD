@@ -6,8 +6,8 @@ public class Trap extends Enemy {
     protected  int invisibilityTime;
     protected int ticksCount;
     protected char trueSign;
-    public Trap(int X,int Y,char Sign,int EXPGain,int HealthPool,int AttackPoints,int DefencePoints,String Name,int VisibilityTime,int InvisibilityTime){
-        super(X,Y,HealthPool,AttackPoints,DefencePoints,Name);
+    public Trap(int X,int Y,char Sign,int EXPGain,int HealthPool,int AttackPoints,int DefencePoints,String Name,int VisibilityTime,int InvisibilityTime,PrintInStyle PrintInStyle){
+        super(X,Y,HealthPool,AttackPoints,DefencePoints,Name,PrintInStyle);
         trueSign =Sign;
         sign=Sign;
         EXPgain=EXPGain;

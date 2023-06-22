@@ -15,13 +15,15 @@ public class PlayerTests {
     private LinkedList<Enemy> powerlistRefreshed;
     Pair<Integer,Integer> playerLocation;
     Pair<Integer,Integer> emptyLocation;
+    private PrintInStyle PIM;
     @Before
     public void initTest(){
-        monster1 = new Monster(1, 1, 'm',0, 1,1,1,1,"monster1");
-        monster2 = new Monster(10, 10, 'm',0, 1,1,1,1,"monster2");
-        monster3 = new Monster(1, 2, 'm',0, 1,1000000,1,1,"monster3");
-        monster4 = new Monster(2, 1, 'm',0, 1,1,1,1,"monster4");
-        player = new Warrior(2, 2,10, 1,100, 100,"warrior");
+        PIM = new PrintInStyle(true);
+        monster1 = new Monster(1, 1, 'm',0, 1,1,1,1,"monster1",PIM);
+        monster2 = new Monster(10, 10, 'm',0, 1,1,1,1,"monster2",PIM);
+        monster3 = new Monster(1, 2, 'm',0, 1,1000000,1,1,"monster3",PIM);
+        monster4 = new Monster(2, 1, 'm',0, 1,1,1,1,"monster4",PIM);
+        player = new Warrior(2, 2,10, 1,100, 100,"warrior",PIM);
 
         wall = new Wall(50,50);
         playerLocation =player.GetLocation();

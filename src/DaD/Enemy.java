@@ -7,8 +7,8 @@ abstract public class Enemy extends Unit {
     protected int vision;
     protected boolean shooting;
 
-    public Enemy(int X, int Y, int HealthPool, int AttackPoints, int DefencePoints, String Name) {
-        super(X, Y, HealthPool, AttackPoints, DefencePoints, Name);
+    public Enemy(int X, int Y, int HealthPool, int AttackPoints, int DefencePoints, String Name,PrintInStyle PrintInStyle) {
+        super(X, Y, HealthPool, AttackPoints, DefencePoints, Name,PrintInStyle);
         EXPgain = 0;
         vision=0;
         shooting=false;
@@ -62,8 +62,9 @@ abstract public class Enemy extends Unit {
         int playerAttackPower = random.nextInt(p.attackPoints);
         messege += this.attacked(playerAttackPower);
         if (this.isDead()){
-            messege += this.name + " killed and you gained " + this.EXPgain + " EXP\n";
+            messege = this.name + " killed and you gained " + this.EXPgain + " EXP\n";
             p.EXPGain(this.EXPgain);
+            printInStyle.print(messege);
         }
         return new Pair<>(this, messege);
 

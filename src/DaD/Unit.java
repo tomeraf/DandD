@@ -6,13 +6,15 @@ abstract public class Unit extends Tiles {
     protected double healthAmount;
     protected int attackPoints;
     protected  int defencePoints;
-    public Unit(int X,int Y,int HealthPool,int AttackPoints,int DefencePoints,String Name){
+    protected PrintInStyle printInStyle;
+    public Unit(int X,int Y,int HealthPool,int AttackPoints,int DefencePoints,String Name,PrintInStyle PrintInStyle){
         super(X,Y);
         healthPool=HealthPool;
         healthAmount=HealthPool;
         attackPoints=AttackPoints;
         defencePoints=DefencePoints;
         name=Name;
+        printInStyle = PrintInStyle;
     }
     public double GetHealthPool(){return healthPool;}
     public void SetHealthPool(int value){healthPool=value;}

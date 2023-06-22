@@ -3,8 +3,8 @@ package DaD;
 public class Monster extends  Enemy{
 
 
-    public Monster(int X,int Y,char Sign,int EXPGain,int HealthPool,int AttackPoints,int DefencePoints,int Vision,String Name){
-        super(X,Y,HealthPool,AttackPoints,DefencePoints,Name);
+    public Monster(int X,int Y,char Sign,int EXPGain,int HealthPool,int AttackPoints,int DefencePoints,int Vision,String Name,PrintInStyle PrintInStyle){
+        super(X,Y,HealthPool,AttackPoints,DefencePoints,Name,PrintInStyle);
         sign=Sign;
         EXPgain=EXPGain;
         vision=Vision;
