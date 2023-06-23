@@ -1,5 +1,8 @@
 package Tests;
-import DaD.*;
+import Backend.PrintInStyle;
+import Backend.Trap;
+import Backend.Warrior;
+import utilites.*;
 import org.junit.*;
 
 public class TrapTests {

@@ -1,5 +1,8 @@
 package Tests;
-import DaD.*;
+import Backend.Enemy;
+import Backend.Hunter;
+import Backend.Monster;
+import Backend.PrintInStyle;
 import org.junit.*;
 import java.util.LinkedList;
 
@@ -10,20 +13,20 @@ public class HunterTests {
     private Monster monster1;
     private Monster monster2;
     private Monster monster3;
-
-    private Pair<LinkedList<Enemy>,String> CastPair;
     private LinkedList<Enemy> powerlist;
+    private PrintInStyle printInStyle;
 
     @Before
     public void initTest(){
-        monster1 = new Monster(1, 1, 'm',0, 1,1,1,1,"monster1");
-        monster2 = new Monster(1, 1, 'm',0, 1,1,1,1,"monster2");
-        monster3 = new Monster(10, 10, 'm',0, 1,1,1,1,"monster3");
-        hunter = new Hunter(2, 2,10, 1000,100, 100,"hunter");
+        printInStyle=new PrintInStyle(true);
+        monster1 = new Monster(1, 1, 'm',0, 1,1,1,1,"monster1",printInStyle);
+        monster2 = new Monster(1, 1, 'm',0, 1,1,1,1,"monster2",printInStyle);
+        monster3 = new Monster(10, 10, 'm',0, 1,1,1,1,"monster3",printInStyle);
+        hunter = new Hunter(2, 2,10, 1000,100, 100,"hunter",printInStyle);
         hunter.SetEXP(50);
-        hunter2 = new Hunter(2, 2,10, 1000,100, 100,"hunter2");
+        hunter2 = new Hunter(2, 2,10, 1000,100, 100,"hunter2",printInStyle);
         hunter2.SetEXP(50);
-        hunter3 = new Hunter(2, 2,30, 1012,104, 100,"hunter3");
+        hunter3 = new Hunter(2, 2,30, 1012,104, 100,"hunter3",printInStyle);
         hunter3.SetLVL(2);
         hunter3.SetResourcePool(30);
         powerlist = new LinkedList<>();
@@ -31,12 +34,12 @@ public class HunterTests {
         hunter.powerRefresh(powerlist);
         hunter2.powerRefresh(powerlist);
         hunter3.powerRefresh(powerlist);
-        CastPair = new Pair<>(powerlist,"I AM THE HUNTER!");
+
     }
     @Test
     public void castAbilityTest(){
-        Pair<LinkedList<Enemy>,String> WCast = hunter.castAbility();
-        Assert.assertTrue("power list should have monster1 and the power active string",CastPair.equals(WCast));
+        LinkedList<Enemy> WCast = hunter.castAbility();
+        Assert.assertTrue("power list should have monster1 and the power active string",powerlist.equals(WCast));
     }
     @Test
     public void equalsTest(){Assert.assertTrue("expected true",hunter2.equals(hunter));}
