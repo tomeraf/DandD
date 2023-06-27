@@ -4,15 +4,17 @@ import Front.Client;
 
 public class run {
        public static void main(String[] args) throws InterruptedException {
-           args=new String[1];
-           args[0]="C:\\uni\\monhe_azamim\\DandD\\levels_dir";
+           String path;
            if (args == null || args.length == 0) {
-               System.out.println("this program need the lvls directory as an argument");
+               //System.out.println("this program need the lvls directory as an argument");
+               path=System.getProperty("user.dir")+"\\levels_dir";
            } else {
-               String path = args[0];
-               Client c = new Client();
-               while (c.start(path)) ;
+               path = args[0];
            }
+           Client c = new Client();
+           boolean on=c.start(path,true);
+           while (on)
+               on=c.start(path,false);
        }
  }
 

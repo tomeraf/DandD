@@ -12,10 +12,12 @@ public  class Inputer {
         String s=scanner.next();
         while(s.length()!=1 ||! (s.equals("w") || s.equals("s") ||s.equals("a") ||s.equals("d") || s.equals("q"))) {
             if(s.equals("h")){
-                PIS.printClient("moving is done with ASWD keys.\npress the Q key to Rest.\nfor casting press the E key.");
+                PIS.printClient("moving is done with ASWD keys.\npress the Q key to Rest.\nfor casting press the E key.\n for drinking HP Potion press R");
             }
             else if (s.equals("e") && p.canCast())
                     return 'e';
+            else if (s.equals("r") && p.CanDrink())
+                return 'r';
             else PIS.printClient("Illegal input, for information about legal inputs, send h",0);
             s=scanner.next();
         }

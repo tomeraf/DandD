@@ -10,6 +10,7 @@ abstract public class Player extends Unit implements HeroicUnit {
     protected int LVL;
     protected int visionRange;
     protected LinkedList<Enemy> power;
+    protected  int HPpotions;
 
 
     public Player(int X,int Y,int HealthPool,int AttackPoints,int DefencePoints,String Name,PrintInStyle printInStyle){
@@ -19,6 +20,7 @@ abstract public class Player extends Unit implements HeroicUnit {
         visionRange=0;
         power= new LinkedList<>();
         sign='@';
+        HPpotions=0;
     }
     public void powerRefresh(LinkedList<Enemy> e){
         power= new LinkedList<>();
@@ -27,6 +29,7 @@ abstract public class Player extends Unit implements HeroicUnit {
                 power.add(enemy);
 
     }
+
     public LinkedList<Enemy> GetPower(){return power;}
     public int GetEXP(){return EXP;}
     public void SetEXP(int value){EXP=value;}
@@ -36,6 +39,12 @@ abstract public class Player extends Unit implements HeroicUnit {
     abstract void SetResourcePool(int value);
     abstract public int GetResourceRemaining();
     abstract public void SetResourceRemaining(int value);
+    public int GetHPPotions(){return HPpotions;}
+    public void SetHPotions(int value){HPpotions=value;}
+    public int AddHPPotions(int amount){
+        HPpotions+=amount;
+        return EXP;
+    }
     public int AddEXP(int amount){
         EXP+=amount;
         return EXP;
@@ -74,10 +83,15 @@ abstract public class Player extends Unit implements HeroicUnit {
         throw new RuntimeException("fault in move function player");
     }
      public void rest(){
-        String message="$$Rest gain:";
+        String message="$$Rest HP gain "+LVL+" HP back: \n$";
         increaseHealth(LVL);
-        message+="HP restored: "+LVL+"\n$";
         printInStyle.print(message);
+     }
+     public void drinkHPPotion(){
+         String message="$$You drink HP Potion and gain "+LVL*5+" HP back: \n$";
+         increaseHealth(LVL*5);
+         HPpotions--;
+         printInStyle.print(message);
      }
     protected boolean didLVLUP(){
         return EXP>=50*LVL;
@@ -150,12 +164,23 @@ abstract public class Player extends Unit implements HeroicUnit {
         String message="my Combat stats:\n" + super.toString();
         return message+"\n";
     }
+    public boolean CanDrink(){
+        if(HPpotions==0) {
+            printInStyle.print("No HP Potions left");
+            return false;
+        }
+        else
+            return true;
+    }
     @Override
     public String toString(){
 
         String messege=name+" stats:\n" + super.toString();
-        messege+="EXP: "+ EXP+" \\"+50*LVL+"  ";
-        messege+="LVL: "+ LVL+"  ";
+        if(x!=0) {
+            messege += "EXP: " + EXP + " \\" + 50 * LVL + "  ";
+            messege += "LVL: " + LVL + "  ";
+            messege += "HP Potions: " + HPpotions + "  ";
+        }
         return messege+"\n";
     }
 }

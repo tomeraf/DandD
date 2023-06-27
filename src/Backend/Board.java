@@ -97,7 +97,7 @@ public class Board {
         map[u.GetY()][u.GetX()] = u;
         map[whereHeWas.second()][whereHeWas.first()] = new Empty(whereHeWas.first(), whereHeWas.second());
     }
-    private Enemy EternalCreator(int x,int y,int power,PrintInStyle PIS){
+    public Enemy EternalCreator(int x,int y,int power,PrintInStyle PIS){
         return new Monster(x,y,'e',10*power,40*power,30*power,3*power,10,"Eternal Monster "+power,PIS);
     }
 

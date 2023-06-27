@@ -35,7 +35,7 @@ public class Boss extends Enemy implements  HeroicUnit {
         if (this.isInRange(p,this.vision)) {
             if(dialog) {
                 dialog = false;
-                messege=Dialog.talk(sign);
+                messege=Dialog.talk(""+sign);
             }
             if (combatTicks == abilityFreq) {//shooting him
                 combatTicks = 0;

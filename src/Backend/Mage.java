@@ -67,26 +67,26 @@ public class Mage extends Player {
     }
     @Override
     public void LVLUP(){
-        String messege="$$";
+        String massege="$$";
         super.LVLUP();
-        messege+="for being a Mage, extra stats gain:\n";
+        massege+="for being a Mage, extra stats gain:\n";
         manaPool+=25*LVL;
-        messege+="Max Mana - "+ 25*LVL+"\n";
+        massege+="Max Mana - "+ 25*LVL+"\n";
         manaRemaining = Math.min(manaRemaining+manaPool/4,manaPool);
-        messege+="Current Mana - "+ Math.min(manaRemaining+manaPool/4,manaPool)+"\n";
+        massege+="Current Mana - "+ Math.min(manaRemaining+manaPool/4,manaPool)+"\n";
         spellPower+=10*LVL;
-        messege+="Spell Power - "+ 10*LVL+"\n";
-        printInStyle.print(messege+'$');
+        massege+="Spell Power - "+ 10*LVL+"\n";
+        printInStyle.print(massege+'$');
     }
     @Override
     public void tick(LinkedList<Enemy> e){
 
         manaRemaining=Math.min(manaPool,manaRemaining+LVL);
         powerRefresh(e);
-        String messege="";
+        String massege="";
         while(didLVLUP())
             LVLUP();
-        printInStyle.print(messege);
+        printInStyle.print(massege);
     }
 
     @Override
@@ -95,7 +95,7 @@ public class Mage extends Player {
         messege+="Mana: "+manaRemaining+"/"+manaPool+"  ";
         messege+="Spell power: "+spellPower+"  ";
         messege+="Range of Blizard: "+visionRange+"  ";
-        messege+="Blizard's cost: "+ manaCost;
+        messege+="Blizzard's cost: "+ manaCost;
         return messege+"\n";
     }
     public boolean equals(Object other) {

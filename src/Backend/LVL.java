@@ -35,10 +35,12 @@ public class LVL {
         p.powerRefresh(e);
     }
     public void Start(){
+        p.SetHPotions(2);
         p.powerRefresh(e);
         Display();
     }
     public void StartEternal(int power){
+        p.SetHPotions(3);
         e=board.EternalBoard(power,PIS);
         p.powerRefresh(e);
         Display();
@@ -82,9 +84,10 @@ public class LVL {
                 for(Unit u:killed)
                     e.remove(u);
             }
-        } else if (input=='q') {
+        } else if (input=='q')
             p.rest();
-        }
+        else if (input=='r')
+            p.drinkHPPotion();
         PowerListRefresh();
     }
 }

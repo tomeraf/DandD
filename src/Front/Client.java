@@ -10,7 +10,27 @@ public class Client {
     public Client() {
     }
 
-    public boolean start(String path) throws InterruptedException {
+    public boolean start(String path,boolean tutorial) throws InterruptedException {
+        if(tutorial) {
+            PIS.printClient("would you like a tutorial?\n");
+            PIS.printClient("0. yes\n", 0);
+            PIS.printClient("1. no\n", 0);
+            int input = Inputer.numberInput('1');
+            if (input == 0) {
+                Player p = new Warrior(0, 0, 3, 300, 30, 4, "Jon Snow", PIS);
+                PIS.printClient("Loading LVL");
+                for (int j = 0; j < 5; j++) {
+                    Thread.sleep(500);
+                    PIS.printClient(".", 0);
+                }
+                LevelManager("" + 1, p, "Mor the wise", path);
+                if (!p.isDead())
+                    PIS.victory();
+                return true;
+            }
+            PIS.printClient("\n");
+        }
+
         PIS.printClient("CHOOSE YOUR CHAMPION:\n");
         Thread.sleep(300);
         PIS.printClient("0. exit the game\n", 0);
@@ -148,16 +168,16 @@ public class Client {
             }
             EndLVLDisplay(p, number);
         } else if (CName.equals("Mor the wise")) {
-            MTWStart();
+            Dialog.MTWStart();
             LVL l = new LVL("MTW", p, path, PIS);
             l.Start();
-            MTW2();
+            Dialog.MTW2();
             for (int i = 0; i < 5; i++) {
                 l.Act(Inputer.actInput(p));
                 l.Tick();
                 l.Display();
             }
-            MTW3();
+            Dialog.MTW3();
             l = new LVL("MTW2", p, path, PIS);
             l.Start();
             while (!l.IsEnd()) {
@@ -169,7 +189,7 @@ public class Client {
         }//mor the wise end
 
         else if (CName.equals("Tomer The Eternal")) {
-            TTE();
+            Dialog.TTE();
             int i=0;
             while(!p.isDead()) {
                 LVL l = new LVL("TTE", p, path, PIS);
@@ -214,46 +234,5 @@ public class Client {
             PIS.printClient("\n\n", 0);
         }
     }
-    private void MTWStart() throws InterruptedException {
-        String s = "?: Hello and welcome to dungeon and dragons!\nMor: My name is Mor and ill be helping you learn the basic of the game\nMor: in this game you play as a brave champion trying to defeat enemies\nMor: gain EXP\nMor: and cast powers\n";
-        PIS.printClient(s);
-        Thread.sleep(100);
-        s = "Mor: first, lets learn the basics\n";
-        PIS.printClient(s);
-    }
-    private void MTW2() throws InterruptedException {
-        String s = "Mor: this is the game board\nMor: the @ is you, the champion\nMor: the dots are Empty tiles you can move to freely\nMor: the # are walls you can't move into\n";
-        s += "Mor: everything else represent an enemy of some kind, some can move some not, some have special ability and some not.\n";
-        s += "Mor: below the board are represented your current stats\nMor: every act you do influence your stats\nMor: you gain resources from moving or attacking enemies\n";
-        s += "Mor: you can rest and gain some extra hp and resources too.\n\n";
-        PIS.printClient(s);
-        Thread.sleep(100);
-        s = "Mor: Lets learn how to move!\nMor: use the WASD keys to move around,you can move only 1 space away each time\nMor: press enter after you pressed one of the WASD keys\n";
-        s += "Mor: here, try it now!";
-        PIS.printClient(s);
-    }
-    private void MTW3() throws InterruptedException {
-        String s = "Mor: good job!\nMor: next, lets understand how battle works!\n";
-        s += "Mor: every time a battle happen, we roll 2 dices, first for the attacker, second for the defender.\n";
-        s += "Mor: the dices can go from 1 to the max value of the Unit's attack/defence.\n";
-        s += "Mor: But!\nMor: you are not the only one who can attack,after you end your turn,all the enemies may move/attack you too if they are near you.\n";
-        PIS.printClient(s);
-        Thread.sleep(100);
-        s = "Mor: another thing that each hero have is the ability to cast powers!\n";
-        s += "Mor: press e to cast powers, each hero has a different power:\n";
-        s += "Mor: Warrior heal 10% of his max HP and damage a near by enemy\nMor: Mage cast a powerfull Blizard who damages enemies near him by random\n";
-        s += "Mor: Rogue attack all nearby enemies once\nMor: Hunter shoot and arrow at a nearby enemy\n";
-        s += "Mor: inorder to complete a lvl you must kill all the enemies in the board\n";
-        s += "Mor: try to defeate all the enemies here:\n";
-        PIS.printClient(s);
-    }
-    private void TTE() throws InterruptedException {
-        String s = "\nTomer: welcome champion to the last fight you will ever face:";
-        PIS.printClient(s);
-        Thread.sleep(100);
-        s = "Tomer: THE ARMY OF THE ETERNAL!\n";
-        PIS.printClient(s);
-        s = "HAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHAHA\n\n";
-        PIS.printClient(s,10);
-    }
+
 }
