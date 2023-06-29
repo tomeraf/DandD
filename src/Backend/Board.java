@@ -1,6 +1,5 @@
 package Backend;
 
-import Backend.*;
 import utilites.*;
 
 import java.io.File;
@@ -8,7 +7,7 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Board {
-    private Tiles[][] map;
+    protected Tiles[][] map;
 
     public void SetMap(Tiles[][] Map){
         map=Map;
@@ -79,28 +78,68 @@ public class Board {
         if(sign=='B') return new Trap(x,y,'B',250,1,1,1,"Bonus Trap",3,5,PIS);
         if(sign=='Q') return new Trap(x,y,'Q',100,250,50,10,"Queen's Trap",3,7,PIS);
         if(sign=='D') return new Trap(x,y,'D',250,500,100,20,"Death Trap",1,10,PIS);
-        else return new Monster(0,0,'?',0,0,0,0,0,"null",PIS);
-    }
+        if(sign=='N') return new FinaleBossNK(x, y, 'K', 0, 30000, 1000, 300, 100, "Awaken Night's king",
+                    5, PIS);
 
-    public void delete(LinkedList<Enemy> killed){
-        for(Unit u:killed)
+        return new Monster(0,0,'?',0,0,0,0,0,"null",PIS);
+    }
+    public void BossWalls(Pair<Integer,Integer> BLMid,Pair<Integer,Integer> BLUp,Pair<Integer,Integer> BLDown){
+        map[BLMid.second()][BLMid.first()]=new Wall(BLMid.first(),BLMid.second());
+        map[BLUp.second()][BLUp.first()]=new Wall(BLUp.first(),BLUp.second());
+        map[BLDown.second()][BLDown.first()]=new Wall(BLDown.first(),BLDown.second());
+    }
+    public void deleteEnemies(LinkedList<Enemy> ToRemove){
+        for(Unit u:ToRemove)
             map[u.GetY()][u.GetX()] = new Empty(u.GetX(),u.GetY());
     }
-    public void replaceAfterEnemyKilled(int x, int y){
-        map[y][x] = new Empty(x,y);
+    public void deleteInPlace(Pair<Integer,Integer> ToRemove){
+        map[ToRemove.second()][ToRemove.first()] = new Empty(ToRemove.first(),ToRemove.second());
+    }
+    public void replace(Tiles ToRemove,Tiles ToPut){
+        map[ToRemove.y][ToRemove.x] = ToPut;
     }
     public Tiles getTile(Integer first, Integer second) {
         return map[second][first];
     }
-
-    public void swap(Unit u, Pair<Integer, Integer> whereHeWas) {
+    public void moved(Unit u, Pair<Integer, Integer> whereHeWas) {
         map[u.GetY()][u.GetX()] = u;
         map[whereHeWas.second()][whereHeWas.first()] = new Empty(whereHeWas.first(), whereHeWas.second());
     }
+    public void TPBoss(Unit u, Pair<Integer, Integer> whereHeWas) {
+        map[u.GetY()][u.GetX()] = u;
+        map[whereHeWas.second()][whereHeWas.first()] = new Wall(whereHeWas.first(), whereHeWas.second());
+    }
+    public void BossSpawner(Player p,PrintInStyle PIS,LinkedList<Enemy> e){
+        Enemy en;
+        if(!(p.GetLocation().equals(new Pair<>(1, 1)))){
+            e.remove(getTile(1, 1));
+             en=EternalCreator(1, 1, 5, PIS);
+            map[1][1]= en;
+            e.addFirst(en);
+        }
+        if(!(p.GetLocation().equals(new Pair<>(1, map.length - 2)))){
+            e.remove(getTile(1, map.length-2));
+            en=EternalCreator(1,map.length-2,5,PIS);
+            map[map.length-2][1]= en;
+            e.addFirst(en);
+        }
+        if(!(p.GetLocation().equals(new Pair<>(map[1].length - 2, 1)))){
+            e.remove(getTile(map[1].length-2, 1));
+            en=EternalCreator(map[1].length-2,1,5,PIS);
+            map[1][map[1].length-2]= en;
+            e.addFirst(en);
+        }
+        if(!(p.GetLocation().equals(new Pair<>(map[1].length - 2, map.length - 2)))){
+            e.remove(getTile(map[1].length-2, map.length-2));
+            en=EternalCreator(map[1].length-2,map.length-2,5,PIS);
+            map[map.length-2][map[1].length-2]= en;
+            e.addFirst(en);
+        }
+    }
+
     public Enemy EternalCreator(int x,int y,int power,PrintInStyle PIS){
         return new Monster(x,y,'e',10*power,40*power,30*power,3*power,10,"Eternal Monster "+power,PIS);
     }
-
     public LinkedList<Enemy> EternalBoard(int power,PrintInStyle PIS){
         LinkedList<Enemy> e =new LinkedList<Enemy>();
         for(int j=1;j< map.length;j+=map.length-3)
@@ -117,5 +156,4 @@ public class Board {
         }
             return e;
     }
-
 }

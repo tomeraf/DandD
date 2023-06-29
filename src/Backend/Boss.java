@@ -41,6 +41,7 @@ public class Boss extends Enemy implements  HeroicUnit {
                 combatTicks = 0;
                 shooting=true;
                 printInStyle.print(messege);
+                shooting=false;
                 return new Pair<>(p.x, p.y);//trying to go to his place(aka attacking him)(aka shooting him)
             } else {
                 combatTicks++;

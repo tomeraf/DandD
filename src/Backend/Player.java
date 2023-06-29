@@ -133,7 +133,6 @@ abstract public class Player extends Unit implements HeroicUnit {
     public Unit accept(Enemy e){
         String typeOfAttack= "attacking us";
         if(e.shooting) {
-            e.shooting = false;
             typeOfAttack="shooting us";
         }
         String message ="$enemy "+e.name+ " is "+typeOfAttack+"\n$" + this.combatString()+ e.name + " stats:\n "+e+"\n";

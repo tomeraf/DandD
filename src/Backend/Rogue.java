@@ -52,7 +52,7 @@ public class Rogue extends Player {
                 killed.addFirst(e);
             }
         }
-        printInStyle.print("i have only 1 fan of my Knives,he is OnlyFan of Knives");
+        printInStyle.print("i have only 1 fan of my Knives,he is OnlyFan of Knives\n");
         return killed;
     }
     @Override

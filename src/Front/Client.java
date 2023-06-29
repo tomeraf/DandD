@@ -63,7 +63,7 @@ public class Client {
             Thread.sleep(300);
             PIS.printClient("1. Melisandre\n", 0);
             PIS.printClient("2. Thoros of Myr\n", 0);
-            PIS.printClient("3. Lihi\n", 0);
+            PIS.printClient("3. Shahar\n", 0);
             PIS.printClient("OR PRESS 0 TO GO BACK\n", 0);
             input = Inputer.numberInput('3');
 
@@ -74,7 +74,7 @@ public class Client {
             if (input == 2)
                 p = new Mage(0, 0, 150, 20, 20, 3, 250, 25, 4, 4, "Thoros of Myr", PIS);
             if (input == 3)
-                p = new Mage(0, 0, 5, 1, 10000, 100, 10000, 10000, 4000, 10, "Lihi", PIS);
+                p = new Mage(0, 0, 5, 1, 10000, 100, 10000, 5000, 4000, 100, "Shahar", PIS);
 
         }//end of input mage
         else if (input == 3) {
@@ -137,10 +137,10 @@ public class Client {
         if (input != 2) {
             PIS.printClient("SPEEDRUN?");
             Thread.sleep(300);
-            PIS.printClient("1. yes\n", 0);
-            PIS.printClient("2. no\n", 0);
-            input = Inputer.numberInput('2');
-            boolean speedrun = (input == 1);
+            PIS.printClient("0. yes\n", 0);
+            PIS.printClient("1. no\n", 0);
+            input = Inputer.numberInput('1');
+            boolean speedrun = (input == 0);
             PIS.speedrun = speedrun;
         }
 
@@ -152,6 +152,16 @@ public class Client {
             }
             LevelManager("" + i, p, CName, path);
         }
+        if(CName.equals("Night's King")) {
+            PIS.printClient("Finale Boss?\n");
+            PIS.printClient("0. yes\n", 0);
+            PIS.printClient("1. no\n", 0);
+            input = Inputer.numberInput('1');
+            if (input == 0) {
+                LevelManager("Finale", p, CName, path);
+
+            }
+        }
         if (!p.isDead())
             PIS.victory();
         return true;
@@ -161,6 +171,8 @@ public class Client {
         if (CName.equals("Night's King")) {
             LVL l = new LVL(number, p, path, PIS);
             l.Start();
+            if(number.equals("Finale"))
+                l.InitFinaleBossNK();
             while (!l.IsEnd()) {
                 l.Act(Inputer.actInput(p));
                 l.Tick();
@@ -228,7 +240,7 @@ public class Client {
             String s = "Mor: You finished the tutorial, now go and play the game!\n\n\n";
             PIS.printClient(s);
         } else {
-            PIS.printClient("you finished level " + name + ", input any key to continue.\n\n");
+            PIS.print("you finished level " + name + ", input any key to continue.\n\n");
             Scanner scanner = new Scanner(System.in);
             String input = scanner.next();
             PIS.printClient("\n\n", 0);

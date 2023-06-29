@@ -3,7 +3,7 @@ package Backend;
 public class Dialog {
     public static String talk(String s){
         if(s.contains("NK"))
-            return NKTalk(Integer.parseInt(s.substring(2)));
+            return NKTalk((s.substring(2)));
        else if(s.equals("K"))
            return KingTalk();
        else if(s.equals("C"))
@@ -24,17 +24,33 @@ public class Dialog {
         return "$The Mountain: I will end you!$\n\n";
     }
 
-    private static String NKTalk(int number){
-        if(number==0)
-            return "$Night's King: Its time for the night the rule!!!$";
-        else if(number==1)
-            return "$Night's King: I shall destroy every single sunlight left in this world!!!$";
-        else if(number==2)
-            return "$Night's King: Its time for the endless night time!!!$";
-        else if(number==3)
-            return "$Night's King: You cant defeat the night itself!!!$";
-        else if(number==4)
-            return "$Night's King: The night shall conquer all!!!$";
+    private static String NKTalk(String talk){
+        switch (talk) {
+            case "0":
+                return "$Night's King: Its time for the night to rule!!!$\n";
+            case "1":
+                return "$Night's King: I shall destroy every single sunlight left in this world!!!$\n";
+            case "2":
+                return "$Night's King: Its time for the endless night time!!!$\n";
+            case "3":
+                return "$Night's King: You cant defeat the night itself!!!$\n";
+            case "4":
+                return "$Night's King: The night shall conquer all!!!$\n";
+            case "superRegen":
+                return "$Night's King: I feel better than ever!!!$\n";
+            case "superRegenState":
+                return "$Night's King: *healing faster*$\n";
+            case "regen":
+                return "$Night's King: The Night feeds of your worst fears!!!$\n";
+            case "regenState":
+                return "$Night's King: *healing*$\n";
+            case "walls":
+                return "$Night's King: The walls of the black night are the tallest!!!$\n";
+            case "spawn":
+                return "$Night's King: Go my monsters, kill what doesn't belong to the night!!!$\n";
+            case "dodge":
+                return "$The Night's king dodged the attack\n\nNight's King: pathetic$\n";
+        }
         return "";
     }
 

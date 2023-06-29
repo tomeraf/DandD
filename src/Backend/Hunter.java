@@ -64,7 +64,7 @@ public class Hunter extends Player {
             killed.addFirst(e);
 
         }//if dead enemy
-        printInStyle.print("I AM THE HUNTER!");
+        printInStyle.print("I AM THE HUNTER!\n");
         return killed;
     }
     @Override

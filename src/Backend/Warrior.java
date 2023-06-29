@@ -47,7 +47,7 @@ public class Warrior extends Player {
             }
         }
         healthAmount=Math.min(healthPool,healthAmount+defencePoints*10);
-        printInStyle.print("GO GO Avenger’s Shield!");
+        printInStyle.print("GO GO Avenger’s Shield!\n");
         return killed;
     }
     @Override

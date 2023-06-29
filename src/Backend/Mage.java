@@ -62,7 +62,7 @@ public class Mage extends Player {
                 hits++;
             }//while hits
         }//if power>0
-        printInStyle.print("hocus pocus,Blizzard apearus");
+        printInStyle.print("hocus pocus,Blizzard apearus\n");
         return killed;
     }
     @Override
@@ -94,7 +94,8 @@ public class Mage extends Player {
         String messege=super.toString();
         messege+="Mana: "+manaRemaining+"/"+manaPool+"  ";
         messege+="Spell power: "+spellPower+"  ";
-        messege+="Range of Blizard: "+visionRange+"  ";
+        messege+="Blizzard's hits count: "+hitsCount+"  ";
+        messege+="Range of Blizzard: "+visionRange+"  ";
         messege+="Blizzard's cost: "+ manaCost;
         return messege+"\n";
     }
