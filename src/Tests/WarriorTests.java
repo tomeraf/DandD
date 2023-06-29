@@ -1,5 +1,8 @@
 package Tests;
-import DaD.*;
+import Backend.Enemy;
+import Backend.Monster;
+import Backend.PrintInStyle;
+import Backend.Warrior;
 import org.junit.*;
 
 import java.util.LinkedList;
@@ -23,9 +26,9 @@ public class WarriorTests {
         monster3 = new Monster(10, 10, 'm',0, 1,1,1,1,"monster3",PIM);
         warrior = new Warrior(2, 2,10, 100,100, 100,"warrior",PIM);
         warrior.SetEXP(50);
-        warrior2 = new Warrior(2, 2,10, 130,112, 104,"warrior2");
+        warrior2 = new Warrior(2, 2,10, 130,112, 104,"warrior2",PIM);
         warrior2.SetEXP(50);
-        warrior3 = new Warrior(2, 2,10, 130,112, 104,"warrior3");
+        warrior3 = new Warrior(2, 2,10, 130,112, 104,"warrior3",PIM);
         warrior3.SetLVL(2);
         powerlist = new LinkedList<>();
         powerlist.add(monster1);
@@ -33,8 +36,8 @@ public class WarriorTests {
     }
     @Test
     public void castAbilityTest(){
-        Pair<LinkedList<Enemy>,String> WCast = warrior.castAbility();
-        Assert.assertTrue("power list should have monster1 and the power active string",CastPair.equals(WCast));
+        LinkedList<Enemy> WCast = warrior.castAbility();
+        Assert.assertTrue("power list should have monster1 and the power active string",powerlist.equals(WCast));
     }
     @Test
     public void lvlupTest(){warrior.LVLUP();Assert.assertTrue("expected true",warrior3.equals(warrior));}

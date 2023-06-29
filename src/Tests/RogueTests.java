@@ -1,5 +1,8 @@
 package Tests;
-import DaD.*;
+import Backend.Enemy;
+import Backend.Monster;
+import Backend.PrintInStyle;
+import Backend.Rogue;
 import org.junit.*;
 import java.util.LinkedList;
 
@@ -33,8 +36,8 @@ public class RogueTests {
     }
     @Test
     public void castAbilityTest(){
-        Pair<LinkedList<Enemy>,String> WCast = rogue.castAbility();
-        Assert.assertTrue("power list should have monster1 and the power active string",CastPair.equals(WCast));
+        LinkedList<Enemy> WCast = rogue.castAbility();
+        Assert.assertTrue("power list should have monster1 and the power active string",powerlist.equals(WCast));
     }
     @Test
     public void equalsTest(){Assert.assertTrue("expected true",rogue2.equals(rogue));}

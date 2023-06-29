@@ -1,5 +1,8 @@
 package Tests;
-import DaD.*;
+import Backend.Monster;
+import Backend.PrintInStyle;
+import Backend.Warrior;
+import utilites.*;
 import org.junit.*;
 
 public class MonsterTests {

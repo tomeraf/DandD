@@ -1,5 +1,6 @@
 package Tests;
-import DaD.*;
+import Backend.*;
+import utilites.*;
 import org.junit.*;
 
 public class EnemyTests {
@@ -8,13 +9,16 @@ public class EnemyTests {
     private Monster enemy;
     private Wall wall;
     private Empty empty;
-    Pair<Integer,Integer> enemyLocation;
-    Pair<Integer,Integer> emptyLocation;
+    private Pair<Integer,Integer> enemyLocation;
+    private Pair<Integer,Integer> emptyLocation;
+    private PrintInStyle printInStyle;
+
     @Before
     public void initTest(){
-        enemy = new Monster(1, 1, 'm',0, 1,1,1,1,"monster1");
-        player = new Warrior(2, 2,10, 1,1000000, 100,"warrior");
-        player2 = new Warrior(2, 2,10, 1,1000000, 100,"warrior");
+        printInStyle=new PrintInStyle(true);
+        enemy = new Monster(1, 1, 'm',0, 1,1,1,1,"monster1",printInStyle);
+        player = new Warrior(2, 2,10, 1,1000000, 100,"warrior",printInStyle);
+        player2 = new Warrior(2, 2,10, 1,1000000, 100,"warrior",printInStyle);
         wall = new Wall(50,50);
         enemyLocation =enemy.GetLocation();
         empty=new Empty(100,100);
